@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -22,17 +23,20 @@ import javax.validation.constraints.Positive;
 @RequiredArgsConstructor
 public class ReviewController {
 
-    private final ReviewService reviewService;
+    private final ReviewService service;
     private final ReviewMapper mapper;
 
     // 리뷰 등록
     @PostMapping
-    public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto postDto){
+    public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto postDto, RedirectAttributes redirectAttributes){
 
         log.info("create review-------------------");
         log.info(postDto);
 
-        Long review = reviewService.createReview(postDto);
+        // 새로 추가된 rno
+        Long review = service.createReview(postDto);
+        redirectAttributes.addFlashAttribute("msg", review);
+
         return new ResponseEntity<>(review, HttpStatus.CREATED);
 
     }
@@ -44,7 +48,7 @@ public class ReviewController {
 //    @PatchMapping(value = "/{rno}", produces = {MediaType.APPLICATION_JSON_VALUE})
 //    public ResponseEntity patchReview(@PathVariable("rno") @Positive long mno,
 //                                      @Valid @RequestBody ReviewPatchDto patchDto){
-////        reviewService.updateReview(patchDto.setText());
+////        service.updateReview(patchDto.setText());
 //        return ResponseEntity<>();
 //    }
 }

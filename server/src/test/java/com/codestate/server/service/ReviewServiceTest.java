@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.stream.IntStream;
 
 @SpringBootTest
 public class ReviewServiceTest {
@@ -17,7 +16,7 @@ public class ReviewServiceTest {
     @Test
     public void testCreate(){
         ReviewPostDto postDto = ReviewPostDto.builder()
-                .rno(1L)
+                .rno(32L)
                 .text("tests1234565")
                 .replyer("test12")
                 .build();
@@ -26,3 +25,9 @@ public class ReviewServiceTest {
     }
 
 }
+//        } else {
+//                Review.ReviewBuilder review = Review.builder();
+//                review.rno(reviewpostDto.getRno());
+//                review.text(reviewpostDto.getText());
+//                review.replyer(reviewpostDto.getReplyer());
+//                return review.build();

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,4 +18,9 @@ public class ReviewPostDto {
     private String text;
     @NotBlank
     private String replyer;
+
+    private LocalDateTime regDate;
+
+    private LocalDateTime modDate;
+
 }

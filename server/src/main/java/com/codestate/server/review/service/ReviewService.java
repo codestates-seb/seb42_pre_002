@@ -6,11 +6,13 @@ import com.codestate.server.review.mapper.ReviewMapper;
 import com.codestate.server.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
+@Mapper
 public class ReviewService {
 
     private ReviewRepository repository;
@@ -20,12 +22,11 @@ public class ReviewService {
         log.info("DTO------------");
         log.info(reviewPostDto);
 
-//        Review entity = mapper.PostDtoToEntity(reviewPostDto);
-//
-//        repository.save(entity);
+        Review entity = mapper.PostDtoToEntity(reviewPostDto);
+        log.info(entity);
 
-//        return entity.getRno();
-        return 1L;
+        repository.save(entity);
+        return entity.getRno();
     }
 
     public Review updateReview(Review review){return review;}
