@@ -3,14 +3,14 @@ name: "[BE] Template"
 about: Suggest an idea for this project
 title: ''
 labels: ''
-assignees: ''
+assignees: formroller
 
 ---
 
-### 만들고자 하는 기능이 무엇인가요?
-ex) 질문 생성 기능
+### 구현하고자 하는 기능
+- API 서비스 구성
 
-### 해당 기능을 구현하기 위해서 할 일이 무엇인가요?
+### 해당 기능을 구현하기 위해서 할 일
 1. [ ]  job1
 2. [ ]  job2
 3. [ ]  job3
