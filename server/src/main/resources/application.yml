@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/serverDB
-    username: server
-    password: serve
+    username: serverDB
+    password: server
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,5 +12,4 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     show-sql: true
-  thymeleaf:
-    cache: false
+
