@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import logo from '../esset/icons.svg';
 import search from '../esset/search.svg';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const WLogo = styled.div`
   height: 100%;
@@ -34,12 +35,12 @@ const Wrapper = styled.div`
 
 const Menu = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 8px;
 
   > div {
     border-radius: 1000px;
     padding: 6px 12px;
-    font-size: 13px;
+    font-size: 14px;
     &:hover {
       background-color: #e3e6e8;
       cursor: pointer;
@@ -47,13 +48,19 @@ const Menu = styled.div`
   }
 `;
 
+const SignBtnWrapper = styled.div`
+  > button {
+    border-radius: 3px;
+    height: 33px;
+    padding: 8px 10px;
+  }
+`;
+
 const BLogin = styled.button`
-  border-radius: 3px;
-  height: 30px;
-  padding: 8px 10px;
   background-color: hsl(206, 96%, 90%);
   border: 1px solid hsl(205, 41%, 63%);
   color: hsl(205, 47%, 42%);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
   &:hover {
     background-color: hsl(205, 57%, 81%);
     cursor: pointer;
@@ -61,37 +68,53 @@ const BLogin = styled.button`
 `;
 
 const BSignup = styled.button`
-  border-radius: 3px;
-  height: 30px;
-  padding: 8px 10px;
   border: 1px solid transparent;
   background-color: hsl(206, 100%, 52%);
+  border: 1px solid hsl(206, 100%, 52%);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
   color: hsl(0, 0%, 100%);
   &:hover {
     background-color: hsl(206, 100%, 40%);
     cursor: pointer;
   }
-  margin-left: 5px;
+  margin: 0 10px 0 4px;
 `;
 
 const Input = styled.div`
   display: flex;
+  align-items: center;
   width: 55%;
-  height: 30px;
+  height: 32px;
   border-radius: 3px;
   border: 1px solid hsl(210, 8%, 75%);
   background-color: white;
+
+  &.focus {
+    border: 1px solid hsl(206, 90%, 69.5%);
+    box-shadow: 0px 0px 0px 4px rgba(0, 116, 204, 0.15);
+  }
+
   > input {
     width: 90%;
     height: 100%;
-    margin: 0 10px;
+    /* margin: 0 10px; */
     border: none;
     outline: none;
+  }
+  > img {
+    width: 18px;
+    height: 18px;
+    margin: 7px;
   }
 `;
 
 export default function Header() {
+  const [inputFocus, setInputFocus] = useState(false);
+
   const navigate = useNavigate();
+
+  const inputFocusHandler = () => setInputFocus(!inputFocus);
+
   return (
     <Wrapper>
       <WLogo
@@ -104,26 +127,32 @@ export default function Header() {
       <Menu>
         <div>About</div>
         <div>Product</div>
-        <div>For team</div>
+        <div>For teams</div>
       </Menu>
-      <Input>
+      <Input className={inputFocus && 'focus'}>
         <img src={search} alt="돋보기"></img>
-        <input placeholder="Search..."></input>
+        <input
+          placeholder="Search..."
+          onFocus={inputFocusHandler}
+          onBlur={inputFocusHandler}
+        ></input>
       </Input>
-      <BLogin
-        onClick={() => {
-          navigate('/login');
-        }}
-      >
-        Login
-      </BLogin>
-      <BSignup
-        onClick={() => {
-          navigate('/signup');
-        }}
-      >
-        Sigin up
-      </BSignup>
+      <SignBtnWrapper>
+        <BLogin
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          Log in
+        </BLogin>
+        <BSignup
+          onClick={() => {
+            navigate('/signup');
+          }}
+        >
+          Sign up
+        </BSignup>
+      </SignBtnWrapper>
     </Wrapper>
   );
 }
