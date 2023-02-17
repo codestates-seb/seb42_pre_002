@@ -1,3 +1,3 @@
 export default function Ask() {
-  return <div></div>;
+  return <div>Ask</div>;
 }
