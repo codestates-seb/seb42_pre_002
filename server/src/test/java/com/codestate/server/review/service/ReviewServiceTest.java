@@ -1,4 +1,4 @@
-package com.codestate.server.service;
+package com.codestate.server.review.service;
 
 import com.codestate.server.review.dto.ReviewPostDto;
 import com.codestate.server.review.entity.Review;
@@ -15,13 +15,13 @@ public class ReviewServiceTest {
 
     @Test
     public void testCreate(){
-        ReviewPostDto postDto = ReviewPostDto.builder()
+        Review entity = Review.builder()
                 .rno(32L)
                 .text("tests1234565")
                 .replyer("test12")
                 .build();
 
-        System.out.println(service.createReview(postDto));
+        System.out.println(service.createReview(entity));
     }
 
 }

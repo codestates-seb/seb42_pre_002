@@ -1,4 +1,4 @@
-package com.codestate.server.repository;
+package com.codestate.server.review.repository;
 
 import com.codestate.server.review.entity.Review;
 import com.codestate.server.review.repository.ReviewRepository;
@@ -23,5 +23,10 @@ public class ReviewRepositoryTests {
                     .build();
             System.out.println(repository.save(review));
         });
+    }
+
+    @Test
+    public void deleteAllReview(){
+        repository.deleteAll();
     }
 }

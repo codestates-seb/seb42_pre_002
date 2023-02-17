@@ -1,4 +1,4 @@
-package com.codestate.server.review.entity;
+package com.codestate.server.replies.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,13 +8,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@MappedSuperclass
-@EntityListeners(value = {AuditingEntityListener.class})
 @Getter
-
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 abstract class BaseEntity {
     // 등록 일자
     @CreatedDate
