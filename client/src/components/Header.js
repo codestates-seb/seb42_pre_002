@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import logo from '../esset/icons.svg';
+import search from '../esset/search.svg';
 import { useNavigate } from 'react-router-dom';
 
 const WLogo = styled.div`
@@ -7,7 +8,7 @@ const WLogo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 7px;
   &:hover {
     background-color: #e3e6e8;
     cursor: pointer;
@@ -23,21 +24,17 @@ const Logo = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 50px;
-  background-color: hsl(210, 8%, 97.5%);
-  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
-    0 2px 8px hsla(0, 0%, 0%, 0.05);
-  > input {
-    width: 40%;
-    height: 30px;
-    margin: 0 10px;
-  }
+  width: 97rem;
+  max-width: 100%;
+  margin: 0 auto;
 `;
 
 const Menu = styled.div`
   display: flex;
+  gap: 10px;
 
   > div {
     border-radius: 1000px;
@@ -77,11 +74,31 @@ const BSignup = styled.button`
   margin-left: 5px;
 `;
 
+const Input = styled.div`
+  display: flex;
+  width: 55%;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid hsl(210, 8%, 75%);
+  background-color: white;
+  > input {
+    width: 90%;
+    height: 100%;
+    margin: 0 10px;
+    border: none;
+    outline: none;
+  }
+`;
+
 export default function Header() {
   const navigate = useNavigate();
   return (
     <Wrapper>
-      <WLogo>
+      <WLogo
+        onClick={() => {
+          navigate('/');
+        }}
+      >
         <Logo />
       </WLogo>
       <Menu>
@@ -89,7 +106,10 @@ export default function Header() {
         <div>Product</div>
         <div>For team</div>
       </Menu>
-      <input></input>
+      <Input>
+        <img src={search} alt="돋보기"></img>
+        <input placeholder="Search..."></input>
+      </Input>
       <BLogin
         onClick={() => {
           navigate('/login');
