@@ -1,3 +1,3 @@
 export default function Nav() {
-  return <div></div>;
+  return <div>Nav</div>;
 }
