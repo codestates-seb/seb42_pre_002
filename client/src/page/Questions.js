@@ -1,4 +1,9 @@
-export default function Questions() {
+import { useEffect } from 'react';
+
+export default function Questions({ setPage }) {
+  useEffect(() => {
+    setPage({ navi: true, foot: true });
+  }, []);
   return (
     <div>
       <div>
