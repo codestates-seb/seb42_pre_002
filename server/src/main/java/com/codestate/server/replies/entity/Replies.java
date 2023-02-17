@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"regDate","modDate"})
 @Getter
 public class Replies extends BaseEntity{
     @Id

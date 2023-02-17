@@ -12,16 +12,18 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Data
 public class RepliesDto {
-
+    @Getter
     public static class Post{
 
-//        @NotBlank
+        @NotBlank
         private String content;
 
-//        @NotBlank
+        @NotBlank
         private String writer;
     }
 
+    @Getter
+    @AllArgsConstructor
     public static class Patch{
         private Long rid;
 
@@ -30,6 +32,8 @@ public class RepliesDto {
 
     }
 
+    @Getter
+    @AllArgsConstructor
     public static class Response{
         private Long rid;
         private String content;

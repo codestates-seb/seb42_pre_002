@@ -6,7 +6,6 @@ import com.codestate.server.replies.entity.Replies;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
