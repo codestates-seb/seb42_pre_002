@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import filter from '../esset/filter.svg';
 import pencil from '../esset/pencil.svg';
 import textbox from '../esset/textbox.svg';
 import stack from '../esset/stack.svg';
+import List from '../components/Questions/List';
 
 const Main = styled.div`
   display: flex;
   height: 100%;
-  padding: 24px;
+  width: calc(100% - 324px);
 `;
 
 const Content = styled.div`
@@ -16,6 +18,7 @@ const Content = styled.div`
   flex-direction: column;
   flex: 1 0 auto;
   padding-right: 24px;
+  width: 100%;
 `;
 
 const Ad = styled.div`
@@ -149,6 +152,7 @@ const Rbutton = styled.button`
 const AllQuestions = styled.div`
   margin-left: -24px;
   border-top: 1px solid hsl(210, 8%, 85%);
+  width: 100%;
 `;
 
 const TLi = styled.li`
@@ -180,6 +184,7 @@ const Img = styled.div`
 
 export default function Questions({ setPage }) {
   const [isButton, setButton] = useState('Newest');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPage({ navi: true, foot: true });
@@ -194,7 +199,13 @@ export default function Questions({ setPage }) {
       <Content>
         <QHeader>
           <div>All Questions</div>
-          <button>Ask Question</button>
+          <button
+            onClick={() => {
+              navigate('/ask');
+            }}
+          >
+            Ask Question
+          </button>
         </QHeader>
         <Filter>
           <FTotal>
@@ -231,7 +242,10 @@ export default function Questions({ setPage }) {
             </button>
           </FFilter>
         </Filter>
-        <AllQuestions>{/*data.map(el=>)*/}</AllQuestions>
+        <AllQuestions>
+          {/*data.map(el=>)*/}
+          <List />
+        </AllQuestions>
       </Content>
       <Ad>
         <ul>

@@ -32,12 +32,12 @@ const Head = styled.div`
 
 const Main = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   flex: 1 0 auto;
-  width: 97rem;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1264px;
   margin: 0 auto;
+  position: relative;
 `;
 
 const Foot = styled.div`
@@ -52,8 +52,18 @@ const Nv = styled.div`
 `;
 
 const Page = styled.div`
-  flex: 1 0 auto;
+  max-width: 1100px;
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(210, 8%, 85%);
+  border-top: 0;
+
+  border-right: 0;
+  border-bottom: 0;
   height: 100%;
+  width: calc(100% - 164px);
+  margin: 0 auto;
+  padding: 24px;
+  z-index: -10;
 `;
 
 function App() {
