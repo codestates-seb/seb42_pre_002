@@ -1,9 +1,6 @@
 package com.codestate.server.replies.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -23,6 +20,7 @@ public class RepliesDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch{
         private Long rid;
