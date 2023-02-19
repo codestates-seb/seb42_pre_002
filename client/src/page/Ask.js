@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -77,6 +77,20 @@ const RTDiv = styled.div`
     flex-direction: column;
     margin: 1px 0;
   }
+  > button {
+    border: 1px solid transparent;
+    background-color: hsl(206, 100%, 52%);
+    border: 1px solid hsl(206, 100%, 52%);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    color: hsl(0, 0%, 100%);
+    padding: 0.8em;
+    &:hover {
+      background-color: hsl(206, 100%, 40%);
+      cursor: pointer;
+    }
+    margin: 0 10px 0 4px;
+  }
 `;
 
 const TDiv = styled.div`
@@ -115,13 +129,21 @@ const IDiv = styled.div`
     font-size: 13px;
     border: 1px solid hsl(210, 8%, 75%);
     border-radius: 3px;
+    outline: none;
     &::placeholder {
       color: hsl(210, 8%, 80%);
+    }
+    &.focus {
+      border: 1px solid hsl(206, 90%, 69.5%);
+      box-shadow: 0px 0px 0px 4px rgba(0, 116, 204, 0.15);
     }
   }
 `;
 
 export default function Ask({ setPage }) {
+  const [inputFocus, setInputFocus] = useState(false);
+  const inputFocusHandler = () => setInputFocus(!inputFocus);
+
   useEffect(() => {
     setPage({ navi: false, foot: true });
   }, []);
@@ -175,10 +197,13 @@ export default function Ask({ setPage }) {
                 <IDiv>
                   <input
                     id="title"
+                    className={inputFocus && 'focus'}
                     name="title"
                     type="text"
                     maxLength="300"
                     placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+                    onFocus={inputFocusHandler}
+                    onBlur={inputFocusHandler}
                   ></input>
                 </IDiv>
               </div>
