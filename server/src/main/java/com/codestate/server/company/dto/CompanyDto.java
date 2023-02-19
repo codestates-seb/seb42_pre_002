@@ -1,4 +1,4 @@
-package com.codestate.server.companies.dto;
+package com.codestate.server.company.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
-public class CompaniesDto {
+public class CompanyDto {
     @Getter
     public static class Post{
         @NotNull
@@ -21,6 +21,7 @@ public class CompaniesDto {
     @Getter
     @Setter
     public static class Patch{
+        private long cid;
         @NotNull(message = "회사명은 공백 금지")
         private String cname;
         private String content;

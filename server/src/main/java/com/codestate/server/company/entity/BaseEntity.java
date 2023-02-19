@@ -1,4 +1,4 @@
-package com.codestate.server.companies.entity;
+package com.codestate.server.company.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

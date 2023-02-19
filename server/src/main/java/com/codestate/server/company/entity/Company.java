@@ -1,4 +1,4 @@
-package com.codestate.server.companies.entity;
+package com.codestate.server.company.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Companies extends BaseEntity{
+public class Company extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cid;
