@@ -14,6 +14,7 @@ public interface RepliesMapper {
     Replies PostDtoToEntity(RepliesDto.Post requestBody);
     Replies PatchDtoToEntity(RepliesDto.Patch requestBody);
 
+
     RepliesDto.Response entityToDto(Replies replies);
     List<RepliesDto.Response> entitiesToDto(List<Replies> replies);
 }

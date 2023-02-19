@@ -1,4 +1,4 @@
-package com.codestate.utils;
+package com.codestate.server.utils;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
