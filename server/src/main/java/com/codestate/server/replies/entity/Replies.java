@@ -25,5 +25,4 @@ public class Replies extends BaseEntity{
     @Column(nullable = false)
     private String writer;
 
-
 }

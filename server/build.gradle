@@ -37,9 +37,9 @@ dependencies {
 	// mysql
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
 
-	// querydsl
-	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
-	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
+//	// querydsl
+//	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
+//	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
 
 	// 로그인
 	//	testImplementation 'org.springframework.security:spring-security-test'
@@ -50,26 +50,26 @@ dependencies {
 
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
-// querydsl setting
-def querydslDir = "$buildDir/generated/querydsl"
-
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
-
-sourceSets {
-	main.java.srcDir querydslDir
-}
-
-configurations {
-	querydsl.extendsFrom compileClasspath
-}
-
-compileQuerydsl{
-	options.annotationProcessorPath = configurations.querydsl
-}
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+//
+//// querydsl setting
+//def querydslDir = "$buildDir/generated/querydsl"
+//
+//querydsl {
+//	jpa = true
+//	querydslSourcesDir = querydslDir
+//}
+//
+//sourceSets {
+//	main.java.srcDir querydslDir
+//}
+//
+//configurations {
+//	querydsl.extendsFrom compileClasspath
+//}
+//
+//compileQuerydsl{
+//	options.annotationProcessorPath = configurations.querydsl
+//}
