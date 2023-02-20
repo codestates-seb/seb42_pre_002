@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-// import logo from '../esset/logo.svg';
+import logo from '../esset/logo.svg';
+import StyledBtn from '../components/content/StyledBtn';
 
 const Background = styled.div`
   width: 100vw;
@@ -66,22 +67,6 @@ const Label = styled.div`
   margin-bottom: 10px;
 `;
 
-const Button = styled.button`
-  border-radius: 3px;
-  height: 38px;
-  width: 260px;
-  padding: 8px 10px;
-  border: 1px solid transparent;
-  background-color: hsl(206, 100%, 52%);
-  color: hsl(0, 0%, 100%);
-
-  &:hover {
-    background-color: hsl(206, 100%, 40%);
-    cursor: pointer;
-  }
-  margin-left: 5px;
-`;
-
 const TSignup = styled.div`
   color: hsl(206, 100%, 40%);
   font-weight: bold;
@@ -96,19 +81,16 @@ const FText = styled.div`
   font-size: 13px;
 `;
 
-// const Logo = styled.div`
-//   background-image: url(${logo});
-//   height: 37px;
-//   width: 32px;
-//   &:hover {
-//     cursor: pointer;
-//   }
-// `;
-
-const Wlog = styled.div`
-  height: 50px;
-  width: 40px;
+const Log = styled.img`
+  background-image: url(${logo});
+  height: 37px;
+  width: 32px;
+  margin: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
+
 export default function Login({ setPage }) {
   const navigate = useNavigate();
   useEffect(() => {
@@ -119,26 +101,14 @@ export default function Login({ setPage }) {
     <>
       <Background>
         <Container>
-          <Wlog
+          <Log
             onClick={() => {
               navigate('/');
             }}
-          >
-            <a href="https://stackoverflow.com">
-              <svg
-                aria-hidden="true"
-                width="32"
-                height="37"
-                viewBox="0 0 32 37"
-              >
-                <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB"></path>
-                <path
-                  d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
-                  fill="#F48024"
-                ></path>
-              </svg>
-            </a>
-          </Wlog>
+            src={logo}
+            alt="로그인로고"
+            role="presentation"
+          ></Log>
           <SocialLoginContainer>구글인증</SocialLoginContainer>
           <SocialLoginContainer>깃허브인증</SocialLoginContainer>
           <SocialLoginContainer>페이스북인증</SocialLoginContainer>
@@ -154,7 +124,14 @@ export default function Login({ setPage }) {
                 <Input></Input>
                 <div>Password cannot be empty.</div>
               </EPBox>
-              <Button>Log in</Button>
+              <StyledBtn
+                title={'Log in'}
+                width={'260px'}
+                height={'38px;'}
+                onClick={() => {
+                  console.log('click');
+                }}
+              ></StyledBtn>
             </LoginBox>
           </LoginContainer>
 
