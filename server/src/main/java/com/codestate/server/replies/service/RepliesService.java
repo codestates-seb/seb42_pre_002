@@ -1,5 +1,4 @@
 package com.codestate.server.replies.service;
-
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
 import com.codestate.server.replies.entity.Replies;
@@ -35,6 +34,7 @@ public class RepliesService {
         return repliesRepository.save(updatedReplies);
     }
 
+
     // 찾기
     public Replies findReply(long rid){return findVerifiedId(rid);}
 
@@ -54,5 +54,6 @@ public class RepliesService {
         Replies findReplies = optionalReplies.orElseThrow(()-> new BusinessLogicException(ExceptionCode.REPLIES_NOT_FOUND));
         return findReplies;
     }
+
 
 }

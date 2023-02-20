@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static com.codestate.server.replies.entity.QReplies.replies;
 
+
 @SpringBootTest
 
 public class RepliesServiceTests {
@@ -23,14 +24,11 @@ public class RepliesServiceTests {
     private RepliesRepository repliesRepository;
     @Autowired
     private CustomBeanUtils<Replies> beanUtils;
-
-
     @Test
     public void createTest() {
 
         Replies entity = Replies.builder()
                 .content("Retest45")
-                .writer("test13")
                 .build();
 
         System.out.println(service.createReplies(entity));
@@ -48,7 +46,6 @@ public class RepliesServiceTests {
         Replies findReplies = optionalReplies.orElseThrow(()-> new BusinessLogicException(ExceptionCode.REPLIES_NOT_FOUND));
         return findReplies;
     }
-
 
 
 }

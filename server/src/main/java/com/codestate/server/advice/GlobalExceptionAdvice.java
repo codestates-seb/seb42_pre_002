@@ -15,6 +15,7 @@ import javax.validation.ConstraintViolationException;
 @RestController
 public class GlobalExceptionAdvice { // controller 에서 발생하는 예외 처리
 
+
     /*Argument error*/
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -41,5 +42,6 @@ public class GlobalExceptionAdvice { // controller 에서 발생하는 예외 �
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
         .getStatus()));
     }
+
 
 }

@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface RepliesRepository extends JpaRepository<Replies, Long> {
     Optional<Replies> findById(Long rid);
     Optional<Replies> findByWriter(String writer);
+
 }
