@@ -343,7 +343,7 @@ export default function Ask({ setPage }) {
             <div>
               <div>
                 <LabelDiv>
-                  <label htmlFor="problem-details" data-color-mode="light">
+                  <label htmlFor="problem-details">
                     What are the details of your problem
                     <p>
                       Introduce the problem and expand on what you put in the
@@ -351,7 +351,7 @@ export default function Ask({ setPage }) {
                     </p>
                   </label>
                 </LabelDiv>
-                <EditorDiv id="problem-details">
+                <EditorDiv id="problem-details" data-color-mode="light">
                   <MDEditor value={value} onChange={setValue} preview="edit" />
                 </EditorDiv>
               </div>
