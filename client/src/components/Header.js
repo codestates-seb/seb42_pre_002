@@ -131,7 +131,7 @@ export default function Header() {
         <div>Product</div>
         <div>For teams</div>
       </Menu>
-      <Input className={inputFocus && 'focus'}>
+      <Input className={inputFocus ? 'focus' : ''}>
         <img src={search} alt="돋보기"></img>
         <input
           placeholder="Search..."
