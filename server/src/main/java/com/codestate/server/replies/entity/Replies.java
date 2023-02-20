@@ -6,15 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Transactional
+//@Transactional
 public class Replies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

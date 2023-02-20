@@ -1,7 +1,7 @@
 package com.codestate.server.replies.mapper;
 
 import com.codestate.server.replies.dto.RepliesDto;
-import com.codestate.server.replies.dto.RepliesPostDto;
+
 import com.codestate.server.replies.entity.Replies;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
