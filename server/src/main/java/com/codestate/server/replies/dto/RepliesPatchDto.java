@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-//@AllArgsConstructor
+
 public class RepliesPatchDto {
     private long rid;
 

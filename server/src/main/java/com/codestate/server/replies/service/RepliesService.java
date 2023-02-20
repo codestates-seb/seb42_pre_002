@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-@Transactional
+//@Transactional
 public class RepliesService {
 
     private final RepliesRepository repliesRepository;
