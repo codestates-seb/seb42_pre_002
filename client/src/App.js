@@ -20,6 +20,7 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
 `;
 
 const Head = styled.div`
@@ -32,12 +33,13 @@ const Head = styled.div`
 
 const Main = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   flex: 1 0 auto;
-  width: 97rem;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1264px;
   margin: 0 auto;
+  position: relative;
+  z-index: -11;
 `;
 
 const Foot = styled.div`
@@ -52,8 +54,18 @@ const Nv = styled.div`
 `;
 
 const Page = styled.div`
-  flex: 1 0 auto;
+  max-width: ${(props) => (props.page.navi ? '1100px' : '100%')};
+  background-color: hsl(0, 0%, 100%);
+  border: ${(props) =>
+    props.page.navi ? '1px solid hsl(210, 8%, 85%)' : 'none'};
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
   height: 100%;
+  width: ${(props) => (props.page.navi ? 'calc(100% - 164px)' : '100%')};
+  margin: 0 auto;
+  padding: ${(props) => (props.page.navi ? '24px' : 'none')};
+  z-index: -10;
 `;
 
 function App() {
@@ -68,7 +80,7 @@ function App() {
           <Nv page={page}>
             <Nav />
           </Nv>
-          <Page>
+          <Page page={page}>
             <Routes>
               <Route path="/" element={<Questions setPage={setPage} />} />
               <Route path="/ask" element={<Ask setPage={setPage} />} />
