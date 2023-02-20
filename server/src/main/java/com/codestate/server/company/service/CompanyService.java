@@ -19,13 +19,13 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class CompanyService {
-    private final CompanyRepository repository;
+    private final CompanyRepository companyRepository;
     private final CustomBeanUtils<Company> beanUtils;
 
     // 등록
     public Company createCompany(Company company){
         VerifiedExistsCid(company.getCid());
-        return repository.save(company);
+        return companyRepository.save(company);
     }
 
     // 수정
@@ -34,7 +34,7 @@ public class CompanyService {
 
         Company updatedCompany = beanUtils.copyNonNullProperties(company, findCompany);
 
-        return repository.save(updatedCompany);
+        return companyRepository.save(updatedCompany);
     }
     
     // 찾기
@@ -43,7 +43,7 @@ public class CompanyService {
     }
 
     public Page<Company> findCompanies(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size,
+        return companyRepository.findAll(PageRequest.of(page, size,
                 Sort.by("memberId").descending()));
     }
 
@@ -51,14 +51,14 @@ public class CompanyService {
     public void deleteCompany(long cid) {
         Company findCompany = findVerifiedCompany(cid);
 
-        repository.delete(findCompany);
+        companyRepository.delete(findCompany);
     }
 
 
 
     /*verified*/
     public Company findVerifiedCompany(long cid) {
-        Optional<Company> optionalCompany = repository.findById(cid);
+        Optional<Company> optionalCompany = companyRepository.findById(cid);
         Company findCompany =
                 optionalCompany.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.COMPANY_NOT_FOUND));
@@ -66,7 +66,7 @@ public class CompanyService {
     }
     
     public void VerifiedExistsCid(long cid){
-        Optional<Company> companies = repository.findByCid(cid);
+        Optional<Company> companies = companyRepository.findByCid(cid);
         if(companies.isPresent())
             throw new BusinessLogicException(ExceptionCode.COMPANY_EXISTS);
     }

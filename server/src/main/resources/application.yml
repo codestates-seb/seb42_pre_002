@@ -13,5 +13,13 @@ spring:
 #        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     show-sql: true
+
+logging: # (1) 로그 레벨 설정
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+
     
 

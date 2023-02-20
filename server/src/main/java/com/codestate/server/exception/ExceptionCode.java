@@ -3,9 +3,7 @@ package com.codestate.server.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 public enum ExceptionCode {
-
 
     TAG_NOT_FOUND(404,"Tag not found"),
     TAG_EXISTS(409,"Tag exists"),

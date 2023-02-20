@@ -1,6 +1,8 @@
 package com.codestate.server.replies.entity;
 
+import com.codestate.server.questions.entity.Question;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
@@ -12,15 +14,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Replies extends BaseEntity{
+@Transactional
+public class Replies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid;
 
-    @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
     private String writer;
 
     @Enumerated(EnumType.STRING) // 컬럼 맵핑
@@ -34,12 +35,15 @@ public class Replies extends BaseEntity{
 //        this.member = member;
 //    }
 
-//    @ManyToOne
-//    @JoinColumn(name="qid")
-//    private Question question;
-//    public void addQuestion(Question question){
-//        this.question = question;
-//    }
+    @ManyToOne
+    @JoinColumn(name="questionId")
+    private Question question;
+
+    public void addQuestion(Question question){
+        this.question = question;
+    }
+
+
 
     // 컬럼 간 매핑
     @AllArgsConstructor
