@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import spotPencil from '../esset/spotPencil.svg';
+import MDEditor from '@uiw/react-md-editor';
 
 const Container = styled.div`
   width: 100%;
@@ -22,7 +24,7 @@ const EContainer = styled.div`
 const Title = styled.div`
   height: 130px;
   width: 100%;
-  background-image: url('../esset/background.svg');
+  background-image: url(../esset/background.svg);
   background-repeat: no-repeat;
   background-position: right bottom;
   display: flex;
@@ -140,9 +142,119 @@ const IDiv = styled.div`
   }
 `;
 
+const TitleHelp = styled.div`
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+  border: 1px solid hsl(210, 8%, 85%);
+  border-radius: 3px;
+  width: 28.5%;
+  height: 151px;
+`;
+
+const HelpTitle = styled.div`
+  font-size: 1.15384615rem;
+  padding: 12px;
+  background-color: hsl(210, 8%, 97.5%);
+  border-bottom: 1px solid hsl(210, 8%, 85%);
+  gap: 16px;
+`;
+
+const HelpBody = styled.div`
+  display: flex;
+  margin: 16px;
+  gap: 16px;
+`;
+
+const HelpImg = styled.div`
+  margin: 8px;
+  gap: 16px;
+  > img {
+    vertical-align: bottom;
+    overflow-clip-margin: content-box;
+    overflow: hidden;
+    box-sizing: inherit;
+  }
+`;
+
+const BodyContent = styled.div`
+  margin: 0 16px;
+  font-size: 12px;
+  > p {
+    clear: both;
+    margin-bottom: 1em;
+    margin-top: 0;
+    font-size: 10.5px;
+  }
+`;
+
+const SContent = styled.p`
+  margin-bottom: 0;
+`;
+
+const BodyContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 12px;
+  gap: 16px;
+  align-self: start;
+`;
+
+const WriteBodyContainer = styled.div`
+  width: 70%;
+  flex-shrink: 0;
+  border-radius: 3px;
+  border: 1px solid hsl(210, 8%, 90%);
+  > div {
+    padding: 24px;
+    gap: 16px;
+    > div {
+      display: flex;
+      flex-direction: column;
+      margin: -2px 0;
+    }
+    > button {
+      border: 1px solid transparent;
+      background-color: hsl(206, 100%, 52%);
+      border: 1px solid hsl(206, 100%, 52%);
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+      color: hsl(0, 0%, 100%);
+      padding: 0.8em;
+      &:hover {
+        background-color: hsl(206, 100%, 40%);
+        cursor: pointer;
+      }
+      margin: 0 10px 0 4px;
+    }
+  }
+`;
+
+const LabelDiv = styled.div`
+  margin: 2px 0;
+  height: 40px;
+  > label {
+    cursor: pointer;
+    font-size: 1.15384615rem;
+    font-weight: 600;
+    padding: 0 2px;
+    > p {
+      font-weight: normal;
+      padding: 0;
+      /* margin-bottom: px; */
+      margin-top: 2px;
+      font-size: 12px;
+    }
+  }
+`;
+
+const EditorDiv = styled.div`
+  margin-bottom: 5px;
+`;
+
 export default function Ask({ setPage }) {
   const [inputFocus, setInputFocus] = useState(false);
   const inputFocusHandler = () => setInputFocus(!inputFocus);
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     setPage({ navi: false, foot: true });
@@ -197,7 +309,7 @@ export default function Ask({ setPage }) {
                 <IDiv>
                   <input
                     id="title"
-                    className={inputFocus && 'focus'}
+                    className={inputFocus ? 'focus' : ''}
                     name="title"
                     type="text"
                     maxLength="300"
@@ -210,9 +322,58 @@ export default function Ask({ setPage }) {
             </div>
             <button>Next</button>
           </RTDiv>
-          <div>Writing a good title</div>
+          <TitleHelp>
+            <HelpTitle>Writing a good title</HelpTitle>
+            <HelpBody>
+              <HelpImg>
+                <img src={spotPencil} alt="spotPencil" />
+              </HelpImg>
+              <BodyContent>
+                <p>Your title should summarize the problem.</p>
+                <SContent>
+                  You might find that you have a better idea of your title after
+                  writing out the rest of the question.
+                </SContent>
+              </BodyContent>
+            </HelpBody>
+          </TitleHelp>
         </TConstainer>
-        <div>What are the details of your problem</div>
+        <BodyContainer>
+          <WriteBodyContainer>
+            <div>
+              <div>
+                <LabelDiv>
+                  <label htmlFor="problem-details" data-color-mode="light">
+                    What are the details of your problem
+                    <p>
+                      Introduce the problem and expand on what you put in the
+                      title. Minimum 20 characters.
+                    </p>
+                  </label>
+                </LabelDiv>
+                <EditorDiv id="problem-details">
+                  <MDEditor value={value} onChange={setValue} preview="edit" />
+                </EditorDiv>
+              </div>
+              <button>Next</button>
+            </div>
+          </WriteBodyContainer>
+          <TitleHelp>
+            <HelpTitle>Introduce the problem</HelpTitle>
+            <HelpBody>
+              <HelpImg>
+                <img src={spotPencil} alt="spotPencil" />
+              </HelpImg>
+              <BodyContent>
+                <p>
+                  Explain how you encountered the problem you’re trying to
+                  solve, and any difficulties that have prevented you from
+                  solving it yourself.
+                </p>
+              </BodyContent>
+            </HelpBody>
+          </TitleHelp>
+        </BodyContainer>
         <div>Tags</div>
         <div>
           Review questions already on Stack Overflow to see if your question is
