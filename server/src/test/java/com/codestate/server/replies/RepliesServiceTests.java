@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static com.codestate.server.replies.entity.QReplies.replies;
+
 
 @SpringBootTest
 
@@ -23,14 +23,11 @@ public class RepliesServiceTests {
     private RepliesRepository repliesRepository;
     @Autowired
     private CustomBeanUtils<Replies> beanUtils;
-
-
     @Test
     public void createTest() {
 
         Replies entity = Replies.builder()
                 .content("Retest45")
-                .writer("test13")
                 .build();
 
         System.out.println(service.createReplies(entity));
@@ -50,5 +47,7 @@ public class RepliesServiceTests {
     }
 
 
-
 }
+
+
+

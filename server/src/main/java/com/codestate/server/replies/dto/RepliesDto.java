@@ -21,7 +21,7 @@ public class RepliesDto {
 
     @Getter
     @Setter
-//    @AllArgsConstructor
+    @AllArgsConstructor
     public static class Patch{
         private long rid;
 

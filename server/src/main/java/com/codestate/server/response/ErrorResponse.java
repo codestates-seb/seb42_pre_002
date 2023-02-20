@@ -10,12 +10,14 @@ import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
 public class ErrorResponse { // 에러 정보만 담는 클래스
+
 
     private int status;
     private String message;
@@ -31,6 +33,7 @@ public class ErrorResponse { // 에러 정보만 담는 클래스
                           final List<ConstraintViolationError> violationErrors){
         this.fieldErrors=fieldErrors;
         this.violationErrors=violationErrors;
+
     }
 
     // BindingResult 의 ErrorResponse 객체 생성
@@ -57,11 +60,10 @@ public class ErrorResponse { // 에러 정보만 담는 클래스
         return new ErrorResponse(httpStatus.value(), message);
     }
 
-
-
     @Getter
     @AllArgsConstructor
     public static class FieldError{
+
         private String field;
         private Object rejectedValue;
         private String reason;
@@ -78,10 +80,10 @@ public class ErrorResponse { // 에러 정보만 담는 클래스
         }
     }
 
-
     @Getter
     @AllArgsConstructor
     public static class ConstraintViolationError{
+
         private String propertyPath;
         private Object rejectedValue;
         private String reason;

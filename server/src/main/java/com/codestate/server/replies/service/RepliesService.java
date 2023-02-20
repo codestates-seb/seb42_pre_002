@@ -1,5 +1,4 @@
 package com.codestate.server.replies.service;
-
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
 import com.codestate.server.replies.entity.Replies;
@@ -11,12 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
+@Transactional
 public class RepliesService {
 
     private final RepliesRepository repliesRepository;
@@ -34,6 +35,7 @@ public class RepliesService {
         Replies updatedReplies = beanUtils.copyNonNullProperties(replies, findReplies);
         return repliesRepository.save(updatedReplies);
     }
+
 
     // 찾기
     public Replies findReply(long rid){return findVerifiedId(rid);}
@@ -54,5 +56,6 @@ public class RepliesService {
         Replies findReplies = optionalReplies.orElseThrow(()-> new BusinessLogicException(ExceptionCode.REPLIES_NOT_FOUND));
         return findReplies;
     }
+
 
 }
