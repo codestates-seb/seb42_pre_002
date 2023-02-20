@@ -248,13 +248,105 @@ const LabelDiv = styled.div`
 `;
 
 const EditorDiv = styled.div`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  margin-top: 3px;
+  border: 2px solid hsl(210, 8%, 90%);
+  border-radius: 2px;
+  &.focus {
+    border: 2px solid hsl(206, 90%, 69.5%);
+    box-shadow: 0px 0px 0px 5px rgba(0, 116, 204, 0.15);
+  }
+`;
+
+const TagsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 12px;
+  gap: 16px;
+  align-items: flex-start;
+`;
+
+const TagsBody = styled.div`
+  width: 70%;
+  border: 1px solid hsl(210, 8%, 90%);
+  border-radius: 3px;
+  > div {
+    padding: 24px 8px;
+    > button {
+      margin-left: 16px;
+      margin-top: 16px;
+      border: 1px solid transparent;
+      background-color: hsl(206, 100%, 52%);
+      border: 1px solid hsl(206, 100%, 52%);
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+      color: hsl(0, 0%, 100%);
+      padding: 0.8em;
+      &:hover {
+        background-color: hsl(206, 100%, 40%);
+        cursor: pointer;
+      }
+    }
+    > div {
+      gap: 16px;
+      > div {
+        margin: 0 16px;
+      }
+    }
+  }
+`;
+
+const TagsLabelDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > label {
+    cursor: pointer;
+    margin-bottom: 4px;
+    flex: 1 auto;
+    font-size: 1.15384615rem;
+    font-weight: 600;
+    padding: 0 2px;
+    > div {
+      font-weight: normal;
+      margin-top: 2px;
+      font-size: 12px;
+    }
+  }
+`;
+
+const InputContainer = styled.div`
+  > div {
+    padding: 2px 9.1px 2px 2px;
+    cursor: text;
+    border: 1px solid hsl(210, 8%, 75%);
+    border-radius: 3px;
+    min-height: 37px;
+    > input {
+      width: 19px;
+      min-width: 100%;
+      padding-left: calc(0.7em - 2px);
+      height: 29px;
+      border: none;
+    }
+  }
 `;
 
 export default function Ask({ setPage }) {
-  const [inputFocus, setInputFocus] = useState(false);
-  const inputFocusHandler = () => setInputFocus(!inputFocus);
+  const [inputFocus, setInputFocus] = useState({ title: false, body: false });
   const [value, setValue] = useState('');
+
+  const inputFocusHandler = () => {
+    const copy = { ...inputFocus };
+    copy.title = !copy.title;
+    setInputFocus(copy);
+  };
+
+  const editorFocusHandler = () => {
+    const copy = { ...inputFocus };
+    copy.body = !copy.body;
+    setInputFocus(copy);
+  };
 
   useEffect(() => {
     setPage({ navi: false, foot: true });
@@ -309,7 +401,7 @@ export default function Ask({ setPage }) {
                 <IDiv>
                   <input
                     id="title"
-                    className={inputFocus ? 'focus' : ''}
+                    className={inputFocus.title ? 'focus' : ''}
                     name="title"
                     type="text"
                     maxLength="300"
@@ -343,7 +435,7 @@ export default function Ask({ setPage }) {
             <div>
               <div>
                 <LabelDiv>
-                  <label htmlFor="problem-details" data-color-mode="light">
+                  <label htmlFor="problem-details">
                     What are the details of your problem
                     <p>
                       Introduce the problem and expand on what you put in the
@@ -351,7 +443,13 @@ export default function Ask({ setPage }) {
                     </p>
                   </label>
                 </LabelDiv>
-                <EditorDiv id="problem-details">
+                <EditorDiv
+                  id="problem-details"
+                  data-color-mode="light"
+                  className={inputFocus.body ? 'focus' : ''}
+                  onFocus={editorFocusHandler}
+                  onBlur={editorFocusHandler}
+                >
                   <MDEditor value={value} onChange={setValue} preview="edit" />
                 </EditorDiv>
               </div>
@@ -374,7 +472,49 @@ export default function Ask({ setPage }) {
             </HelpBody>
           </TitleHelp>
         </BodyContainer>
-        <div>Tags</div>
+        <TagsContainer>
+          <TagsBody>
+            <div>
+              <div>
+                <div>
+                  <TagsLabelDiv>
+                    <label htmlFor="tageditor-replacing-tagnames--input">
+                      Tags
+                      <div>
+                        Add up to 5 tags to describe what your question is
+                        about. Start typing to see suggestions.
+                      </div>
+                    </label>
+                  </TagsLabelDiv>
+                  <InputContainer>
+                    <div>
+                      <input
+                        id="tageditor-replacing-tagnames--input"
+                        placeholder="e.g. (ajax iphone string)"
+                      ></input>
+                    </div>
+                  </InputContainer>
+                </div>
+              </div>
+              <button>Next</button>
+            </div>
+          </TagsBody>
+          <TitleHelp>
+            <HelpTitle>Introduce the problem</HelpTitle>
+            <HelpBody>
+              <HelpImg>
+                <img src={spotPencil} alt="spotPencil" />
+              </HelpImg>
+              <BodyContent>
+                <p>
+                  Explain how you encountered the problem you’re trying to
+                  solve, and any difficulties that have prevented you from
+                  solving it yourself.
+                </p>
+              </BodyContent>
+            </HelpBody>
+          </TitleHelp>
+        </TagsContainer>
         <div>
           Review questions already on Stack Overflow to see if your question is
           a duplicate
