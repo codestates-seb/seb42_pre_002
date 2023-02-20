@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static com.codestate.server.replies.entity.QReplies.replies;
 
 
 @SpringBootTest
@@ -49,3 +48,6 @@ public class RepliesServiceTests {
 
 
 }
+
+
+
