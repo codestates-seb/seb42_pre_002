@@ -59,6 +59,8 @@ const Input = styled.input`
   border: 1px solid hsl(210, 8%, 75%);
   border-radius: 5px;
   margin-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
 const Label = styled.div`
@@ -121,7 +123,7 @@ export default function Login({ setPage }) {
               </EPBox>
               <EPBox>
                 <Label>Password</Label>
-                <Input></Input>
+                <Input type="password"></Input>
                 <div>Password cannot be empty.</div>
               </EPBox>
               <StyledBtn
