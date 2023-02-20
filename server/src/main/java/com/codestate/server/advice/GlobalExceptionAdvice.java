@@ -13,7 +13,8 @@ import javax.validation.ConstraintViolationException;
 
 @Slf4j
 @RestController
-public class GlobalExceptionAdvice {// controller 에서 발생하는 예외 처리
+public class GlobalExceptionAdvice { // controller 에서 발생하는 예외 처리
+
 
     /*Argument error*/
     @ExceptionHandler
@@ -39,6 +40,8 @@ public class GlobalExceptionAdvice {// controller 에서 발생하는 예외 처
         final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
 
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
-                .getStatus()));
+        .getStatus()));
     }
+
+
 }

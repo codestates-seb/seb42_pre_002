@@ -23,10 +23,11 @@ public class RepliesDto {
     @Setter
     @AllArgsConstructor
     public static class Patch{
-        private Long rid;
+        private long rid;
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다")
         private String content;
+        public void setRid(long rid) {this.rid = rid;}
 
     }
 

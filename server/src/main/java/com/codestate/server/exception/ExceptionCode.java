@@ -5,9 +5,10 @@ import lombok.Getter;
 public enum ExceptionCode {
 
     REPLIES_NOT_FOUND(404, "Replies not found"),
-    REPLIES_EXISTS(400, "Replies Exists"),
+    REPLIES_EXISTS(409, "Replies Exists"),
     COMPANY_NOT_FOUND(404, "Company not found"),
-    COMPANY_EXISTS(400, "Company Exists"),
+    COMPANY_EXISTS(409, "Company Exists"),
+    MEMBER_NOT_FOUND(404, "Member not found"),
     QUESTION_NOT_FOUND(404, "Question not found"),
     NOT_IMPLEMENTATION(501, "Not Implementation");
 
@@ -22,3 +23,4 @@ public enum ExceptionCode {
         this.message = message;
     }
 }
+

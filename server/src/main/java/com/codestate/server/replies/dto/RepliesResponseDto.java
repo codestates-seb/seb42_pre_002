@@ -7,8 +7,8 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@AllArgsConstructor
-@Data
+//@AllArgsConstructor
+//@Data
 public class RepliesResponseDto {
     private Long rid;
     private String content;
