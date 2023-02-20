@@ -27,6 +27,7 @@ public class CompanyController {
     private final CompanyService service;
     private final CompanyMapper mapper;
 
+    // 생성
     @PostMapping
     public ResponseEntity postCompany(@Valid @RequestBody CompanyDto.Post requestBody){
         Company company = mapper.PostDtoToEntity(requestBody);
@@ -38,6 +39,8 @@ public class CompanyController {
         return ResponseEntity.created(location).build();
     }
 
+
+    //
     @PatchMapping("/{cid}")
     public ResponseEntity patchCompany(@PathVariable("cid") @Positive long cid,
                                        @Valid @RequestBody CompanyDto.Patch requestBody){
@@ -51,18 +54,11 @@ public class CompanyController {
     }
 
 
-    @GetMapping("/{cid}")
-    public ResponseEntity getReply(@PathVariable("cid") long cid){
-        Company company = service.findVerifiedCompany(cid);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.entityToDto(company)),HttpStatus.OK);
-    }
-
+    // 찾기
     @GetMapping
     public ResponseEntity getCompany(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size){
-        Page<Company> pageCompany = service.findCompany(page -1 ,size);
+        Page<Company> pageCompany = service.findCompanies(page -1 ,size);
         List<Company> companies = pageCompany.getContent();
 
         return new ResponseEntity<>(

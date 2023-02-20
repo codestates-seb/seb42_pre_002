@@ -42,7 +42,7 @@ public class CompanyService {
         return findVerifiedCompany(memberId);
     }
 
-    public Page<Company> findCompany(int page, int size) {
+    public Page<Company> findCompanies(int page, int size) {
         return repository.findAll(PageRequest.of(page, size,
                 Sort.by("memberId").descending()));
     }
