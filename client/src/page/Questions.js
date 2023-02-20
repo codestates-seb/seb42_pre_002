@@ -5,7 +5,7 @@ import filter from '../esset/filter.svg';
 import pencil from '../esset/pencil.svg';
 import textbox from '../esset/textbox.svg';
 import stack from '../esset/stack.svg';
-import List from '../components/Questions/List';
+import List from '../components/content/List';
 
 const Main = styled.div`
   display: flex;
