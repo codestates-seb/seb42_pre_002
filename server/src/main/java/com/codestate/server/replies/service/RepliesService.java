@@ -21,7 +21,6 @@ public class RepliesService {
     private final RepliesRepository repliesRepository;
     private final CustomBeanUtils<Replies> beanUtils;
 
-
     // 리뷰 생성
     public Replies createReplies(Replies replies) {
         return repliesRepository.save(replies);
@@ -34,6 +33,7 @@ public class RepliesService {
         Replies updatedReplies = beanUtils.copyNonNullProperties(replies, findReplies);
         return repliesRepository.save(updatedReplies);
     }
+
 
     // 찾기
     public Replies findReply(long rid){return findVerifiedId(rid);}
@@ -54,4 +54,6 @@ public class RepliesService {
         Replies findReplies = optionalReplies.orElseThrow(()-> new BusinessLogicException(ExceptionCode.REPLIES_NOT_FOUND));
         return findReplies;
     }
+
+
 }

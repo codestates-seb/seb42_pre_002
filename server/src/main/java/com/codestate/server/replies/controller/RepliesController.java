@@ -3,10 +3,9 @@ package com.codestate.server.replies.controller;
 import com.codestate.server.replies.dto.RepliesDto;
 import com.codestate.server.replies.entity.Replies;
 import com.codestate.server.replies.mapper.RepliesMapper;
-import com.codestate.server.response.MultiResponseDto;
-import com.codestate.server.response.SingleResponseDto;
+import com.codestate.server.replies.response.MultiResponseDto;
+import com.codestate.server.replies.response.SingleResponseDto;
 import com.codestate.server.replies.service.RepliesService;
-
 import com.codestate.server.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -49,7 +48,8 @@ public class RepliesController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.entityToDto(replies)), HttpStatus.OK);
-    }
+        }
+
 
 
     @GetMapping("/{rid}")
@@ -79,3 +79,4 @@ public class RepliesController {
     }
 
 }
+

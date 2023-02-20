@@ -1,20 +1,23 @@
 package com.codestate.server.response;
 
-
+import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
-public class ErrorResponse {
-    // 에러 정보만 담는 클래스
+public class ErrorResponse { // 에러 정보만 담는 클래스
+
 
     private int status;
     private String message;
@@ -22,14 +25,15 @@ public class ErrorResponse {
     private List<ConstraintViolationError> violationErrors; // URI 유효성 검증 실패
 
     private ErrorResponse(int status, String message){
-        this.status = status;
-        this.message = message;
+        this.status=status;
+        this.message=message;
     }
 
     private ErrorResponse(final List<FieldError> fieldErrors,
-                          final List<ConstraintViolationError> violationErrors) {
-        this.fieldErrors = fieldErrors;
-        this.violationErrors = violationErrors;
+                          final List<ConstraintViolationError> violationErrors){
+        this.fieldErrors=fieldErrors;
+        this.violationErrors=violationErrors;
+
     }
 
     // BindingResult 의 ErrorResponse 객체 생성
@@ -52,49 +56,40 @@ public class ErrorResponse {
         return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
-    public static ErrorResponse of(HttpStatus httpStatus, String message) {
+    public static ErrorResponse of(HttpStatus httpStatus, String message){
         return new ErrorResponse(httpStatus.value(), message);
     }
+
     @Getter
-    public static class FieldError {
+    @AllArgsConstructor
+    public static class FieldError{
+
         private String field;
         private Object rejectedValue;
         private String reason;
 
-        private FieldError(String field, Object rejectedValue, String reason) {
-            this.field = field;
-            this.rejectedValue = rejectedValue;
-            this.reason = reason;
-        }
+        public static List<FieldError> of(BindingResult bindingResult){
+            final List<org.springframework.validation.FieldError> fieldErrors = bindingResult.getFieldErrors();
 
-        public static List<FieldError> of(BindingResult bindingResult) {
-            final List<org.springframework.validation.FieldError> fieldErrors =
-                    bindingResult.getFieldErrors();
             return fieldErrors.stream()
                     .map(error -> new FieldError(
                             error.getField(),
-                            error.getRejectedValue() == null ?
-                                    "" : error.getRejectedValue().toString(),
+                            error.getRejectedValue()  == null? "" : error.getRejectedValue().toString(),
                             error.getDefaultMessage()))
                     .collect(Collectors.toList());
         }
     }
 
     @Getter
-    public static class ConstraintViolationError {
+    @AllArgsConstructor
+    public static class ConstraintViolationError{
+
         private String propertyPath;
         private Object rejectedValue;
         private String reason;
 
-        private ConstraintViolationError(String propertyPath, Object rejectedValue,
-                                         String reason) {
-            this.propertyPath = propertyPath;
-            this.rejectedValue = rejectedValue;
-            this.reason = reason;
-        }
-
         public static List<ConstraintViolationError> of(
-                Set<ConstraintViolation<?>> constraintViolations) {
+                Set<ConstraintViolation<?>> constraintViolations){
             return constraintViolations.stream()
                     .map(constraintViolation -> new ConstraintViolationError(
                             constraintViolation.getPropertyPath().toString(),
