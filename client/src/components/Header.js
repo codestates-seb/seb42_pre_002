@@ -41,9 +41,11 @@ const Menu = styled.div`
     border-radius: 1000px;
     padding: 6px 12px;
     font-size: 14px;
+    color: #525960;
     &:hover {
       background-color: #e3e6e8;
       cursor: pointer;
+      color: black;
     }
   }
 `;
