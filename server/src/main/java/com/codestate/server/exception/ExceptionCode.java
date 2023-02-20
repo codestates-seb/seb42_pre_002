@@ -4,6 +4,9 @@ import lombok.Getter;
 
 public enum ExceptionCode {
 
+
+    TAG_NOT_FOUND(404,"Tag not found"),
+    TAG_EXISTS(409,"Tag exists");
     MEMBER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member Exists"),
     COMPANY_NOT_FOUND(404, "Company not found"),
@@ -14,6 +17,7 @@ public enum ExceptionCode {
     REPLIES_EXISTS(409, "Replies Exists"),
     NOT_IMPLEMENTATION(501, "Not Implementation");
 
+
     @Getter
     private int status;
 
@@ -21,8 +25,8 @@ public enum ExceptionCode {
     private String message;
 
     ExceptionCode(int status, String message){
+
         this.status = status;
         this.message = message;
     }
 }
-
