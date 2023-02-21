@@ -54,7 +54,7 @@ public class MemberController {
     }
 
     @GetMapping("/{memberId}")
-    public ResponseEntity findMember(@PathVariable("memberId") @Positive long memberId){
+    public ResponseEntity getMember(@PathVariable("memberId") @Positive long memberId){
 
         Member member = service.findMember(memberId);
 

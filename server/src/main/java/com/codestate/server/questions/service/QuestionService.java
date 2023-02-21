@@ -1,22 +1,24 @@
 package com.codestate.server.questions.service;
 
+import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.repository.QuestionRepository;
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
+import com.codestate.server.utils.CustomBeanUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class QuestionService {
 
     private final QuestionRepository questionsRepository;
-
-    public QuestionService(QuestionRepository questionsRepository) {
-        this.questionsRepository = questionsRepository;
-    }
+    private final CustomBeanUtils<Question> beanUtils;
 
     public Question createQuestion(Question question){
         verifyExistsQuestion(question.getQuestionId());
@@ -28,11 +30,8 @@ public class QuestionService {
 
     public Question updateQuestion(Question question){
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
+        Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);
 
-        Optional.ofNullable(question.getTitle())
-                .ifPresent(title -> findQuestion.setTitle(title));
-        Optional.ofNullable(question.getContent())
-                .ifPresent(content -> findQuestion.setContent(content));
 
         return questionsRepository.save(findQuestion);
     }

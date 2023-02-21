@@ -1,10 +1,12 @@
 package com.codestate.server.replies.entity;
 
+import com.codestate.server.audit.BaseEntity;
+import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 //@Transactional
-public class Replies {
+public class Replies extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid;
@@ -22,26 +24,14 @@ public class Replies {
 
     private String writer;
 
-    @Enumerated(EnumType.STRING) // 컬럼 맵핑
+
+    /*연관관계 매핑*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Question question; // DB상 외래키의 관계로 연결된 엔티티 클래스에 설정
+
+
+    @Enumerated(EnumType.STRING)
     private RepliesStatus repliesStatus = RepliesStatus.REPLIES_REQUEST;
-
-    /*M:1*/
-//    @ManyToOne
-//    @JoinColumn(name="mid")
-//    private Member member;
-//    public void addMember(Member member){
-//        this.member = member;
-//    }
-
-    @ManyToOne
-    @JoinColumn(name="questionId")
-    private Question question;
-
-    public void addQuestion(Question question){
-        this.question = question;
-    }
-
-
 
     // 컬럼 간 매핑
     @AllArgsConstructor

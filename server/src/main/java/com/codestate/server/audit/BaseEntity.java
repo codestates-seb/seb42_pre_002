@@ -1,4 +1,4 @@
-package com.codestate.server.company.entity;
+package com.codestate.server.audit;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -9,11 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
-
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-abstract class BaseEntity {
+public abstract class BaseEntity {
     // 등록 일자
     @CreatedDate
     @Column(name="regdate", updatable = false)
@@ -23,5 +22,5 @@ abstract class BaseEntity {
     @LastModifiedDate
     @Column(name = "moddate")
     private LocalDateTime modDate;
-}
 
+}
