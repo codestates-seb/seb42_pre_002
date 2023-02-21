@@ -46,7 +46,6 @@ const Main = styled.div`
 
 const Foot = styled.div`
   display: ${(props) => (props.page.foot ? 'block' : 'none')};
-  height: 322px;
 `;
 
 const Nv = styled.div`

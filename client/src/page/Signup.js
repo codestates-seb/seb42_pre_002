@@ -13,16 +13,17 @@ import SignFicture from '../esset/Signup.png';
 
 const Background = styled.div`
   width: 100%;
-  height: calc(100vh - 50px);
+  /* height: calc(100vh - 50px); */
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  margin-top: 100px;
+  margin-bottom: 100px;
 `;
 
 const LeftContainer = styled.div`
@@ -102,7 +103,7 @@ const GoogleLog = styled.div`
 
 const SocialLoginGoogleText = styled.div`
   height: 18px;
-  width: 108px;
+  width: 120px;
   margin-top: 12px;
 `;
 
@@ -135,7 +136,7 @@ const GithubLog = styled.div`
 const SocialLoginGithubText = styled.div`
   color: white;
   height: 18px;
-  width: 108px;
+  width: 120px;
   margin-top: 12px;
 `;
 
@@ -168,7 +169,7 @@ const FacebookLog = styled.div`
 const SocialLoginFacebookText = styled.div`
   color: white;
   height: 18px;
-  width: 125px;
+  width: 130px;
   margin-top: 12px;
 `;
 
