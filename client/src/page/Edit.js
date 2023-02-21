@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import MDEditor from '@uiw/react-md-editor';
 
+import StyledBtn from '../components/content/StyledBtn';
 import Advert from '../components/Advert';
-import { useSelector } from 'react-redux';
+import validIcon from '../esset/notValid.svg';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { delCurrentAnswer } from '../redux/action/contentAction';
 
 const PageWrap = styled.div`
   width: 100%;
@@ -13,6 +18,7 @@ const PageWrap = styled.div`
   display: flex;
 
   > :nth-child(1) {
+    margin-right: 16px;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -21,18 +27,104 @@ const PageWrap = styled.div`
   > :last-child {
     width: 300px;
   }
+
+  h1 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #232629;
+    margin: 16px 0;
+  }
+`;
+
+const Preview = styled.div`
+  padding: 24px 10px 10px;
 `;
 
 const Suggest = styled.div`
-  margin-right: 16px;
   padding: 24px;
   border-radius: 3px;
   background-color: hsl(47, 87%, 94%);
   border: 1px solid hsl(47, 65%, 84%);
+  color: #3b4045;
+  > p {
+    font-size: 13px;
+  }
+`;
+
+const EditorWrap = styled.div`
+  margin: 10px 0;
+`;
+
+const BtnWrapper = styled.div`
+  margin-top: 16px;
+  button {
+    margin: 0 4px;
+  }
+
+  > :nth-child(2) {
+    color: #0074cc;
+    width: 64.5px;
+    height: 37.5px;
+    border: none;
+    background-color: inherit;
+
+    &:hover {
+      color: #0063bf;
+    }
+  }
+`;
+const StyledH3 = styled.h3`
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 6px;
+`;
+const TitleWrapper = styled.div`
+  > div {
+    width: 100%;
+    padding: 8px 9px;
+    height: 33.5px;
+    border: 1px solid #babfc4;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+
+    &:focus-within {
+      border: 1px solid hsl(206, 90%, 69.5%);
+      box-shadow: 0px 0px 0px 4px rgba(0, 116, 204, 0.15);
+    }
+
+    &.notValid {
+      border: 1px solid #de4f54;
+      > img {
+        display: block;
+      }
+    }
+
+    > img {
+      display: none;
+    }
+
+    input {
+      width: 100%;
+      border: none;
+      background-color: inherit;
+      outline: none;
+    }
+  }
+  span {
+    display: none;
+    color: #de4f54;
+    &.notValid {
+      display: block;
+    }
+  }
 `;
 
 const Edit = ({ setPage }) => {
   const { edittype } = useParams();
+  const navigate = useNavigate();
 
   const sidebar = [
     {
@@ -59,31 +151,66 @@ const Edit = ({ setPage }) => {
       ],
     },
   ];
-  const state = useSelector((state) => state.curQuestReducer);
+  const questState = useSelector((state) => state.curQuestReducer);
+  const ansState = useSelector((state) => state.curAnsReducer);
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState('');
-  const [question, setQuestion] = useState('');
   const [content, setContent] = useState('');
+  const [valid, setValid] = useState(true);
 
   useEffect(() => {
     setPage({ navi: true, foot: true });
     if (edittype === 'question') {
-      setTitle(state.title);
-      setQuestion(state.contents);
-      setContent(state.contents);
+      setTitle(questState.title);
+      setContent(questState.contents);
     } else {
-      setQuestion(state.content);
-      setContent(state.reply[0].contents);
+      setContent(ansState.contents);
     }
     console.log(edittype);
   }, []);
+
+  const editSubmit = () => {
+    if (valid === false) return;
+    if (edittype === 'question') {
+      const data = {
+        ...questState,
+        title: title,
+        contents: content,
+      };
+      axios
+        .post('http://localhost:3001/question', data)
+        .then(() => navigate(-1))
+        .catch((err) => console.log(err));
+    } else {
+      const data = {
+        ...questState,
+        reply: questState.reply.map((x) => {
+          if (x.id === ansState.id) {
+            return {
+              ...x,
+              contents: content,
+              createdAt: new Date(),
+            };
+          } else return x;
+        }),
+      };
+      axios
+        .post('http://localhost:3001/question', data)
+        .then(() => {
+          navigate(-1);
+          dispatch(delCurrentAnswer());
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <PageWrap>
       <div>
         <Suggest>
           <p>Your edit will be placed in a queue until it is peer reviewed.</p>
-          <p>{title}</p>
-          <p>{content}</p>
+          <br></br>
           <p>
             We welcome edits that make the post easier to understand and more
             valuable for readers. Because community members review edits, please
@@ -92,15 +219,62 @@ const Edit = ({ setPage }) => {
             hyperlinks.
           </p>
         </Suggest>
-        <MDEditor.Markdown
-          source={question}
-          style={{ whiteSpace: 'pre-wrap' }}
-        />
-        {/* {edittype === 'question' && (
-          
-        )} */}
-      </div>
 
+        {edittype === 'answer' ? (
+          <>
+            <Preview className="container" data-color-mode="light">
+              {/* <MDEditor value={content} onChange={setContent} preview="edit" /> */}
+              <MDEditor.Markdown
+                source={content}
+                style={{ whiteSpace: 'pre-wrap' }}
+              />
+            </Preview>
+            <h1>Answer</h1>
+          </>
+        ) : (
+          <TitleWrapper>
+            <StyledH3>Title</StyledH3>
+            <div className={valid ? '' : 'notValid'}>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                onBlur={() =>
+                  title.length < 15 ? setValid(false) : setValid(true)
+                }
+              />
+              <img src={validIcon} alt="valid" />
+            </div>
+            <span className={valid ? '' : 'notValid'}>
+              Title must be at least 15 characters.
+            </span>
+          </TitleWrapper>
+        )}
+        <EditorWrap>
+          {edittype === 'question' && <StyledH3>Body</StyledH3>}
+          <div className="container" data-color-mode="light">
+            <MDEditor value={content} onChange={setContent} preview="edit" />
+
+            <Preview className="container" data-color-mode="light">
+              {/* <MDEditor value={content} onChange={setContent} preview="edit" /> */}
+              <MDEditor.Markdown
+                source={content}
+                style={{ whiteSpace: 'pre-wrap' }}
+              />
+            </Preview>
+          </div>
+        </EditorWrap>
+        <BtnWrapper>
+          <StyledBtn
+            title="Save edits"
+            width="85px"
+            height="37.5px"
+            onClick={editSubmit}
+          ></StyledBtn>
+          <button onClick={() => navigate(-1)}>Cancel</button>
+        </BtnWrapper>
+      </div>
+      {/*side bar */}
       <div>
         <Advert title={sidebar[0].title} list={sidebar[0].content}></Advert>
         <Advert title={sidebar[1].title} list={sidebar[0].content}></Advert>

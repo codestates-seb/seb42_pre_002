@@ -7,7 +7,6 @@ import StyledBtn from './StyledBtn';
 
 import logo from '../../esset/logo.svg';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -74,6 +73,7 @@ const PostBtnWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-top: 24px;
 
   > p {
     font-style: italic;
@@ -86,7 +86,6 @@ const PostBtnWrap = styled.div`
 
 export default function App() {
   const state = useSelector((state) => state.curQuestReducer);
-  const navigate = useNavigate();
   const [answer, setAnswer] = useState('');
   //test용
   // eslint-disable-next-line
@@ -100,7 +99,8 @@ export default function App() {
         {
           id: state.reply.length,
           author: 'gskoo',
-          content: answer,
+          contents: answer,
+          createdAt: new Date(),
         },
       ],
     };
@@ -108,7 +108,7 @@ export default function App() {
       .post('http://localhost:3001/question', answers)
       .then((res) => {
         console.log(res.data);
-        navigate('/content');
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -116,12 +116,7 @@ export default function App() {
   return (
     <Wrapper>
       <div className="container" data-color-mode="light">
-        <MDEditor
-          value={answer}
-          onChange={setAnswer}
-          preview="edit"
-          height={300}
-        />
+        <MDEditor value={answer} onChange={setAnswer} preview="edit" />
         {/* <MDEditor.Markdown source={some} style={{ whiteSpace: 'pre-wrap' }} /> */}
       </div>
 
