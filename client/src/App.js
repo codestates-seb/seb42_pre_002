@@ -21,11 +21,18 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+<<<<<<< HEAD
   overflow: auto;
   min-height: 100vh;
+=======
+  min-height: 100vh;
+  /* overflow: auto; */
+>>>>>>> 272541d15ef0422f5ae00f8e8202970490f06e22
 `;
 
 const Head = styled.div`
+  position: sticky;
+  top: 0;
   height: 50px;
   background-color: hsl(210, 8%, 97.5%);
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
@@ -50,6 +57,8 @@ const Foot = styled.div`
 `;
 
 const Nv = styled.div`
+  position: sticky;
+  top: 50px;
   display: ${(props) => (props.page.navi ? 'block' : 'none')};
   width: 164px;
   height: 100%;
