@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
@@ -52,6 +53,10 @@ public class Question extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_POSTING;
+
+    // 질문 <-> 질문태그
+    @OneToMany(mappedBy = "question")
+    private List<QuestionTag> questionTags = new ArrayList<>();
 
     // 게시 상태
     @AllArgsConstructor

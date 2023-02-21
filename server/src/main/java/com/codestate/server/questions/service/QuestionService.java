@@ -7,6 +7,7 @@ import com.codestate.server.questions.repository.QuestionRepository;
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
 import com.codestate.server.replies.entity.Replies;
+import com.codestate.server.tag.service.TagService;
 import com.codestate.server.utils.CustomBeanUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,17 @@ public class QuestionService {
 
     private MemberService memberService;
 
+    private TagService tagService;
+
     public Question createQuestion(Question question){
         // 등록된 회원인지 검증
         Member verifiedMember = memberService.findVerifiedMember(question.getMember().getMemberId());
         question.setMember(verifiedMember);
+
+        // 태그가 존재하는지 검증
+
+        question.getQuestionTags().stream()
+                        .forEach(questionTag -> tagService.findVerifiedTag(questionTag.getTag().getTagId()));
 
         verifyExistsQuestion(question.getQuestionId());
         Question savedQuestion = saveQuestion(question);
@@ -49,8 +57,11 @@ public class QuestionService {
 
         return questionsRepository.save(findQuestion);
     }
+    //한개의 질문 조회시 조회수 +1
     @Transactional(readOnly = true)
     public Question findQuestion(long questionId){
+        Question question = findVerifiedQuestion(questionId);
+        question.setViewCnt(question.getViewCnt()+1);
         return findVerifiedQuestion(questionId);
 
     }

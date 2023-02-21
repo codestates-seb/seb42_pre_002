@@ -1,9 +1,8 @@
 package com.codestate.server.questions.mapper;
 
-import com.codestate.server.questions.dto.QuestionPatchDto;
+import com.codestate.server.questions.dto.*;
 import com.codestate.server.questions.entity.Question;
-import com.codestate.server.questions.dto.QuestionPostDto;
-import com.codestate.server.questions.dto.QuestionResponseDto;
+import com.codestate.server.questions.entity.QuestionTag;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -16,4 +15,8 @@ public interface QuestionMapper {
     QuestionResponseDto QuestionToQuestionResponseDto(Question question);
 
     List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
+
+    QuestionTag QuestionDtoToQuestionTag (QuestionTagDto questionTagDto);
+
+    QuestionTagResponseDto QuestionTagToQuestionTagResponseDto(QuestionTag questionTag);
 }

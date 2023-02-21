@@ -4,6 +4,9 @@ import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
 import com.codestate.server.tag.entity.Tag;
 import com.codestate.server.tag.repository.TagRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,6 +41,11 @@ public class TagService {
 
     public Tag findTag(long tagId){
         return findVerifiedTag(tagId);
+    }
+
+    public Page<Tag> findTags(int page, int size) {
+        return tagRepository.findAll(PageRequest.of(page, size,
+                Sort.by("tagId").descending()));
     }
 
     public void deleteTag(long tagId){
