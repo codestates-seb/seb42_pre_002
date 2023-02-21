@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import UserCard from './UserCard';
 
@@ -29,11 +30,36 @@ const Wrapper = styled.div`
 `;
 
 export default function DetailContents({ curQuestion, askOrAnswer }) {
+  const navigate = useNavigate();
+
+  const handleCopyClipBoard = async (x) => {
+    try {
+      await navigator.clipboard.writeText(x);
+      console.log('copied');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Wrapper>
       <div>
-        <span>Share</span>
-        <span>Edit</span>
+        <span
+          role="presentation"
+          onClick={() => handleCopyClipBoard(window.location.href)}
+        >
+          Share
+        </span>
+        <span
+          role="presentation"
+          onClick={() =>
+            curQuestion.reply
+              ? navigate('/edit/question')
+              : navigate('/edit/answer')
+          }
+        >
+          Edit
+        </span>
         <span>Follow</span>
       </div>
       <div>

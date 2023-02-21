@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Questions from './page/Questions';
 import Ask from './page/Ask';
 import Content from './page/Content';
+import Edit from './page/Edit';
 import Login from './page/Login';
 import Signup from './page/Signup';
 import Header from './components/Header';
@@ -85,6 +86,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Questions setPage={setPage} />} />
               <Route path="/ask" element={<Ask setPage={setPage} />} />
+              <Route
+                path="/edit/:edittype"
+                element={<Edit setPage={setPage} />}
+              />
               <Route path="/content" element={<Content setPage={setPage} />} />
               <Route path="/login" element={<Login setPage={setPage} />} />
               <Route path="/signup" element={<Signup setPage={setPage} />} />

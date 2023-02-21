@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Details from './Details';
+import AnswerCreate from './AnswerCreate';
 
 const AnswerSort = styled.div`
   width: 100%;
@@ -50,6 +51,7 @@ const AnswerPart = () => {
           <Details key={x.id} curQuestion={x} askOrAnswer="answered"></Details>
         );
       })}
+      <AnswerCreate></AnswerCreate>
     </>
   );
 };

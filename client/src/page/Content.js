@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import Loading from '../components/content/Loading';
+import QuestionAdvert from '../components/content/QuestionAdvert';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,6 +25,7 @@ const DetailWrapper = styled.div`
 const DetailAndAnswer = styled.div`
   width: 450px;
   flex: 1 1 auto;
+  margin-right: 16px;
 `;
 
 export default function Content({ setPage }) {
@@ -53,7 +55,9 @@ export default function Content({ setPage }) {
             <Details curQuestion={curQuestion} askOrAnswer="asked"></Details>
             <AnswerPart></AnswerPart>
           </DetailAndAnswer>
-          <div></div>
+          <div>
+            <QuestionAdvert />
+          </div>
         </DetailWrapper>
       </Suspense>
     </Wrapper>
