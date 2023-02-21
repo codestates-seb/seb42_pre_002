@@ -36,7 +36,7 @@ const SocialLoginContainer = styled.div`
 `;
 
 const GoogleLoginContainer = styled.button`
-  border: 1px solid #e4e4e4;
+  border: 2px solid #e4e4e4;
   border-radius: 5px;
   height: 40px;
   width: 300px;
@@ -141,7 +141,8 @@ const LoginBox = styled.div`
   width: 300px;
   height: max-content;
   background-color: white;
-  box-shadow: 0 0 1px 1px #e4e4e4;
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
   padding: 30px 0 30px 0;
   margin-bottom: 40px;
 `;
@@ -158,7 +159,7 @@ const Input = styled.input`
   height: 35px;
   border: 1px solid hsl(210, 8%, 75%);
   border-radius: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   padding-left: 5px;
   padding-right: 5px;
 `;
@@ -286,12 +287,12 @@ export default function Login({ setPage }) {
                 <Label>Email</Label>
                 <Input
                   type="text"
-                  placeholder="es@google.com"
+                  placeholder="ex@google.com"
                   onChange={handleEmail}
                 ></Input>
                 <ErrorMessageWrap>
                   {!emailValid && email.length > 0 && (
-                    <div>Email cannot be empty.</div>
+                    <div>The email is not a valid email address.</div>
                   )}
                 </ErrorMessageWrap>
               </EPBox>
