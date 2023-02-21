@@ -62,7 +62,7 @@ const GoogleLog = styled.div`
 
 const SocialLoginGoogleText = styled.div`
   height: 18px;
-  width: 108px;
+  width: 120px;
   margin-top: 12px;
 `;
 
@@ -95,7 +95,7 @@ const GithubLog = styled.div`
 const SocialLoginGithubText = styled.div`
   color: white;
   height: 18px;
-  width: 108px;
+  width: 120px;
   margin-top: 12px;
 `;
 
@@ -128,7 +128,7 @@ const FacebookLog = styled.div`
 const SocialLoginFacebookText = styled.div`
   color: white;
   height: 18px;
-  width: 125px;
+  width: 130px;
   margin-top: 12px;
 `;
 
