@@ -22,6 +22,7 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow: auto;
+  min-height: 100vh;
 `;
 
 const Head = styled.div`
