@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import spotPencil from '../esset/spotPencil.svg';
 import MDEditor from '@uiw/react-md-editor';
+import spotBell from '../esset/spotBell.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -19,6 +20,7 @@ const EContainer = styled.div`
   flex-direction: column;
   margin-top: 16px;
   margin-bottom: 16px;
+  width: 100%;
 `;
 
 const Title = styled.div`
@@ -184,6 +186,11 @@ const BodyContent = styled.div`
     margin-bottom: 1em;
     margin-top: 0;
     font-size: 10.5px;
+    > a {
+      text-decoration: none;
+      cursor: pointer;
+      color: hsl(206, 100%, 40%);
+    }
   }
 `;
 
@@ -322,18 +329,38 @@ const InputContainer = styled.div`
     border: 1px solid hsl(210, 8%, 75%);
     border-radius: 3px;
     min-height: 37px;
+    &.focus {
+      border: 1px solid hsl(206, 90%, 69.5%);
+      box-shadow: 0px 0px 0px 4px rgba(0, 116, 204, 0.15);
+    }
     > input {
       width: 19px;
       min-width: 100%;
       padding-left: calc(0.7em - 2px);
       height: 29px;
       border: none;
+      outline: none;
+      &::placeholder {
+        color: hsl(210, 8%, 80%);
+      }
     }
   }
 `;
 
+const TagBodyContent = styled(TitleHelp)`
+  height: 215px;
+`;
+
+const ReBodyContent = styled(TitleHelp)`
+  height: 180px;
+`;
+
 export default function Ask({ setPage }) {
-  const [inputFocus, setInputFocus] = useState({ title: false, body: false });
+  const [inputFocus, setInputFocus] = useState({
+    title: false,
+    body: false,
+    tags: false,
+  });
   const [value, setValue] = useState('');
 
   const inputFocusHandler = () => {
@@ -345,6 +372,12 @@ export default function Ask({ setPage }) {
   const editorFocusHandler = () => {
     const copy = { ...inputFocus };
     copy.body = !copy.body;
+    setInputFocus(copy);
+  };
+
+  const tagsFocusHandler = () => {
+    const copy = { ...inputFocus };
+    copy.tags = !copy.tags;
     setInputFocus(copy);
   };
 
@@ -487,7 +520,11 @@ export default function Ask({ setPage }) {
                     </label>
                   </TagsLabelDiv>
                   <InputContainer>
-                    <div>
+                    <div
+                      className={inputFocus.tags ? 'focus' : ''}
+                      onFocus={tagsFocusHandler}
+                      onBlur={tagsFocusHandler}
+                    >
                       <input
                         id="tageditor-replacing-tagnames--input"
                         placeholder="e.g. (ajax iphone string)"
@@ -499,26 +536,90 @@ export default function Ask({ setPage }) {
               <button>Next</button>
             </div>
           </TagsBody>
-          <TitleHelp>
-            <HelpTitle>Introduce the problem</HelpTitle>
+          <TagBodyContent>
+            <HelpTitle>Adding tags</HelpTitle>
             <HelpBody>
               <HelpImg>
                 <img src={spotPencil} alt="spotPencil" />
               </HelpImg>
               <BodyContent>
                 <p>
-                  Explain how you encountered the problem you’re trying to
-                  solve, and any difficulties that have prevented you from
-                  solving it yourself.
+                  Tags help ensure that your question will get attention from
+                  the right people.
+                </p>
+                <p>
+                  Tag things in more than one way so people can find them more
+                  easily. Add tags for product lines, projects, teams, and the
+                  specific technologies or languages used.
+                </p>
+                <p>
+                  <a href="https://stackoverflow.com/help/tagging">
+                    Learn more about tagging
+                  </a>
                 </p>
               </BodyContent>
             </HelpBody>
-          </TitleHelp>
+          </TagBodyContent>
         </TagsContainer>
         <div>
-          Review questions already on Stack Overflow to see if your question is
-          a duplicate
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <p>
+                      Review questions already on Stack Overflow to see if your
+                      question is a duplicate.
+                    </p>
+                    <p>
+                      Clicking on these questions will open them in a new tab
+                      for you to review. Your progress here will be saved so you
+                      can come back and continue.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <button>
+                      <div>Do any of these posts answer your question?</div>
+                      <div>
+                        <div>{/* <img /> */}</div>
+                      </div>
+                    </button>
+                    <div>
+                      <div>
+                        <p>No duplicate questions found.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button>Review your question</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ReBodyContent>
+            <HelpTitle>
+              Make sure we don’t already have an answer for your question
+            </HelpTitle>
+            <HelpBody>
+              <HelpImg>
+                <img src={spotBell} alt="spotBell" />
+              </HelpImg>
+              <BodyContent>
+                <p>Stack Overflow is a huge database of knowledge.</p>
+                <SContent>
+                  Please make sure your question isn’t already answered before
+                  posting, or your question might be closed as a duplicate.
+                </SContent>
+              </BodyContent>
+            </HelpBody>
+          </ReBodyContent>
         </div>
+      </div>
+      <div>
+        <button>Discard draft</button>
       </div>
     </Container>
   );
