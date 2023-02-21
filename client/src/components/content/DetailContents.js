@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { addCurrentAnswer } from '../../redux/action/contentAction';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import UserCard from './UserCard';
@@ -31,6 +33,7 @@ const Wrapper = styled.div`
 
 export default function DetailContents({ curQuestion, askOrAnswer }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCopyClipBoard = async (x) => {
     try {
@@ -38,6 +41,15 @@ export default function DetailContents({ curQuestion, askOrAnswer }) {
       console.log('copied');
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const editBtnHandler = () => {
+    if (askOrAnswer === 'answered') {
+      dispatch(addCurrentAnswer(curQuestion));
+      navigate('/edit/answer');
+    } else {
+      navigate('/edit/question');
     }
   };
 
@@ -50,14 +62,7 @@ export default function DetailContents({ curQuestion, askOrAnswer }) {
         >
           Share
         </span>
-        <span
-          role="presentation"
-          onClick={() =>
-            curQuestion.reply
-              ? navigate('/edit/question')
-              : navigate('/edit/answer')
-          }
-        >
+        <span role="presentation" onClick={editBtnHandler}>
           Edit
         </span>
         <span>Follow</span>
