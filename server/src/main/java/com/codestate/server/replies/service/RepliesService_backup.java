@@ -17,7 +17,7 @@ import java.util.Optional;
 @Log4j2
 @RequiredArgsConstructor
 //@Transactional
-public class RepliesService {
+public class RepliesService_backup {
 
     private final RepliesRepository repliesRepository;
     private final CustomBeanUtils<Replies> beanUtils;

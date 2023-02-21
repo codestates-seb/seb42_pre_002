@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @Setter
 @Getter
@@ -14,6 +16,9 @@ public class QuestionResponseDto {
     private String title;
 
     private String content;
+
+    private LocalDateTime regDate, modDate;
+
 
 
 

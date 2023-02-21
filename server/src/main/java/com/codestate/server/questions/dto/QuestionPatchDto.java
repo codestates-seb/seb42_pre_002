@@ -2,6 +2,7 @@ package com.codestate.server.questions.dto;
 
 import lombok.Getter;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Getter
 public class QuestionPatchDto {
@@ -17,4 +18,7 @@ public class QuestionPatchDto {
     public void setQuestionId(long questionId) {
         this.questionId = questionId;
     }
+
+    private LocalDateTime regDate, modDate;
+
 }
