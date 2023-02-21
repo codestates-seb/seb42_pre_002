@@ -21,10 +21,13 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: auto;
+  min-height: 100vh;
+  /* overflow: auto; */
 `;
 
 const Head = styled.div`
+  position: sticky;
+  top: 0;
   height: 50px;
   background-color: hsl(210, 8%, 97.5%);
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
@@ -49,6 +52,8 @@ const Foot = styled.div`
 `;
 
 const Nv = styled.div`
+  position: sticky;
+  top: 50px;
   display: ${(props) => (props.page.navi ? 'block' : 'none')};
   width: 164px;
   height: 100%;
