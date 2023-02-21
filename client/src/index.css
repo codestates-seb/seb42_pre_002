@@ -13,3 +13,14 @@ html {
 .w-md-editor {
   min-height: 250px !important;
 }
+
+.hiden {
+  display: none;
+}
+
+.block {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background-color: hsl(210, 8%, 90%);
+  pointer-events: none;
+}

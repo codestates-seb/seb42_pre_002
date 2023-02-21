@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import spotPencil from '../esset/spotPencil.svg';
 import MDEditor from '@uiw/react-md-editor';
@@ -7,6 +7,7 @@ import arrowupalt from '../esset/arrowupalt.svg';
 
 const Container = styled.div`
   width: 100%;
+  margin-bottom: 48px;
 `;
 
 const ContainerDiv = styled.div`
@@ -213,28 +214,30 @@ const WriteBodyContainer = styled.div`
   flex-shrink: 0;
   border-radius: 3px;
   border: 1px solid hsl(210, 8%, 90%);
+  overflow: hidden;
+`;
+
+const WriteBodyContent = styled.div`
+  padding: 24px;
+  gap: 16px;
   > div {
-    padding: 24px;
-    gap: 16px;
-    > div {
-      display: flex;
-      flex-direction: column;
-      margin: -2px 0;
+    display: flex;
+    flex-direction: column;
+    margin: -2px 0;
+  }
+  > button {
+    border: 1px solid transparent;
+    background-color: hsl(206, 100%, 52%);
+    border: 1px solid hsl(206, 100%, 52%);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    color: hsl(0, 0%, 100%);
+    padding: 0.8em;
+    &:hover {
+      background-color: hsl(206, 100%, 40%);
+      cursor: pointer;
     }
-    > button {
-      border: 1px solid transparent;
-      background-color: hsl(206, 100%, 52%);
-      border: 1px solid hsl(206, 100%, 52%);
-      border-radius: 3px;
-      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
-      color: hsl(0, 0%, 100%);
-      padding: 0.8em;
-      &:hover {
-        background-color: hsl(206, 100%, 40%);
-        cursor: pointer;
-      }
-      margin: 0 10px 0 4px;
-    }
+    margin: 0 10px 0 4px;
   }
 `;
 
@@ -509,6 +512,19 @@ export default function Ask({ setPage }) {
   });
   const [value, setValue] = useState('');
 
+  const titleButton = useRef(null);
+  const titleHelp = useRef(null);
+  const bodyButton = useRef(null);
+  const bodyHelp = useRef(null);
+  const tagsButton = useRef(null);
+  const tagsHelp = useRef(null);
+  const reviewButton = useRef(null);
+  const reviewHelp = useRef(null);
+  const submitButton = useRef(null);
+  const bodyBlock = useRef(null);
+  const tagsBlock = useRef(null);
+  const reviewBlock = useRef(null);
+
   const inputFocusHandler = () => {
     const copy = { ...inputFocus };
     copy.title = !copy.title;
@@ -525,6 +541,36 @@ export default function Ask({ setPage }) {
     const copy = { ...inputFocus };
     copy.tags = !copy.tags;
     setInputFocus(copy);
+  };
+
+  const titleButtonHandler = () => {
+    titleButton.current.classList.add('hiden');
+    titleHelp.current.classList.add('hiden');
+    bodyButton.current.classList.remove('hiden');
+    bodyHelp.current.classList.remove('hiden');
+    bodyBlock.current.classList.remove('block');
+  };
+
+  const bodyButtonHandler = () => {
+    bodyButton.current.classList.add('hiden');
+    bodyHelp.current.classList.add('hiden');
+    tagsButton.current.classList.remove('hiden');
+    tagsHelp.current.classList.remove('hiden');
+    tagsBlock.current.classList.remove('block');
+  };
+
+  const tagsButtonHandler = () => {
+    tagsButton.current.classList.add('hiden');
+    tagsHelp.current.classList.add('hiden');
+    reviewButton.current.classList.remove('hiden');
+    reviewHelp.current.classList.remove('hiden');
+    reviewBlock.current.classList.remove('block');
+  };
+
+  const reviewButtonHandler = () => {
+    reviewButton.current.classList.add('hiden');
+    reviewHelp.current.classList.add('hiden');
+    submitButton.current.classList.remove('hiden');
   };
 
   useEffect(() => {
@@ -591,9 +637,11 @@ export default function Ask({ setPage }) {
                 </IDiv>
               </div>
             </div>
-            <button>Next</button>
+            <button ref={titleButton} onClick={titleButtonHandler}>
+              Next
+            </button>
           </RTDiv>
-          <TitleHelp>
+          <TitleHelp ref={titleHelp}>
             <HelpTitle>Writing a good title</HelpTitle>
             <HelpBody>
               <HelpImg>
@@ -611,7 +659,7 @@ export default function Ask({ setPage }) {
         </TConstainer>
         <BodyContainer>
           <WriteBodyContainer>
-            <div>
+            <WriteBodyContent className="block" ref={bodyBlock}>
               <div>
                 <LabelDiv>
                   <label htmlFor="problem-details">
@@ -632,10 +680,16 @@ export default function Ask({ setPage }) {
                   <MDEditor value={value} onChange={setValue} preview="edit" />
                 </EditorDiv>
               </div>
-              <button>Next</button>
-            </div>
+              <button
+                className="hiden"
+                ref={bodyButton}
+                onClick={bodyButtonHandler}
+              >
+                Next
+              </button>
+            </WriteBodyContent>
           </WriteBodyContainer>
-          <TitleHelp>
+          <TitleHelp className="hiden" ref={bodyHelp}>
             <HelpTitle>Introduce the problem</HelpTitle>
             <HelpBody>
               <HelpImg>
@@ -653,7 +707,7 @@ export default function Ask({ setPage }) {
         </BodyContainer>
         <TagsContainer>
           <TagsBody>
-            <div>
+            <div className="block" ref={tagsBlock}>
               <div>
                 <div>
                   <TagsLabelDiv>
@@ -679,10 +733,16 @@ export default function Ask({ setPage }) {
                   </InputContainer>
                 </div>
               </div>
-              <button>Next</button>
+              <button
+                className="hiden"
+                ref={tagsButton}
+                onClick={tagsButtonHandler}
+              >
+                Next
+              </button>
             </div>
           </TagsBody>
-          <TagBodyContent>
+          <TagBodyContent className="hiden" ref={tagsHelp}>
             <HelpTitle>Adding tags</HelpTitle>
             <HelpBody>
               <HelpImg>
@@ -709,7 +769,7 @@ export default function Ask({ setPage }) {
         </TagsContainer>
         <ReviewContainer>
           <ReviewContent>
-            <div>
+            <div className="block" ref={reviewBlock}>
               <div>
                 <ReviewTextContainer>
                   <div>
@@ -744,12 +804,18 @@ export default function Ask({ setPage }) {
                   </ReviewBodyContainer>
                 </div>
                 <div>
-                  <button>Review your question</button>
+                  <button
+                    className="hiden"
+                    ref={reviewButton}
+                    onClick={reviewButtonHandler}
+                  >
+                    Review your question
+                  </button>
                 </div>
               </div>
             </div>
           </ReviewContent>
-          <ReBodyContent>
+          <ReBodyContent className="hiden" ref={reviewHelp}>
             <HelpTitle>
               Make sure we don’t already have an answer for your question
             </HelpTitle>
@@ -769,7 +835,9 @@ export default function Ask({ setPage }) {
         </ReviewContainer>
       </ContainerDiv>
       <SubmitContainer>
-        <button>Post your question</button>
+        <button className="hiden" ref={submitButton}>
+          Post your question
+        </button>
         <div>
           <button>Discard draft</button>
         </div>
