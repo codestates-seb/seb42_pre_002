@@ -3,16 +3,18 @@ import styled from 'styled-components';
 import spotPencil from '../esset/spotPencil.svg';
 import MDEditor from '@uiw/react-md-editor';
 import spotBell from '../esset/spotBell.svg';
+import arrowupalt from '../esset/arrowupalt.svg';
 
 const Container = styled.div`
   width: 100%;
-  > div {
-    min-height: 750px;
-    overflow: visible;
-    width: 100%;
-    max-width: 1264px;
-    padding: 0 24px;
-  }
+`;
+
+const ContainerDiv = styled.div`
+  min-height: 750px;
+  overflow: visible;
+  width: 100%;
+  max-width: 1264px;
+  padding: 0 24px;
 `;
 
 const EContainer = styled.div`
@@ -351,6 +353,150 @@ const TagBodyContent = styled(TitleHelp)`
   height: 215px;
 `;
 
+const ReviewContainer = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 12px;
+  gap: 16px;
+  align-items: flex-start;
+`;
+
+const ReviewContent = styled.div`
+  width: 70%;
+  border: 1px solid hsl(210, 8%, 90%);
+  > div {
+    padding: 24px;
+    > div {
+      display: flex;
+      gap: 16px;
+      flex-direction: column;
+      > div {
+        > button {
+          border: 1px solid transparent;
+          background-color: hsl(206, 100%, 52%);
+          border: 1px solid hsl(206, 100%, 52%);
+          border-radius: 3px;
+          box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+          color: hsl(0, 0%, 100%);
+          padding: 0.8em;
+          &:hover {
+            background-color: hsl(206, 100%, 40%);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+`;
+
+const ReviewTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: -2px 0;
+  > div {
+    margin: 2px 0;
+  }
+`;
+
+const ReviewTextTitle = styled.p`
+  margin-bottom: 2px;
+  font-size: 1.15384615rem;
+  font-weight: 600;
+  padding: 0 2px;
+`;
+
+const ReviewTextT = styled.p`
+  padding: 0 2px;
+  font-size: 12px;
+`;
+
+const ReviewBodyContainer = styled.div`
+  display: flex;
+  margin-bottom: -1px;
+  flex-direction: column;
+  border: 1px solid hsl(210, 8%, 75%);
+  border-radius: 3px;
+  > button {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    padding: 12px 16px;
+    gap: 4px;
+    align-items: center;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid hsl(210, 8%, 85%);
+  }
+  > div {
+    max-height: 210.67px;
+    overflow: auto;
+    gap: 16px;
+    > div {
+      > p {
+        text-align: center;
+        font-size: 13px;
+        margin: 16px;
+      }
+    }
+  }
+`;
+
+const ReviewBodyTitle = styled.div`
+  text-align: left;
+  font-size: 1.15384615rem;
+`;
+
+const ReviewBodyTitleSvg = styled.div`
+  margin-left: auto;
+  > div {
+    cursor: pointer;
+    gap: 4px;
+    > img {
+      vertical-align: bottom;
+    }
+  }
+`;
+
+const SubmitContainer = styled.div`
+  display: flex;
+  margin: 12px;
+  > button {
+    border: 1px solid transparent;
+    background-color: hsl(206, 100%, 52%);
+    border: 1px solid hsl(206, 100%, 52%);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    color: hsl(0, 0%, 100%);
+    padding: 0.8em;
+    margin: 0 12px;
+    &:hover {
+      background-color: hsl(206, 100%, 40%);
+      cursor: pointer;
+    }
+  }
+  > div {
+    margin: 0 8px;
+    > button {
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      box-shadow: none;
+      color: hsl(358, 62%, 47%);
+      font-size: 13px;
+      padding: 0.8em;
+      font-weight: normal;
+      cursor: pointer;
+      line-height: calc(15 / 13);
+      outline: none;
+      text-align: center;
+      text-decoration: none;
+      &:hover {
+        background-color: hsl(358, 75%, 97%);
+      }
+    }
+  }
+`;
+
 const ReBodyContent = styled(TitleHelp)`
   height: 180px;
 `;
@@ -386,7 +532,7 @@ export default function Ask({ setPage }) {
   }, []);
   return (
     <Container>
-      <div>
+      <ContainerDiv>
         <EContainer>
           <Title>
             <h1>Ask a public question</h1>
@@ -561,44 +707,48 @@ export default function Ask({ setPage }) {
             </HelpBody>
           </TagBodyContent>
         </TagsContainer>
-        <div>
-          <div>
+        <ReviewContainer>
+          <ReviewContent>
             <div>
               <div>
-                <div>
+                <ReviewTextContainer>
                   <div>
-                    <p>
+                    <ReviewTextTitle>
                       Review questions already on Stack Overflow to see if your
                       question is a duplicate.
-                    </p>
-                    <p>
+                    </ReviewTextTitle>
+                    <ReviewTextT>
                       Clicking on these questions will open them in a new tab
                       for you to review. Your progress here will be saved so you
                       can come back and continue.
-                    </p>
+                    </ReviewTextT>
                   </div>
-                </div>
+                </ReviewTextContainer>
                 <div>
-                  <div>
+                  <ReviewBodyContainer>
                     <button>
-                      <div>Do any of these posts answer your question?</div>
-                      <div>
-                        <div>{/* <img /> */}</div>
-                      </div>
+                      <ReviewBodyTitle>
+                        Do any of these posts answer your question?
+                      </ReviewBodyTitle>
+                      <ReviewBodyTitleSvg>
+                        <div>
+                          <img src={arrowupalt} alt="arrowupalt" />
+                        </div>
+                      </ReviewBodyTitleSvg>
                     </button>
                     <div>
                       <div>
                         <p>No duplicate questions found.</p>
                       </div>
                     </div>
-                  </div>
+                  </ReviewBodyContainer>
                 </div>
                 <div>
                   <button>Review your question</button>
                 </div>
               </div>
             </div>
-          </div>
+          </ReviewContent>
           <ReBodyContent>
             <HelpTitle>
               Make sure we don’t already have an answer for your question
@@ -616,11 +766,14 @@ export default function Ask({ setPage }) {
               </BodyContent>
             </HelpBody>
           </ReBodyContent>
+        </ReviewContainer>
+      </ContainerDiv>
+      <SubmitContainer>
+        <button>Post your question</button>
+        <div>
+          <button>Discard draft</button>
         </div>
-      </div>
-      <div>
-        <button>Discard draft</button>
-      </div>
+      </SubmitContainer>
     </Container>
   );
 }
