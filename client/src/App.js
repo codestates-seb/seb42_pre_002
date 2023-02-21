@@ -21,8 +21,13 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+<<<<<<< HEAD
+  overflow: auto;
+  min-height: 100vh;
+=======
   min-height: 100vh;
   /* overflow: auto; */
+>>>>>>> 272541d15ef0422f5ae00f8e8202970490f06e22
 `;
 
 const Head = styled.div`

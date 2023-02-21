@@ -5,17 +5,22 @@ const Background = styled.div`
   background-color: rgb(36, 38, 41);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
     'Segoe UI', 'Liberation Sans', sans-serif;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 0px;
+  font-size: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Content = styled.div`
   display: flex;
-  margin-left: 30px;
+  justify-content: space-around;
+  margin-left: 4%;
+  margin-right: 4%;
 `;
 
 const Log = styled.img`
-  background-image: url(${logo});
   height: 35px;
   width: 35px;
   &:hover {
@@ -23,7 +28,7 @@ const Log = styled.img`
   }
 `;
 
-const H2 = styled.h4`
+const H2 = styled.div`
   color: hsl(210, 8%, 60%);
   margin-right: 15px;
   margin-bottom: 15px;
@@ -34,7 +39,7 @@ const H1 = styled.h4`
   margin-right: 15px;
   margin-bottom: 15px;
 `;
-const H3 = styled.h4`
+const H3 = styled.div`
   color: hsl(210, 8%, 60%);
   margin-right: 15px;
   margin-bottom: 220px;
@@ -53,7 +58,7 @@ export default function Footer() {
     <>
       <Background>
         <Content>
-          <Log></Log>
+          <Log src={logo} alt="로고"></Log>
           <SubText>
             <H1>STACK OVERFLOW</H1>
             <H2>Questions</H2>
