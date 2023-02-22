@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Tag from './Tag';
 
 const ListBox = styled.div`
   padding: 16px;
@@ -69,6 +70,15 @@ const MainBody = styled.div`
 const UserBox = styled.div`
   display: flex;
   justify-content: space-between;
+  > ul {
+    list-style: none;
+    margin-bottom: 1em;
+    display: flex;
+  }
+  > div {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
 `;
 
 export default function Footer() {
@@ -98,7 +108,10 @@ export default function Footer() {
           {`I want to write a macro to support parameterized tests, and got the following code from AI, but got errors on one line: #[macro_export] macro_rules! parameterize { ($name:ident, $params:pat, {$($...`}
         </MainBody>
         <UserBox>
-          <div>tag</div>
+          <ul>
+            <Tag text={'javaScript'} />
+            <Tag text={'google-play'} />
+          </ul>
           <div>nick name + asked time</div>
         </UserBox>
       </MainBox>
