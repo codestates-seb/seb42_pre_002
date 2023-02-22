@@ -20,11 +20,11 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/ask/modify")
+@RequestMapping("/questions")
 @Validated
 public class QuestionController {
 
-    private final static String QUESTION_DEFAULT_URL = "/ask/modify";
+    private final static String QUESTION_DEFAULT_URL = "/questions";
     private final QuestionService questionService;
     private final QuestionMapper mapper;
 
