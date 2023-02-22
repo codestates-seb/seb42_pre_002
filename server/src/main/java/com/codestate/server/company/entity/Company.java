@@ -31,6 +31,7 @@ public class Company extends BaseEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+//    private String tag_tno;
     private Tag tag;
 
         public void addQuestion(Tag tag){

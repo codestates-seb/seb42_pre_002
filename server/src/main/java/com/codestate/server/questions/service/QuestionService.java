@@ -16,12 +16,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
 import org.springframework.transaction.annotation.Propagation;
+=======
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+<<<<<<< HEAD
 
+=======
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
 @Transactional
 @Service
 @AllArgsConstructor
@@ -52,7 +58,10 @@ public class QuestionService {
 
     }
 
+<<<<<<< HEAD
     @Transactional(propagation = Propagation.REQUIRED)
+=======
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
     public Question updateQuestion(Question question){
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
         Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);

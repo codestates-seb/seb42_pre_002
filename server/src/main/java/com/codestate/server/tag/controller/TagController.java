@@ -18,10 +18,17 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+<<<<<<< HEAD
 @RequestMapping("//")
 public class TagController {
 
     private final static String TAG_DEFAULT_URL = "//";
+=======
+@RequestMapping("/tags")
+public class TagController {
+
+    private final static String TAG_DEFAULT_URL = "/tags";
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
     private final TagService tagService;
     private final TagMapper mapper;
 

@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class MemberService {
 
     // 생성
     public Member createMember(Member member){
+
         VerifiedEmail(member.getEmail());
 
 //        Member saveMember = memberRepository.save(member);
@@ -71,6 +73,7 @@ public class MemberService {
     }
 
     private void VerifiedEmail(String email){
+
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);

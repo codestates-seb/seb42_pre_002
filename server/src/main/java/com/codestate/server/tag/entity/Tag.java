@@ -1,10 +1,16 @@
 package com.codestate.server.tag.entity;
 
+<<<<<<< HEAD
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.questions.entity.QuestionTag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+=======
+import com.codestate.server.questions.entity.QuestionTag;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,7 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
+<<<<<<< HEAD
 @NoArgsConstructor
+=======
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
 @Getter
 @Setter
 @Entity

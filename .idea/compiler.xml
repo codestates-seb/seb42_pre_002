@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+<<<<<<< HEAD
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
@@ -10,6 +11,9 @@
         </processorPath>
         <module name="server.main" />
       </profile>
+=======
+      <profile default="true" name="Default" enabled="true" />
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
     </annotationProcessing>
   </component>
 </project>

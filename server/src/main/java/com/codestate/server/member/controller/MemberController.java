@@ -35,6 +35,7 @@ public class MemberController {
     public String index(){
         return "stackoverflow";
     }
+
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody){
         Member member = mapper.PostDtoToEntity(requestBody);
@@ -85,6 +86,7 @@ public class MemberController {
     }
 
 
+
     /*로그인*/
     // 멤버 등록
     @PostMapping("/register")
@@ -95,4 +97,5 @@ public class MemberController {
         log.info("Member Registration Successfully");
         return "login";
     }
+
 }

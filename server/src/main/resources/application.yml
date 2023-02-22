@@ -20,6 +20,32 @@ logging: # (1) 로그 레벨 설정
       springframework:
         orm:
           jpa: DEBUG
+<<<<<<< HEAD
 
+=======
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${G_CLIENT_ID}
+            clientSecret: ${G_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+          github:
+            clientId: ${H_CLIENT_ID}
+            clientSecret: ${H_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-name: GitHub
+            scope:
+              - user
+              - repo
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+>>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
     
 
