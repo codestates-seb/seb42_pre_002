@@ -10,6 +10,7 @@ import com.codestate.server.replies.response.MultiResponseDto;
 import com.codestate.server.replies.response.SingleResponseDto;
 import com.codestate.server.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
+@Log4j2
 public class MemberController {
 
     private final static String MEMBER_DEFAULT_URL = "/members";
     private final MemberService service;
     private final MemberMapper mapper;
-    private final MemberRepository memberRepository;
 
+    @GetMapping("/index")
+    public String index(){
+        return "stackoverflow";
+    }
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody){
@@ -79,4 +84,18 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+
+    /*로그인*/
+    // 멤버 등록
+    @PostMapping("/register")
+    public String registerMember(@Valid MemberDto.Post requestBody){
+        Member member = mapper.PostDtoToEntity(requestBody);
+        service.createMember(member);
+
+        log.info("Member Registration Successfully");
+        return "login";
+    }
+
 }

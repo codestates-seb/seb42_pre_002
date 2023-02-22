@@ -16,11 +16,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-@Transactional
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -50,6 +51,7 @@ public class QuestionService {
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Question updateQuestion(Question question){
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
         Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);

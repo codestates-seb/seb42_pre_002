@@ -10,13 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
-//@Transactional
+@Transactional
 public class RepliesService {
 
     private final RepliesRepository repliesRepository;
@@ -28,6 +29,7 @@ public class RepliesService {
     }
 
     // 내용 수정
+    @Transactional(propagation = Propagation.REQUIRED)
     public Replies updateReplies(Replies replies){
         Replies findReplies = findVerifiedId(replies.getRid());
 
@@ -37,6 +39,7 @@ public class RepliesService {
 
 
     // 찾기
+    @Transactional(readOnly=true)
     public Replies findReply(long rid){return findVerifiedId(rid);}
 
     // 모두 찾기

@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -28,7 +30,8 @@ public class MemberService {
 
     // 생성
     public Member createMember(Member member){
-        memberRepository.VerifiedEmail(member.getEmail());
+
+        VerifiedEmail(member.getEmail());
 
 //        Member saveMember = memberRepository.save(member);
 //
@@ -38,6 +41,7 @@ public class MemberService {
     }
 
     // 수정
+    @Transactional(propagation = Propagation.REQUIRED)
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
@@ -47,6 +51,7 @@ public class MemberService {
     }
 
     // 찾기
+    @Transactional(readOnly = true)
     public Member findMember(long memberId){return findVerifiedMember(memberId);}
 
     public Page<Member> findMembers(int page, int size){
@@ -67,7 +72,8 @@ public class MemberService {
         return findMember;
     }
 
-    private void verifyExistsEmail(String email){
+    private void VerifiedEmail(String email){
+
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
