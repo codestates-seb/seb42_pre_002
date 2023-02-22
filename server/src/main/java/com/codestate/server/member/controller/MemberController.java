@@ -28,8 +28,6 @@ public class MemberController {
     private final static String MEMBER_DEFAULT_URL = "/members";
     private final MemberService service;
     private final MemberMapper mapper;
-    private final MemberRepository memberRepository;
-
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody){

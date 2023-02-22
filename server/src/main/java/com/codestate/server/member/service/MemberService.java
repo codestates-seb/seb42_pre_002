@@ -29,7 +29,7 @@ public class MemberService {
 
     // 생성
     public Member createMember(Member member){
-        memberRepository.VerifiedEmail(member.getEmail());
+        VerifiedEmail(member.getEmail());
 
 //        Member saveMember = memberRepository.save(member);
 //
@@ -70,7 +70,7 @@ public class MemberService {
         return findMember;
     }
 
-    private void verifyExistsEmail(String email){
+    private void VerifiedEmail(String email){
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);

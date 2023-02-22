@@ -14,13 +14,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findById(Long id);
     Optional<Member> findByEmail(String email);
 
-    // 유효성 검사
-    default Member VerifiedEmail(String email){
-        Optional<Member> optionalMember = findByEmail(email);
-
-        Member findMembers = optionalMember.orElseThrow(()->
-                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-
-        return findMembers;
-    }
 }
