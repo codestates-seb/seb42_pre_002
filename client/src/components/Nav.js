@@ -6,18 +6,18 @@ import worrieicon from '../esset/worried.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const NavContainer = styled.nav`
-  height: 160px;
-  position: sticky;
-  top: 50px;
-  width: 164px;
-  z-index: 10;
+  /* height: 160px; */
+  /* position: sticky; */
+  /* top: 50px; */
+  width: 100%;
+  /* z-index: 10; */
   margin-top: 20px;
 `;
 
 const MenuContainer = styled.ul`
   all: unset;
   flex-direction: column;
-  width: 164px;
+  /* width: 164px; */
 `;
 
 const NavMenu = styled.li`
@@ -31,7 +31,7 @@ const NavMenu = styled.li`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 34px;
-  width: 164px;
+  /* width: 164px; */
   > span {
     cursor: pointer;
   }
@@ -56,7 +56,7 @@ const MenuPublic = styled.li`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 34px;
-  width: 164px;
+  /* width: 164px; */
 `;
 
 const PUBLIC = styled.span`
@@ -122,6 +122,7 @@ export default function Nav() {
           css={`
             padding-left: 10px;
             font-size: 7px;
+            justify-content: space-between;
           `}
         >
           <span>COLLECTIVES</span>
@@ -129,7 +130,7 @@ export default function Nav() {
             src={worrieicon}
             alt="느낌표"
             css={`
-              padding-left: 60px;
+              padding-right: 12px;
             `}
           />
         </MenuPublic>
@@ -149,7 +150,7 @@ export default function Nav() {
             font-size: 7px;
           `}
         >
-          <sapn>TEAMS</sapn>
+          <span>TEAMS</span>
         </MenuPublic>
       </MenuContainer>
     </NavContainer>
