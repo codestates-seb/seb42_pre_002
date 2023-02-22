@@ -14,7 +14,8 @@ export default function Nav() {
           <div>Companies</div>
         </div>
         <div>
-          COLLECTIVES
+          <div>COLLECTIVES</div>
+          <div>느낌표</div>
           <div>
             <div>별표</div>
             <div>Explore Collectives</div>
