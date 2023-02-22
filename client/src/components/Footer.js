@@ -7,7 +7,7 @@ const Background = styled.div`
     'Segoe UI', 'Liberation Sans', sans-serif;
   padding-top: 20px;
   padding-bottom: 0px;
-  font-size: 3px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,13 +31,13 @@ const Log = styled.img`
 const H2 = styled.div`
   color: hsl(210, 8%, 60%);
   margin-right: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 const H1 = styled.h4`
   color: hsl(210, 8%, 75%);
   margin-right: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 const H3 = styled.div`
   color: hsl(210, 8%, 60%);
