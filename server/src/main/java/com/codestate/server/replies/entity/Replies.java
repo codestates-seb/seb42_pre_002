@@ -34,6 +34,7 @@ public class Replies extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RepliesStatus repliesStatus = RepliesStatus.REPLIES_REQUEST;
 
+
     // 컬럼 간 매핑
     @AllArgsConstructor
     public enum RepliesStatus{

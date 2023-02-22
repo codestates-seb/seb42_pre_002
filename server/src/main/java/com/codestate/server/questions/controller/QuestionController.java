@@ -53,14 +53,14 @@ public class QuestionController {
         questionPatchDto.setQuestionId(questionId);
         Question question = questionService.updateQuestion(mapper.QuestionPatchDtoTQuestions(questionPatchDto));
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.QuestionToQuestionResponseDto(question)),HttpStatus.OK);
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id")@Positive long questionId){
         Question question = questionService.findQuestion(questionId);
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.QuestionToQuestionResponseDto(question)),HttpStatus.OK);
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     // 전체 질문 조회 (최신순)
@@ -77,8 +77,8 @@ public class QuestionController {
 
     // 전체 질문 조회 (조회순)
     @GetMapping("/view")
-    public ResponseEntity getRecommendQuestions(@Positive @RequestParam int page,
-                                                @Positive @RequestParam int size){
+    public ResponseEntity getVQuestions(@Positive @RequestParam int page,
+                                        @Positive @RequestParam int size){
         Page<Question> pageQuestions = questionService.findRecommendQuestions(page - 1, size);
         List<Question> questions = pageQuestions.getContent();
 

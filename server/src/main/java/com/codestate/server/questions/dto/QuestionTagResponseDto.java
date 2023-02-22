@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class QuestionTagResponseDto {
-    private long questionTagId;
+    private long tagId;
 
     private String title;
 }

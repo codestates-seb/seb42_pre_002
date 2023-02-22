@@ -64,4 +64,5 @@ public class Member extends BaseEntity {
         @Getter
         private String status;
     }
+
 }

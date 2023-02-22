@@ -25,9 +25,12 @@ public class QuestionPostDto {
     @NotBlank
     private String expectContent;
 
+    private List<QuestionTagDto> questionTags;
+
     public Member getMember(){
         Member member = new Member();
         member.setMemberId(memberId);
         return member;
     }
+
 }

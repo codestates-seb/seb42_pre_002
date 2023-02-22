@@ -1,5 +1,6 @@
 package com.codestate.server.questions.entity;
 
+import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.tag.entity.Tag;
 import lombok.Getter;
@@ -41,4 +42,5 @@ public class QuestionTag {
             this.tag.setQuestionTags(this);
         }
     }
+
 }
