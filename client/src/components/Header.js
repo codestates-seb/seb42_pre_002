@@ -4,6 +4,8 @@ import search from '../esset/search.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+import Hamburger from './Hamburger';
+
 const WLogo = styled.div`
   height: 100%;
   display: flex;
@@ -51,6 +53,8 @@ const Menu = styled.div`
 `;
 
 const SignBtnWrapper = styled.div`
+  width: 140px;
+  margin-left: 8px;
   > button {
     border-radius: 3px;
     height: 33px;
@@ -85,7 +89,8 @@ const BSignup = styled.button`
 const Input = styled.div`
   display: flex;
   align-items: center;
-  width: 55%;
+  /* width: 55%; */
+  flex: 1 0 auto;
   height: 32px;
   border-radius: 3px;
   border: 1px solid hsl(210, 8%, 75%);
@@ -110,7 +115,7 @@ const Input = styled.div`
   }
 `;
 
-export default function Header() {
+export default function Header({ page }) {
   const [inputFocus, setInputFocus] = useState(false);
 
   const navigate = useNavigate();
@@ -119,6 +124,7 @@ export default function Header() {
 
   return (
     <Wrapper>
+      {!page.navi && <Hamburger />}
       <WLogo
         onClick={() => {
           navigate('/');
