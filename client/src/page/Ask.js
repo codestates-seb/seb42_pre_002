@@ -5,6 +5,7 @@ import MDEditor from '@uiw/react-md-editor';
 import spotBell from '../esset/spotBell.svg';
 import arrowupalt from '../esset/arrowupalt.svg';
 import background from '../esset/background.svg';
+import Tag from '../components/questions/Tag';
 
 const Container = styled.div`
   width: 100%;
@@ -336,9 +337,13 @@ const InputContainer = styled.div`
     border: 1px solid hsl(210, 8%, 75%);
     border-radius: 3px;
     min-height: 37px;
+    display: flex;
     &.focus {
       border: 1px solid hsl(206, 90%, 69.5%);
       box-shadow: 0px 0px 0px 4px rgba(0, 116, 204, 0.15);
+    }
+    > span {
+      display: flex;
     }
     > input {
       width: 19px;
@@ -513,6 +518,9 @@ export default function Ask({ setPage }) {
     tags: false,
   });
   const [value, setValue] = useState('');
+  const [tags, setTags] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [title, setTitle] = useState('');
 
   const titleButton = useRef(null);
   const titleHelp = useRef(null);
@@ -577,6 +585,33 @@ export default function Ask({ setPage }) {
     submitButton.current.classList.remove('hiden');
   };
 
+  const TagsAddHandler = (e) => {
+    if (e.key === 'Enter') {
+      const copy = [...tags];
+      copy.push(inputValue);
+      setTags(copy);
+      setInputValue('');
+    }
+  };
+
+  const tagsDeleteHandler = (idx) => {
+    const copy = [...tags];
+    const filtered = copy.filter((el, indx) => idx !== indx);
+    setTags(filtered);
+  };
+
+  const discardClickHandler = () => {
+    setInputValue('');
+    setInputFocus({
+      title: false,
+      body: false,
+      tags: false,
+    });
+    setTags([]);
+    setValue('');
+    window.location.reload();
+  };
+
   useEffect(() => {
     setPage({ navi: false, foot: true });
   }, []);
@@ -634,7 +669,9 @@ export default function Ask({ setPage }) {
                     name="title"
                     type="text"
                     maxLength="300"
+                    value={title}
                     placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+                    onChange={(e) => setTitle(e.target.value)}
                     onFocus={inputFocusHandler}
                     onBlur={inputFocusHandler}
                   ></input>
@@ -729,9 +766,27 @@ export default function Ask({ setPage }) {
                       onFocus={tagsFocusHandler}
                       onBlur={tagsFocusHandler}
                     >
+                      <span>
+                        {tags.length === 0
+                          ? ''
+                          : tags.map((el, idx) => (
+                              <Tag
+                                key={idx}
+                                text={el}
+                                boolean={true}
+                                tagsDeleteHandler={tagsDeleteHandler}
+                                idx={idx}
+                              />
+                            ))}
+                      </span>
                       <input
                         id="tageditor-replacing-tagnames--input"
                         placeholder="e.g. (ajax iphone string)"
+                        value={inputValue}
+                        onKeyUp={TagsAddHandler}
+                        onChange={(e) => {
+                          setInputValue(e.target.value);
+                        }}
                       ></input>
                     </div>
                   </InputContainer>
@@ -843,7 +898,7 @@ export default function Ask({ setPage }) {
           Post your question
         </button>
         <div>
-          <button>Discard draft</button>
+          <button onClick={discardClickHandler}>Discard draft</button>
         </div>
       </SubmitContainer>
     </Container>
