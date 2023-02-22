@@ -3,7 +3,8 @@ import Tag from './Tag';
 
 const ListBox = styled.div`
   padding: 16px;
-  height: 158px;
+  flex: 1 auto;
+  width: 100%;
   background-color: unset;
   border-bottom: 1px solid hsl(210, 8%, 90%);
   display: flex;
@@ -70,14 +71,88 @@ const MainBody = styled.div`
 const UserBox = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 8px;
+  column-gap: 6px;
+`;
+
+const TagDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  line-height: 18px;
+  float: left;
+
   > ul {
     list-style: none;
     margin-bottom: 1em;
     display: flex;
   }
+`;
+
+const UserDiv = styled.div`
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+`;
+
+const UserImgDiv = styled.div`
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  padding: 0;
+  > img {
+    border-radius: 3px;
+    height: 16px;
+    width: 16px;
+  }
+`;
+
+const UserName = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 4px;
   > div {
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    font-size: 12px;
+    white-space: nowrap;
+    align-items: center;
+    display: flex;
+    min-width: 0;
+    overflow-wrap: break-word;
+    margin: -2px;
+    > div {
+      margin: 2px;
+      color: rgb(0, 116, 204);
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+  > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    display: flex;
+    gap: 6px;
+    > li {
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+`;
+
+const UserTime = styled.div`
+  white-space: nowrap;
+  font-size: 12px;
+  > span {
+    text-decoration: none;
+    white-space: nowrap;
   }
 `;
 
@@ -108,11 +183,40 @@ export default function Footer() {
           {`I want to write a macro to support parameterized tests, and got the following code from AI, but got errors on one line: #[macro_export] macro_rules! parameterize { ($name:ident, $params:pat, {$($...`}
         </MainBody>
         <UserBox>
-          <ul>
-            <Tag text={'javaScript'} />
-            <Tag text={'google-play'} />
-          </ul>
-          <div>nick name + asked time</div>
+          <TagDiv>
+            <ul>
+              <Tag text={'javaScript'} />
+              <Tag text={'google-play'} />
+              <Tag text={'google-play'} />
+              <Tag text={'google-play'} />
+              <Tag text={'google-play'} />
+              <Tag text={'google-play'} />
+              <Tag text={'google-play'} />
+            </ul>
+          </TagDiv>
+          <UserDiv>
+            <UserImgDiv>
+              <img
+                src="https://picsum.photos/16/16/?random"
+                alt="userImg"
+              ></img>
+            </UserImgDiv>
+            <UserName>
+              <div>
+                <div>
+                  <div>casolorz</div>
+                </div>
+              </div>
+              <ul>
+                <li>
+                  <span>7,956</span>
+                </li>
+              </ul>
+            </UserName>
+            <UserTime>
+              asked <span>Jun 6, 2017 at 18:54</span>
+            </UserTime>
+          </UserDiv>
         </UserBox>
       </MainBox>
     </ListBox>

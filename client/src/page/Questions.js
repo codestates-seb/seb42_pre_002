@@ -152,7 +152,7 @@ const Rbutton = styled.button`
 const AllQuestions = styled.div`
   margin-left: -24px;
   border-top: 1px solid hsl(210, 8%, 85%);
-  width: 100%;
+  width: 103.5%;
 `;
 
 const TLi = styled.li`
