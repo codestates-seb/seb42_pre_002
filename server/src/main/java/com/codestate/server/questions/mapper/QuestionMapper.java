@@ -19,30 +19,34 @@ public interface QuestionMapper {
 
     default Question QuestionPostDtoToQuestions (QuestionPostDto questionPostDto){
         Question question = new Question();
-        question.setTitle(questionPostDto.getTitle());
-        question.setProblemContent(questionPostDto.getProblemContent());
-        question.setExpectContent(questionPostDto.getExpectContent());
-
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());
 
         List<QuestionTag> questionTags = questionPostDto.getQuestionTags().stream()
-                .map(questionTagDto -> {
-                    QuestionTag questionTag = new QuestionTag();
-                    Tag tag = new Tag();
-                    tag.setTagId(questionTagDto.getTagId());
-                    questionTag.setQuestion(question);
-                    questionTag.setTag(tag);
-                    return questionTag;
-                }).collect(Collectors.toList());
+                        .map(questionTagDto -> {
+                            QuestionTag questionTag = new QuestionTag();
+                            Tag tag = new Tag();
+                            tag.setTagId(questionTagDto.getTagId());
+                            questionTag.addQuestion(question);
+                            questionTag.addTag(tag);
+                            questionTag.setTitle(questionTagDto.getTitle());
+                            return questionTag;
+                        }).collect(Collectors.toList());
         question.setMember(member);
         question.setQuestionTags(questionTags);
+        question.setTitle(questionPostDto.getTitle());
+        question.setProblemContent(questionPostDto.getProblemContent());
+        question.setExpectContent(questionPostDto.getExpectContent());
         return question;
+
+
+
     }
     Question QuestionPatchDtoTQuestions (QuestionPatchDto questionPatchDto);
 
     @Mapping(source = "member.memberId", target = "memberId")
     default QuestionResponseDto questionToQuestionResponseDto(Question question) {
+        List<QuestionTag> questionTags = question.getQuestionTags();
 
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
@@ -56,6 +60,9 @@ public interface QuestionMapper {
         questionResponseDto.setModDate(question.getModDate());
         questionResponseDto.setQuestionStatus(question.getQuestionStatus());
         questionResponseDto.setViewCnt(question.getViewCnt());
+        questionResponseDto.setQuestionTags(
+                questionTagsToQuestionTagResponseDtos(questionTags)
+        );
 
 
         //List<Replies> answers = question.getQuestionReplies();
@@ -63,9 +70,22 @@ public interface QuestionMapper {
 
         return questionResponseDto;
     }
+    default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(
+                                                List<QuestionTag> questionTags) {
+        return questionTags
+                .stream()
+                .map(questionTag -> QuestionTagResponseDto
+                        .builder()
+                        .tagId(questionTag.getTag().getTagId())
+                        .title(questionTag.getTitle())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
     List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
 
     QuestionTag QuestionDtoToQuestionTag (QuestionTagDto questionTagDto);
 
     QuestionTagResponseDto QuestionTagToQuestionTagResponseDto(QuestionTag questionTag);
+
 }

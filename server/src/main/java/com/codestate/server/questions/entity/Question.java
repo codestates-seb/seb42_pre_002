@@ -61,6 +61,13 @@ public class Question extends BaseEntity {
     @OneToMany(mappedBy = "question")
     private List<QuestionTag> questionTags = new ArrayList<>();
 
+    public void addQuestionTag(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if (questionTag.getQuestion() != this) {
+            questionTag.setQuestion(this);
+        }
+    }
+
     // 게시 상태
     @AllArgsConstructor
     public enum QuestionStatus{

@@ -13,4 +13,6 @@ public class QuestionTagResponseDto {
     private long tagId;
 
     private String title;
+
+    private String summary;
 }
