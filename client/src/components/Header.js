@@ -124,7 +124,7 @@ export default function Header({ page }) {
 
   return (
     <Wrapper>
-      {!page.navi && <Hamburger />}
+      {!page.navi && <Hamburger page={page} />}
       <WLogo
         onClick={() => {
           navigate('/');

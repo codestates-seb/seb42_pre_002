@@ -69,13 +69,15 @@ const NavImg = styled.img`
 `;
 
 const Nimg = styled.img`
-  width: 164px;
-  border: 1px solid hsl(210, 8%, 85%);
+  width: ${(props) => (props.page.navi ? '164px' : '100%')};
+  border: ${(props) =>
+    props.page.navi ? '1px solid hsl(210, 8%, 85%)' : 'none'};
   border-right: none;
-  padding: 10px;
+  padding: ${(props) => (props.page.navi ? '10px' : '16px 32px 0')};
 `;
 
-export default function Nav() {
+export default function Nav({ page }) {
+  console.log(page);
   const navigate = useNavigate();
   const curruntPath = useLocation().pathname;
   return (
@@ -160,7 +162,7 @@ export default function Nav() {
         >
           <span>TEAMS</span>
         </MenuPublic>
-        <Nimg src={navImg} alt="이미지" />
+        <Nimg src={navImg} alt="이미지" page={page} />
       </MenuContainer>
     </NavContainer>
   );

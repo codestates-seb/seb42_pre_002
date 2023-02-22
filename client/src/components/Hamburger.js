@@ -64,7 +64,7 @@ const NewDiv = styled.div`
   display: ${(props) => props.display};
 `;
 
-const Hamburger = () => {
+const Hamburger = ({ page }) => {
   const [trig, setTrig] = useState(false);
   const innerRef = useOuterClick(() => setTrig(false));
 
@@ -76,7 +76,7 @@ const Hamburger = () => {
         <span className={trig ? 'move3' : ''}></span>
       </div>
       <NewDiv display={trig ? 'block' : 'none'}>
-        <Nav></Nav>
+        <Nav page={page}></Nav>
       </NewDiv>
     </StyledDiv>
   );

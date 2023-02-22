@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import styled from 'styled-components';
+import NotFound from './page/NotFound';
 
 const Body = styled.div`
   /* position: fixed; */
@@ -84,7 +85,7 @@ function App() {
         </Head>
         <Main>
           <Nv page={page}>
-            <Nav />
+            <Nav page={page} />
           </Nv>
           <Page page={page}>
             <Routes>
@@ -97,6 +98,7 @@ function App() {
               <Route path="/content" element={<Content setPage={setPage} />} />
               <Route path="/login" element={<Login setPage={setPage} />} />
               <Route path="/signup" element={<Signup setPage={setPage} />} />
+              <Route path="*" element={<NotFound setPage={setPage} />} />
             </Routes>
           </Page>
         </Main>
