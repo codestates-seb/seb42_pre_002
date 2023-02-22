@@ -16,13 +16,30 @@ const TagContainer = styled.li`
     text-align: center;
     border: 1px solid transparent;
     border-radius: 3px;
+    > span {
+      color: rgb(57, 115, 157);
+      margin-left: 4px;
+      font-weight: 900;
+      cursor: pointer;
+    }
   }
 `;
 
-const Tag = ({ text }) => {
+const Tag = ({ text, boolean, tagsDeleteHandler, idx }) => {
+  const xButtonClickHandler = () => {
+    tagsDeleteHandler(idx);
+  };
+
   return (
     <TagContainer>
-      <div>{text}</div>
+      <div>
+        {text}
+        {boolean ? (
+          <span role="presentation" onClick={xButtonClickHandler}>
+            x
+          </span>
+        ) : null}
+      </div>
     </TagContainer>
   );
 };
