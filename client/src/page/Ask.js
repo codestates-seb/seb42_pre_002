@@ -4,6 +4,7 @@ import spotPencil from '../esset/spotPencil.svg';
 import MDEditor from '@uiw/react-md-editor';
 import spotBell from '../esset/spotBell.svg';
 import arrowupalt from '../esset/arrowupalt.svg';
+import background from '../esset/background.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -29,7 +30,7 @@ const EContainer = styled.div`
 const Title = styled.div`
   height: 130px;
   width: 100%;
-  background-image: url(../esset/background.svg);
+  background-image: url(${background});
   background-repeat: no-repeat;
   background-position: right bottom;
   display: flex;
@@ -46,6 +47,7 @@ const Etitle = styled.div`
   background-color: hsl(205, 46%, 92%);
   border-radius: 3px;
   border: 1px solid hsl(205, 57%, 81%);
+  margin-top: 16px;
   > h2 {
     font-weight: 400;
     font-size: 1.61538462rem;
@@ -552,11 +554,13 @@ export default function Ask({ setPage }) {
   };
 
   const bodyButtonHandler = () => {
-    bodyButton.current.classList.add('hiden');
-    bodyHelp.current.classList.add('hiden');
-    tagsButton.current.classList.remove('hiden');
-    tagsHelp.current.classList.remove('hiden');
-    tagsBlock.current.classList.remove('block');
+    if (value.length >= 20) {
+      bodyButton.current.classList.add('hiden');
+      bodyHelp.current.classList.add('hiden');
+      tagsButton.current.classList.remove('hiden');
+      tagsHelp.current.classList.remove('hiden');
+      tagsBlock.current.classList.remove('block');
+    }
   };
 
   const tagsButtonHandler = () => {
