@@ -14,6 +14,8 @@ const Wrapper = styled.div`
   > :nth-child(1) {
     display: flex;
     gap: 16px;
+    justify-content: flex-start;
+    align-items: flex-start;
 
     > span {
       cursor: pointer;
@@ -65,7 +67,7 @@ export default function DetailContents({ curQuestion, askOrAnswer }) {
         <span role="presentation" onClick={editBtnHandler}>
           Edit
         </span>
-        <span>Follow</span>
+        <span>Delete</span>
       </div>
       <div>
         {curQuestion.edit && (
