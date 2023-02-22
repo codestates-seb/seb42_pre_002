@@ -1,6 +1,7 @@
 package com.codestate.server.questions.controller;
 
 import com.codestate.server.dto.MultiResponseDto;
+import com.codestate.server.dto.SingleResponseDto;
 import com.codestate.server.questions.dto.QuestionPatchDto;
 import com.codestate.server.questions.dto.QuestionPostDto;
 import com.codestate.server.questions.entity.Question;
@@ -51,13 +52,15 @@ public class QuestionController {
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto){
         questionPatchDto.setQuestionId(questionId);
         Question question = questionService.updateQuestion(mapper.QuestionPatchDtoTQuestions(questionPatchDto));
-        return new ResponseEntity<>(mapper.QuestionToQuestionResponseDto(question),HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.QuestionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id")@Positive long questionId){
         Question question = questionService.findQuestion(questionId);
-        return new ResponseEntity<>(mapper.QuestionToQuestionResponseDto(question),HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.QuestionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     // 전체 질문 조회 (최신순)
@@ -87,7 +90,7 @@ public class QuestionController {
     // 질문 검색
     @GetMapping("/search")
     public ResponseEntity searchQuestion(@RequestParam(name = "keyword") String keyword,
-                                         @RequestParam(name = "page") @Positive int page,
+                                         @RequestParam(name = "page") int page,
                                          @RequestParam(name = "size") int size){
         Page<Question> questionPage = questionService.searchQuestion(keyword,page-1,size);
         List<Question> questions = questionPage.getContent();
