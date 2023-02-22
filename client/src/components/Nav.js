@@ -2,6 +2,7 @@ import styled from 'styled-components/macro';
 import worldicon from '../esset/worldicon.svg';
 import staricon from '../esset/start.svg';
 import worrieicon from '../esset/worried.svg';
+import navImg from '../esset/navimg.png';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -65,6 +66,13 @@ const PUBLIC = styled.span`
 
 const NavImg = styled.img`
   margin-right: 4px;
+`;
+
+const Nimg = styled.img`
+  width: 164px;
+  border: 1px solid hsl(210, 8%, 85%);
+  border-right: none;
+  padding: 10px;
 `;
 
 export default function Nav() {
@@ -152,6 +160,7 @@ export default function Nav() {
         >
           <span>TEAMS</span>
         </MenuPublic>
+        <Nimg src={navImg} alt="이미지" />
       </MenuContainer>
     </NavContainer>
   );
