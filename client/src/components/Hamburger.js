@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
+import Nav from './Nav';
+
 import useOuterClick from '../hooks/useOuterClick';
 
 const StyledDiv = styled.div`
@@ -16,8 +18,8 @@ const StyledDiv = styled.div`
   }
 
   > :nth-child(1) {
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,12 +51,16 @@ const StyledDiv = styled.div`
 
 const NewDiv = styled.div`
   position: absolute;
-  top: 46px;
+  top: 45px;
   left: 0;
-  width: 200px;
-  height: 200px;
-  background-color: grey;
+  width: 242px;
+  background-color: #ffffff;
+  border: 1px solid #e3e6e8;
+  border-top: none;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
   z-index: 1100;
+
   display: ${(props) => props.display};
 `;
 
@@ -63,14 +69,14 @@ const Hamburger = () => {
   const innerRef = useOuterClick(() => setTrig(false));
 
   return (
-    <StyledDiv onClick={() => setTrig(!trig)} ref={innerRef}>
-      <div>
+    <StyledDiv ref={innerRef}>
+      <div role="presentation" onClick={() => setTrig(!trig)}>
         <span className={trig ? 'move1' : ''}></span>
         <span className={trig ? 'move2' : ''}></span>
         <span className={trig ? 'move3' : ''}></span>
       </div>
       <NewDiv display={trig ? 'block' : 'none'}>
-        <a href="/content">kjljlkj</a>
+        <Nav></Nav>
       </NewDiv>
     </StyledDiv>
   );
