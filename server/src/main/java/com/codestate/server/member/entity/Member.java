@@ -2,6 +2,7 @@ package com.codestate.server.member.entity;
 
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.questions.entity.Question;
+import com.codestate.server.replies.entity.Replies;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
 
@@ -28,6 +29,17 @@ public class Member extends BaseEntity {
 
     private String password;
 
+    // 연관관계 매핑
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
+
+
+    public void addQuestion(Question question) {
+        this.questions.add(question);
+        if(question.getMember() != this) {
+            question.setMember(this);
+        }
+    }
 
 
 //    public Member(String email){this.email = email;}

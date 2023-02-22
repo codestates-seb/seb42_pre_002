@@ -13,12 +13,12 @@ public interface RepliesRepository extends JpaRepository<Replies, Long> {
     Optional<Replies> findById(Long rid);
     Optional<Replies> findByWriter(String writer);
 
-    // board 삭제시 댓글 삭제
+    /*// board 삭제시 댓글 삭제
     @Modifying
     @Query("delete from Replies r where r.Question.questionId =: questionId")
     void deleteByQuestionId(Long bno);
 
     // 게시물 댓글 목록 가져오기
-    List<Replies> getRepliesByBoardOrderByRno(Question question);
+    List<Replies> getRepliesByBoardOrderByRno(Question question);*/
 
 }

@@ -1,5 +1,6 @@
 package com.codestate.server.questions.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 
 @Getter
+@AllArgsConstructor
 public class QuestionPostDto {
 
     @NotNull
@@ -16,7 +18,10 @@ public class QuestionPostDto {
     private String title;
 
     @NotBlank
-    private String content;
+    private String problemContent;
+
+    @NotBlank
+    private String expectContent;
 
     private LocalDateTime regDate;
 }
