@@ -29,9 +29,9 @@ public class Company extends BaseEntity {
     @Column(nullable = false)
     private String position;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
 //    private String tag_tno;
-    @ManyToOne
-    @JoinColumn(name="tagId")
     private Tag tag;
 
         public void addQuestion(Tag tag){
