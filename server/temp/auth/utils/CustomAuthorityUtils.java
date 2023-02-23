@@ -1,6 +1,5 @@
 package com.codestate.server.auth.utils;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class RoleAuthorityUtils {
+public class CustomAuthorityUtils {
     @Value("${mail.address.admin}")
     private String adminMailAddress;
 

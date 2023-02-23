@@ -30,6 +30,11 @@ mail:
   address:
     admin: admin@gmail.com
 
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+#
 
 #  security:
 #    oauth2:
@@ -50,8 +55,3 @@ mail:
 #            scope:
 #              - user
 #              - repo
-#jwt:
-#  secret-key: ${JWT_SECRET_KEY}
-#  access-token-expiration-minutes: 30
-#  refresh-token-expiration-minutes: 420
-

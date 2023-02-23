@@ -1,7 +1,7 @@
 package com.codestate.server.member.mapper;
 
-import com.codestate.server.member.dto.MemberDto;
 import com.codestate.server.member.entity.Member;
+import com.codestate.server.member.dto.MemberDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

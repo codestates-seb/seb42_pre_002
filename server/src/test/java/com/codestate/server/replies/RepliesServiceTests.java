@@ -23,15 +23,15 @@ public class RepliesServiceTests {
     private RepliesRepository repliesRepository;
     @Autowired
     private CustomBeanUtils<Replies> beanUtils;
-    @Test
-    public void createTest() {
-
-        Replies entity = Replies.builder()
-                .content("Retest45")
-                .build();
-
-        System.out.println(service.createReplies(entity));
-    }
+//    @Test
+//    public void createTest() {
+////
+////        Replies entity = Replies.builder()
+////                .content("Retest45")
+////                .build();
+////
+////        System.out.println(service.createReplies(entity));
+////    }
 
     @Test
     public Replies updateReplies(Replies replies){

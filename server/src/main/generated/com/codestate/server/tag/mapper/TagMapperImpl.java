@@ -4,13 +4,14 @@ import com.codestate.server.tag.dto.TagPatchDto;
 import com.codestate.server.tag.dto.TagPostDto;
 import com.codestate.server.tag.dto.TagResponseDto;
 import com.codestate.server.tag.entity.Tag;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-20T19:52:48+0900",
+    date = "2023-02-24T00:31:19+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 16.0.1 (AdoptOpenJDK)"
 )
 @Component
@@ -22,18 +23,10 @@ public class TagMapperImpl implements TagMapper {
             return null;
         }
 
-        String title = null;
-        String summary = null;
+        Tag tag = new Tag();
 
-        title = tagPostDto.getTitle();
-        summary = tagPostDto.getSummary();
-
-        long tagId = 0L;
-        int tagCount = 0;
-        LocalDateTime regDate = null;
-        LocalDateTime modDate = null;
-
-        Tag tag = new Tag( tagId, title, summary, tagCount, regDate, modDate );
+        tag.setTitle( tagPostDto.getTitle() );
+        tag.setSummary( tagPostDto.getSummary() );
 
         return tag;
     }
@@ -44,19 +37,11 @@ public class TagMapperImpl implements TagMapper {
             return null;
         }
 
-        long tagId = 0L;
-        String title = null;
-        String summary = null;
+        Tag tag = new Tag();
 
-        tagId = tagPatchDto.getTagId();
-        title = tagPatchDto.getTitle();
-        summary = tagPatchDto.getSummary();
-
-        int tagCount = 0;
-        LocalDateTime regDate = null;
-        LocalDateTime modDate = null;
-
-        Tag tag = new Tag( tagId, title, summary, tagCount, regDate, modDate );
+        tag.setTagId( tagPatchDto.getTagId() );
+        tag.setTitle( tagPatchDto.getTitle() );
+        tag.setSummary( tagPatchDto.getSummary() );
 
         return tag;
     }
@@ -69,6 +54,24 @@ public class TagMapperImpl implements TagMapper {
 
         TagResponseDto tagResponseDto = new TagResponseDto();
 
+        tagResponseDto.setTagId( tag.getTagId() );
+        tagResponseDto.setTitle( tag.getTitle() );
+        tagResponseDto.setSummary( tag.getSummary() );
+
         return tagResponseDto;
+    }
+
+    @Override
+    public List<TagResponseDto> TagsToTagResponseDtos(List<Tag> tags) {
+        if ( tags == null ) {
+            return null;
+        }
+
+        List<TagResponseDto> list = new ArrayList<TagResponseDto>( tags.size() );
+        for ( Tag tag : tags ) {
+            list.add( TagToTagResponseDto( tag ) );
+        }
+
+        return list;
     }
 }

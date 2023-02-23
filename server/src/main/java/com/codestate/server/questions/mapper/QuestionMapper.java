@@ -4,8 +4,6 @@ import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.dto.*;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.entity.QuestionTag;
-import com.codestate.server.replies.dto.RepliesResponseDto;
-import com.codestate.server.replies.entity.Replies;
 import com.codestate.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,14 +1,11 @@
 package com.codestate.server.questions.entity;
 
-import com.codestate.server.member.entity.Member;
-import com.codestate.server.questions.entity.Question;
 import com.codestate.server.tag.entity.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter

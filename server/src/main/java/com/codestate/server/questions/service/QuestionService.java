@@ -1,7 +1,7 @@
 package com.codestate.server.questions.service;
 
 import com.codestate.server.member.entity.Member;
-import com.codestate.server.member.service.MemberService_backup;
+import com.codestate.server.member.service.MemberService;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.repository.QuestionRepository;
 import com.codestate.server.exception.BusinessLogicException;
@@ -30,13 +30,13 @@ public class QuestionService {
     private final QuestionRepository questionsRepository;
     private final CustomBeanUtils<Question> beanUtils;
 
-    private MemberService_backup memberService;
+    private MemberService memberService;
 
     private TagService tagService;
 
     public Question createQuestion(Question question){
         // 등록된 회원인지 검증
-        Member verifiedMember = memberService.findVerifiedMember(question.getMember().getMemberId());
+        Member verifiedMember = memberService.findMember(question.getMember().getMemberId());
         question.setMember(verifiedMember);
 
         //태그가 존재하는지 검증

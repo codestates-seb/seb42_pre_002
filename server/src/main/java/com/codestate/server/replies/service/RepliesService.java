@@ -1,7 +1,10 @@
 package com.codestate.server.replies.service;
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
+import com.codestate.server.questions.entity.Question;
+import com.codestate.server.replies.dto.RepliesDto;
 import com.codestate.server.replies.entity.Replies;
+import com.codestate.server.replies.mapper.RepliesMapper;
 import com.codestate.server.replies.repository.RepliesRepository;
 import com.codestate.server.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +15,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -22,6 +28,7 @@ public class RepliesService {
 
     private final RepliesRepository repliesRepository;
     private final CustomBeanUtils<Replies> beanUtils;
+    private final RepliesMapper mapper;
 
     // 리뷰 생성
     public Replies createReplies(Replies replies) {
@@ -39,8 +46,14 @@ public class RepliesService {
 
 
     // 찾기
+//    @Transactional(readOnly=true)
+//    public Replies findReply(long rid){return findVerifiedId(rid);}
+
     @Transactional(readOnly=true)
-    public Replies findReply(long rid){return findVerifiedId(rid);}
+    public List<RepliesDto.Response> findReply(Long questionId){
+        List<Replies> result = repliesRepository.getRepliesByQuestionOrderByQuestion(Question.builder().questionId(questionId).build());
+        return result.stream().map(replies -> mapper.entityToDto(replies)).collect(Collectors.toList());
+    }
 
     // 모두 찾기
     public Page<Replies> findReplies(int page, int size){

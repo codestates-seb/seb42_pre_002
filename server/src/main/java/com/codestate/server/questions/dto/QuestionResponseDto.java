@@ -1,9 +1,7 @@
 package com.codestate.server.questions.dto;
 
-import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.replies.dto.RepliesResponseDto;
-import com.codestate.server.tag.entity.Tag;
 import lombok.*;
 
 import java.time.LocalDateTime;

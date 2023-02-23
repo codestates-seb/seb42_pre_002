@@ -2,22 +2,25 @@ package com.codestate.server.response;
 
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
+//import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
 public class ErrorResponse { // 에러 정보만 담는 클래스
-
 
     private int status;
     private String message;
@@ -32,7 +35,7 @@ public class ErrorResponse { // 에러 정보만 담는 클래스
     private ErrorResponse(final List<FieldError> fieldErrors,
                           final List<ConstraintViolationError> violationErrors){
         this.fieldErrors=fieldErrors;
-        this.violationErrors=violationErrors;
+       this.violationErrors=violationErrors;
 
     }
 
@@ -69,12 +72,13 @@ public class ErrorResponse { // 에러 정보만 담는 클래스
         private String reason;
 
         public static List<FieldError> of(BindingResult bindingResult){
-            final List<org.springframework.validation.FieldError> fieldErrors = bindingResult.getFieldErrors();
-
+            final List<org.springframework.validation.FieldError> fieldErrors =
+                                                        bindingResult.getFieldErrors();
             return fieldErrors.stream()
                     .map(error -> new FieldError(
                             error.getField(),
-                            error.getRejectedValue()  == null? "" : error.getRejectedValue().toString(),
+                            error.getRejectedValue() == null ?
+                                            "" : error.getRejectedValue().toString(),
                             error.getDefaultMessage()))
                     .collect(Collectors.toList());
         }
@@ -98,4 +102,14 @@ public class ErrorResponse { // 에러 정보만 담는 클래스
                     )).collect(Collectors.toList());
         }
     }
+
+
+//        public static void sendErrorResponse(HttpServletResponse response, HttpStatus status) throws IOException {
+//            Gson gson = new Gson();
+//            ErrorResponse errorResponse = ErrorResponse.of(status);
+//            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//            response.setStatus(status.value());
+//            response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
+//        }
+
 }

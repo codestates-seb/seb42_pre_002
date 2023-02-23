@@ -1,12 +1,10 @@
 package com.codestate.server.replies.entity;
 
 import com.codestate.server.audit.BaseEntity;
-import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 

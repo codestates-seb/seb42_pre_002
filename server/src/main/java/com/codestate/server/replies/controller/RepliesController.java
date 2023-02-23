@@ -8,8 +8,10 @@ import com.codestate.server.replies.response.SingleResponseDto;
 import com.codestate.server.replies.service.RepliesService;
 import com.codestate.server.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/replies")
+@Log4j2
 public class RepliesController {
 
     private final static String REPLIES_DEFAULT_URL="/replies";
@@ -52,12 +55,19 @@ public class RepliesController {
 
 
 
-    @GetMapping("/{rid}")
-    public ResponseEntity getReply(@PathVariable("rid") long rid){
-        Replies replies = service.findReply(rid);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.entityToDto(replies)),HttpStatus.OK);
+        //find - v1
+//    @GetMapping("/{rid}")
+//    public ResponseEntity getReply(@PathVariable("rid") long rid){
+//        Replies replies = service.findReply(rid);
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(mapper.entityToDto(replies)),HttpStatus.OK);
+//    }
+    //find - v2
+    @GetMapping(value = "/question/{questionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RepliesDto.Response>> getListByQuestion(@PathVariable("questionId") Long questionId){
+        log.info("question Id : "+questionId);
+        return new ResponseEntity<>(service.findReply(questionId),HttpStatus.OK);
     }
 
     @GetMapping

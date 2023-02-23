@@ -3,15 +3,13 @@ package com.codestate.server.questions.entity;
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.replies.entity.Replies;
-import com.codestate.server.tag.entity.Tag;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

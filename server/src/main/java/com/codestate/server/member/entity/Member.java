@@ -1,6 +1,7 @@
 package com.codestate.server.member.entity;
 
 import com.codestate.server.audit.BaseEntity;
+import com.codestate.server.questions.entity.Question;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
@@ -15,24 +16,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Getter
 @Setter
-//@Builder.Default
 public class Member extends BaseEntity implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
 
+    @Column(updatable = false, unique = true, nullable = false)
     private String email;
 
     private String nickname;
 
+    @Column(nullable = false)
     private String password;
 
     // 연관관계 매핑
-//    @OneToMany(mappedBy = "member")
-//    private List<Question> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
 
     // User 권한 정보 테이블과 매핑되는 정보
     @ElementCollection(fetch = FetchType.EAGER)
