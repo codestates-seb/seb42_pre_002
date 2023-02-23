@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   > img {
     width: 5%;
   }

@@ -48,7 +48,7 @@ const AnswerPart = () => {
       </AnswerSort>
       {cur.reply.map((x) => {
         return (
-          <Details key={x.id} curQuestion={x} askOrAnswer="answered"></Details>
+          <Details key={x.id} curData={x} askOrAnswer="answered"></Details>
         );
       })}
       <AnswerCreate></AnswerCreate>

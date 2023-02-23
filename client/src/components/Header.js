@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 
 const Menu = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 4px;
 
   > div {
     border-radius: 1000px;
@@ -95,6 +95,7 @@ const Input = styled.div`
   border-radius: 3px;
   border: 1px solid hsl(210, 8%, 75%);
   background-color: white;
+  margin: 0 8px;
 
   &.focus {
     border: 1px solid hsl(206, 90%, 69.5%);

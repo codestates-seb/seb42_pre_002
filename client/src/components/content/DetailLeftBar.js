@@ -43,7 +43,8 @@ const BarWrapper = styled.div`
   > :nth-child(5) {
     padding-right: 4px;
     &:hover {
-      fill: #0a95ff;
+      filter: invert(57%) sepia(73%) saturate(5428%) hue-rotate(188deg)
+        brightness(104%) contrast(102%);
     }
   }
 `;

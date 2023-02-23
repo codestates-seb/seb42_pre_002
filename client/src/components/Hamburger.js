@@ -34,7 +34,7 @@ const StyledDiv = styled.div`
       width: 16px;
       height: 2px;
       background-color: #525960;
-      transition: all 0.2s ease;
+      transition: all 0.1s ease;
 
       &.move1 {
         transform: translateY(5px) rotate(-45deg);

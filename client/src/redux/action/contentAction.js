@@ -3,6 +3,8 @@ export const DELETE_CURRENT_QUESTION = 'DELETE_CURRENT_QUESTION';
 export const ADD_CURRENT_ANSWER = 'ADD_CURRENT_ANSWER';
 export const DELETE_CURRENT_ANSWER = 'DELETE_CURRENT_ANSWER';
 
+export const ON_RERENDER = 'ON_RERENDER';
+
 export const addCurrentQuest = (data) => {
   return {
     type: ADD_CURRENT_QUESTION,
@@ -28,5 +30,12 @@ export const delCurrentAnswer = () => {
   return {
     type: DELETE_CURRENT_ANSWER,
     payload: {},
+  };
+};
+
+export const onRerender = (data) => {
+  return {
+    type: ON_RERENDER,
+    payload: data,
   };
 };
