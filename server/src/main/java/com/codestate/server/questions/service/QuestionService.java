@@ -1,7 +1,7 @@
 package com.codestate.server.questions.service;
 
 import com.codestate.server.member.entity.Member;
-import com.codestate.server.member.service.MemberService;
+import com.codestate.server.member.service.MemberService_backup;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.repository.QuestionRepository;
 import com.codestate.server.exception.BusinessLogicException;
@@ -30,7 +30,7 @@ public class QuestionService {
     private final QuestionRepository questionsRepository;
     private final CustomBeanUtils<Question> beanUtils;
 
-    private MemberService memberService;
+    private MemberService_backup memberService;
 
     private TagService tagService;
 
