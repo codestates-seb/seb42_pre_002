@@ -20,9 +20,17 @@ logging: # (1) 로그 레벨 설정
       springframework:
         orm:
           jpa: DEBUG
-#<<<<<<< HEAD
-#
-#=======
+
+server:
+  servlet:
+    encoding:
+      force-response: true
+
+mail:
+  address:
+    admin: admin@gmail.com
+
+
 #  security:
 #    oauth2:
 #      client:
@@ -46,6 +54,4 @@ logging: # (1) 로그 레벨 설정
 #  secret-key: ${JWT_SECRET_KEY}
 #  access-token-expiration-minutes: 30
 #  refresh-token-expiration-minutes: 420
-#
-#
-#
+
