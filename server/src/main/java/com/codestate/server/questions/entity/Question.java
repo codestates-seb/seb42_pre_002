@@ -3,6 +3,7 @@ package com.codestate.server.questions.entity;
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.replies.entity.Replies;
+import com.codestate.server.tag.entity.Tag;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -31,13 +33,14 @@ public class Question extends BaseEntity {
     private String expectContent;
 
     @Column(nullable = false)
-    private int viewCnt; // 조회수
+    private int viewCnt = 0; // 조회수
 
    /*연관관계 매핑*/
     // 질문 <-> 회원
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     public Member member;
+
 
     // 질문 <-> 답변
     @OneToMany(mappedBy = "question")
@@ -57,6 +60,13 @@ public class Question extends BaseEntity {
     // 질문 <-> 질문태그
     @OneToMany(mappedBy = "question")
     private List<QuestionTag> questionTags = new ArrayList<>();
+
+    public void addQuestionTag(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if (questionTag.getQuestion() != this) {
+            questionTag.setQuestion(this);
+        }
+    }
 
     // 게시 상태
     @AllArgsConstructor

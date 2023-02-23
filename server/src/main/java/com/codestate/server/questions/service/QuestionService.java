@@ -39,12 +39,10 @@ public class QuestionService {
         Member verifiedMember = memberService.findVerifiedMember(question.getMember().getMemberId());
         question.setMember(verifiedMember);
 
-        // 태그가 존재하는지 검증
-
+        //태그가 존재하는지 검증
         question.getQuestionTags().stream()
                         .forEach(questionTag -> tagService.findVerifiedTag(questionTag.getTag().getTagId()));
 
-        verifyExistsQuestion(question.getQuestionId());
         Question savedQuestion = saveQuestion(question);
 
         return savedQuestion;

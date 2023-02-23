@@ -1,6 +1,7 @@
 package com.codestate.server.tag.entity;
 
 import com.codestate.server.audit.BaseEntity;
+import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.entity.QuestionTag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,10 +38,12 @@ public class Tag {
     @OneToMany(mappedBy = "tag")
     private List<QuestionTag> questionTags = new ArrayList<>();
 
+
     public void setQuestionTags(QuestionTag questionTags) {
         this.questionTags.add(questionTags);
         if(questionTags.getTag() !=this) {
             questionTags.setTag(this);
         }
     }
+
 }

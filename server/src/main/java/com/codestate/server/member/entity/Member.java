@@ -76,4 +76,5 @@ public class Member extends BaseEntity implements Principal {
         ROLE_USER,
         ROLE_ADMIN
     }
+
 }
