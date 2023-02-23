@@ -1,11 +1,9 @@
 package com.codestate.server.member.controller;
 
 import com.codestate.server.member.dto.MemberDto;
-import com.codestate.server.member.dto.MemberPostDto;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.member.mapper.MemberMapper;
-import com.codestate.server.member.repository.MemberRepository;
-import com.codestate.server.member.service.MemberService;
+import com.codestate.server.member.service.MemberService_backup;
 import com.codestate.server.replies.response.MultiResponseDto;
 import com.codestate.server.replies.response.SingleResponseDto;
 import com.codestate.server.utils.UriCreator;
@@ -28,13 +26,8 @@ import java.util.List;
 public class MemberController {
 
     private final static String MEMBER_DEFAULT_URL = "/members";
-    private final MemberService service;
+    private final MemberService_backup service;
     private final MemberMapper mapper;
-
-    @GetMapping("/index")
-    public String index(){
-        return "stackoverflow";
-    }
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody){

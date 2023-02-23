@@ -43,12 +43,12 @@ public class Question extends BaseEntity {
     @OneToMany(mappedBy = "question")
     private List<Replies> questionReplies = new ArrayList<>();
 
-    public void setMember(Member member) {
-        this.member = member;
-        if(!this.member.getQuestions().contains(this)) {
-            this.member.addQuestion(this);
-        }
-    }
+//    public void setMember(Member member) {
+//        this.member = member;
+//        if(!this.member.getQuestions().contains(this)) {
+//            this.member.addQuestion(this);
+//        }
+//    }
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
@@ -71,3 +71,5 @@ public class Question extends BaseEntity {
     }
 
 }
+
+
