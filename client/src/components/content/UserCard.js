@@ -14,7 +14,7 @@ const UserCardWrap = styled.div`
 `;
 
 const StyledSpan = styled.span`
-  font-size: 12px;
+  font-size: 13px;
   ${(props) =>
     props.types === 'hover'
       ? css`
@@ -43,15 +43,13 @@ const UserName = styled.div`
 const UserCard = ({ types, user, time }) => {
   return (
     <UserCardWrap types={types}>
-      <StyledSpan types={types === 'edited' && 'hover'}>
+      <StyledSpan>
         {types +
           ' ' +
           (time
-            ? time.toDateString().slice(4) +
-              ' ' +
-              'at' +
-              ' ' +
-              time.toTimeString().slice(0, 5)
+            ? `${time.toDateString().slice(4)} at ${time
+                .toTimeString()
+                .slice(0, 5)}`
             : '')}
       </StyledSpan>
       <UserName>

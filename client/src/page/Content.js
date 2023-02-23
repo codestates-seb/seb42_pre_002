@@ -23,8 +23,8 @@ const DetailWrapper = styled.div`
 `;
 
 const DetailAndAnswer = styled.div`
-  width: 450px;
-  flex: 1 1 auto;
+  /* width: 100%; */
+  flex: 1 0 auto;
   margin-right: 16px;
 `;
 
@@ -34,6 +34,7 @@ export default function Content({ setPage }) {
   const AnswerPart = lazy(() => import('../components/content/AnswerPart'));
 
   const curQuestion = useSelector((state) => state.curQuestReducer);
+  const onRerender = useSelector((state) => state.onRerenderReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,15 +45,15 @@ export default function Content({ setPage }) {
         dispatch(addCurrentQuest(res.data));
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [onRerender]);
 
   return (
     <Wrapper>
       <Suspense fallback={<Loading></Loading>}>
-        <Title curQuestion={curQuestion} />
+        <Title />
         <DetailWrapper>
           <DetailAndAnswer>
-            <Details curQuestion={curQuestion} askOrAnswer="asked"></Details>
+            <Details curData={curQuestion}></Details>
             <AnswerPart></AnswerPart>
           </DetailAndAnswer>
           <div>

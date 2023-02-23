@@ -77,7 +77,6 @@ const Nimg = styled.img`
 `;
 
 export default function Nav({ page }) {
-  console.log(page);
   const navigate = useNavigate();
   const curruntPath = useLocation().pathname;
   return (

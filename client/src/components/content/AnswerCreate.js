@@ -24,9 +24,6 @@ const Wrapper = styled.div`
       line-height: 1.3;
     }
   }
-
-  > :nth-child(3) {
-  }
 `;
 
 const AnswerCreate = () => {

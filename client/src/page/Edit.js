@@ -174,17 +174,16 @@ const Edit = ({ setPage }) => {
     if (valid === false) return;
     if (edittype === 'question') {
       const data = {
-        ...questState,
         title: title,
         contents: content,
       };
+
       axios
-        .post('http://localhost:3001/question', data)
+        .patch('http://localhost:3001/question', data)
         .then(() => navigate(-1))
         .catch((err) => console.log(err));
     } else {
       const data = {
-        ...questState,
         reply: questState.reply.map((x) => {
           if (x.id === ansState.id) {
             return {
@@ -195,11 +194,12 @@ const Edit = ({ setPage }) => {
           } else return x;
         }),
       };
+
       axios
-        .post('http://localhost:3001/question', data)
+        .patch('http://localhost:3001/question', data)
         .then(() => {
-          navigate(-1);
           dispatch(delCurrentAnswer());
+          navigate(-1);
         })
         .catch((err) => console.log(err));
     }
@@ -225,7 +225,7 @@ const Edit = ({ setPage }) => {
             <Preview className="container" data-color-mode="light">
               {/* <MDEditor value={content} onChange={setContent} preview="edit" /> */}
               <MDEditor.Markdown
-                source={content}
+                source={questState.contents}
                 style={{ whiteSpace: 'pre-wrap' }}
               />
             </Preview>

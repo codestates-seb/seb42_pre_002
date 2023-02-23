@@ -33,7 +33,7 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function DetailContents({ curQuestion, askOrAnswer }) {
+export default function DetailFooter({ curData }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -47,11 +47,11 @@ export default function DetailContents({ curQuestion, askOrAnswer }) {
   };
 
   const editBtnHandler = () => {
-    if (askOrAnswer === 'answered') {
-      dispatch(addCurrentAnswer(curQuestion));
-      navigate('/edit/answer');
-    } else {
+    if (curData.title) {
       navigate('/edit/question');
+    } else {
+      dispatch(addCurrentAnswer(curData));
+      navigate('/edit/answer');
     }
   };
 
@@ -70,13 +70,11 @@ export default function DetailContents({ curQuestion, askOrAnswer }) {
         <span>Delete</span>
       </div>
       <div>
-        {curQuestion.edit && (
-          <UserCard types="edited" user="someone"></UserCard>
-        )}
+        {curData.edit && <UserCard types="edited" user="someone"></UserCard>}
         <UserCard
-          types={askOrAnswer}
-          user={curQuestion.author}
-          time={new Date(curQuestion.createdAt)}
+          types={curData.title ? 'asked' : 'answered'}
+          user={curData.author}
+          time={new Date(curData.createdAt)}
         ></UserCard>
       </div>
     </Wrapper>

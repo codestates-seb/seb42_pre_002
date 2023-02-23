@@ -6,7 +6,8 @@ import MDEditor from '@uiw/react-md-editor';
 import StyledBtn from './StyledBtn';
 
 import logo from '../../esset/logo.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { onRerender } from '../../redux/action/contentAction';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -85,7 +86,8 @@ const PostBtnWrap = styled.div`
 `;
 
 export default function App() {
-  const state = useSelector((state) => state.curQuestReducer);
+  const curQuest = useSelector((state) => state.curQuestReducer);
+  const dispatch = useDispatch();
   const [answer, setAnswer] = useState('');
   //test용
   // eslint-disable-next-line
@@ -93,11 +95,11 @@ export default function App() {
 
   const answerSubmit = () => {
     const answers = {
-      ...state,
+      ...curQuest,
       reply: [
-        ...state.reply,
+        ...curQuest.reply,
         {
-          id: state.reply.length,
+          id: curQuest.reply.length + 1,
           author: 'gskoo',
           contents: answer,
           createdAt: new Date(),
@@ -105,10 +107,11 @@ export default function App() {
       ],
     };
     axios
-      .post('http://localhost:3001/question', answers)
+      .patch('http://localhost:3001/question', answers)
       .then((res) => {
-        console.log(res.data);
-        window.location.reload();
+        console.log(res.status);
+        setAnswer('');
+        dispatch(onRerender({ reRender: true }));
       })
       .catch((err) => console.log(err));
   };
