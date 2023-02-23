@@ -21,11 +21,11 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         log.info("# Authenticated successfully!");
     }
 
-    private void sendErrorResponse(HttpServletResponse respone) throws IOException{
-        Gson gson = new Gson();
-        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
-        respone.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        respone.setStatus(HttpStatus.UNAUTHORIZED.value());
-        respone.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
-    }
+//    private void sendErrorResponse(HttpServletResponse respone) throws IOException{
+//        Gson gson = new Gson();
+//        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
+//        respone.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        respone.setStatus(HttpStatus.UNAUTHORIZED.value());
+//        respone.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
+//    }
 }

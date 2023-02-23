@@ -1,12 +1,11 @@
 package com.codestate.server.utils;
 
-import org.springframework.stereotype.Component;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
-
 
 @Component
 public class CustomBeanUtils<T> {

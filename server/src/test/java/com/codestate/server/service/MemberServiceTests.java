@@ -17,7 +17,7 @@ public class MemberServiceTests {
     @Test
     public void createTest(){
         Member entity = Member.builder()
-                .email("test@aa.com")
+                .email("1test@aa.com")
                 .password("pqss")
                 .nickname("admin")
                 .memberStatus(Member.MemberStatus.MEMBER_ACTIVE)
@@ -31,7 +31,7 @@ public class MemberServiceTests {
         IntStream.rangeClosed(1,10).forEach(i->{
 
             Member entity = Member.builder()
-                    .email("test"+i+"aa.com")
+                    .email("test"+i+"@aa.com")
                     .password("test"+i)
                     .nickname("testName")
                     .memberStatus(Member.MemberStatus.MEMBER_ACTIVE)

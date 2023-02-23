@@ -65,7 +65,6 @@ public class MemberController {
 
         Page<Member> pageMembers = service.findMembers(page-1, size);
         List<Member> members = pageMembers.getContent();
-
         return new ResponseEntity<>(
                 new MultiResponseDto<>(mapper.entitiesToDto(members), pageMembers), HttpStatus.OK);
     }

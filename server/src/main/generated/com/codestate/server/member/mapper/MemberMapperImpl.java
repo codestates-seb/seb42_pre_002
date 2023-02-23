@@ -4,7 +4,6 @@ import com.codestate.server.member.dto.MemberDto.Patch;
 import com.codestate.server.member.dto.MemberDto.Post;
 import com.codestate.server.member.dto.MemberDto.Response;
 import com.codestate.server.member.entity.Member;
-import com.codestate.server.member.entity.Member.MemberBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-24T00:31:19+0900",
+    date = "2023-02-24T03:08:32+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 16.0.1 (AdoptOpenJDK)"
 )
 @Component
@@ -24,13 +23,13 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        MemberBuilder member = Member.builder();
+        Member member = new Member();
 
-        member.email( requestBody.getEmail() );
-        member.nickname( requestBody.getNickname() );
-        member.password( requestBody.getPassword() );
+        member.setEmail( requestBody.getEmail() );
+        member.setNickname( requestBody.getNickname() );
+        member.setPassword( requestBody.getPassword() );
 
-        return member.build();
+        return member;
     }
 
     @Override
@@ -39,12 +38,12 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        MemberBuilder member = Member.builder();
+        Member member = new Member();
 
-        member.memberId( requestBody.getMemberId() );
-        member.nickname( requestBody.getNickname() );
+        member.setMemberId( requestBody.getMemberId() );
+        member.setNickname( requestBody.getNickname() );
 
-        return member.build();
+        return member;
     }
 
     @Override

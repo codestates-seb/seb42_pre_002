@@ -2,6 +2,8 @@ package com.codestate.server.config;
 
 import com.codestate.server.auth.filter.JwtAuthenticationFilter;
 import com.codestate.server.auth.filter.JwtVerificationFilter;
+import com.codestate.server.auth.handler.MemberAccessDeniedHandler;
+import com.codestate.server.auth.handler.MemberAuthenticationEntryPoint;
 import com.codestate.server.auth.handler.MemberAuthenticationFailureHandler;
 import com.codestate.server.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestate.server.auth.jwt.JwtTokenizer;
@@ -30,10 +32,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity(debug=true)
-@AllArgsConstructor
+//@AllArgsConstructor
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
+    private final CustomAuthorityUtils authorityUtils; // 추가
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
+                                   CustomAuthorityUtils authorityUtils) {
+        this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtils = authorityUtils;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -46,13 +54,17 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-//                        .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
+                        //.antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
                         .anyRequest().permitAll()
                 );

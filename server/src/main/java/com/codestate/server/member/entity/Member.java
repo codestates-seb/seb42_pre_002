@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+//@AllArgsConstructor
+//@Builder
 @Entity
 @Getter
 @Setter
@@ -29,6 +29,7 @@ public class Member extends BaseEntity implements Principal {
     @Column(updatable = false, unique = true, nullable = false)
     private String email;
 
+    @Column(updatable = false, unique = true, nullable = false)
     private String nickname;
 
     @Column(nullable = false)
