@@ -188,10 +188,6 @@ export default function Footer() {
               <Tag text={'javaScript'} />
               <Tag text={'google-play'} />
               <Tag text={'google-play'} />
-              <Tag text={'google-play'} />
-              <Tag text={'google-play'} />
-              <Tag text={'google-play'} />
-              <Tag text={'google-play'} />
             </ul>
           </TagDiv>
           <UserDiv>
