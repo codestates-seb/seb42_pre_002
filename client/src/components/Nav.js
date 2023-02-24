@@ -28,7 +28,7 @@ const NavMenu = styled.li`
   background-color: rgb(255, 255, 255);
   color: rgb(81, 81, 81);
   display: flex;
-  font-size: small;
+  font-size: 13px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 34px;
@@ -53,15 +53,16 @@ const MenuPublic = styled.li`
   box-sizing: border-box;
   color: rgb(81, 81, 81);
   display: flex;
-  font-size: small;
+  font-size: 11px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 34px;
+  padding-left: 10px;
   /* width: 164px; */
 `;
 
 const PUBLIC = styled.span`
-  font-weight: bold;
+  /* font-weight: bold; */
 `;
 
 const NavImg = styled.img`
@@ -79,14 +80,11 @@ const Nimg = styled.img`
 export default function Nav({ page }) {
   const navigate = useNavigate();
   const curruntPath = useLocation().pathname;
+
   return (
     <NavContainer>
       <MenuContainer>
-        <MenuPublic
-          css={`
-            padding-left: 10px;
-          `}
-        >
+        <MenuPublic>
           <PUBLIC>PUBLIC</PUBLIC>
         </MenuPublic>
         <NavMenu
@@ -129,8 +127,6 @@ export default function Nav({ page }) {
         </NavMenu>
         <MenuPublic
           css={`
-            padding-left: 10px;
-            font-size: 7px;
             justify-content: space-between;
           `}
         >
@@ -153,12 +149,7 @@ export default function Nav({ page }) {
           <NavImg src={staricon} alt="별" />
           <span>Explore Collectives</span>
         </NavMenu>
-        <MenuPublic
-          css={`
-            padding-left: 10px;
-            font-size: 7px;
-          `}
-        >
+        <MenuPublic>
           <span>TEAMS</span>
         </MenuPublic>
         <Nimg src={navImg} alt="이미지" page={page} />

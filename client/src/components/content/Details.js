@@ -17,6 +17,7 @@ const DetailWrapper = styled.div`
     justify-content: space-between;
     min-width: 680px;
     padding-top: 8px;
+    padding-right: 16px;
     > :nth-child(1) {
       font-size: 15px;
     }
