@@ -1,5 +1,5 @@
 package com.codestate.server.auth.jwt;
-
+/*
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoder;
 import io.jsonwebtoken.io.Decoders;
@@ -61,3 +61,4 @@ public class JwtTokenizer {
         return key;
     }
 }
+*/

@@ -1,5 +1,5 @@
 package com.codestate.server.auth.utils;
-
+/*
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,3 +44,4 @@ public class RoleAuthorityUtils {
         return USER_ROLES_STRING;
     }
 }
+*/

@@ -1,5 +1,5 @@
 package com.codestate.server.auth.userdetails;
-
+/*
 import com.codestate.server.auth.utils.RoleAuthorityUtils;
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
@@ -68,3 +68,4 @@ public class MemberUserDetailsService implements UserDetailsService {
         }
     }
 }
+*/

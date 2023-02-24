@@ -27,7 +27,7 @@ public class QuestionPostDto {
 
     private List<QuestionTagDto> questionTags;
 
-    public Member getMember(){
+    public Member getMember() {
         Member member = new Member();
         member.setMemberId(memberId);
         return member;

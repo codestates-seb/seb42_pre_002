@@ -1,5 +1,5 @@
 package com.codestate.server.cofing;
-
+/*
 import com.codestate.server.member.repository.MemberRepository;
 import com.codestate.server.member.service.MemberServiceImpl;
 import com.codestate.server.member.service.MemberService_backup;
@@ -23,7 +23,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .formLogin()
                 /*login - logout page 변동 예정*/
-//                .loginPage("signup/register") // 변동 예정(1)
+/*//                .loginPage("signup/register") // 변동 예정(1)
                 .loginPage("/auths/login-form")
                 .loginProcessingUrl("/process_login") // 변동 예정(2)
                 .failureUrl("/auths/login-form?error")
@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                 .and()
                 .exceptionHandling().accessDeniedPage("/auths/access-denied")
                 /*login - logout page 변동 예정*/
-                .and()
+ /*               .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/questions").hasRole("USER")
                         .antMatchers("replies").hasRole("USER")
@@ -49,7 +49,6 @@ public class SecurityConfiguration {
     }
 }
 
-
-
+*/
 
 

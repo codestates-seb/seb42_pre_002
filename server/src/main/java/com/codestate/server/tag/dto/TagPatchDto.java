@@ -14,4 +14,12 @@ public class TagPatchDto {
     public void setTagId(long tagId) {
         this.tagId = tagId;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
 }

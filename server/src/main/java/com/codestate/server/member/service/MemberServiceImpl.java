@@ -1,5 +1,5 @@
 package com.codestate.server.member.service;
-
+/*
 import com.codestate.server.auth.utils.RoleAuthorityUtils;
 import com.codestate.server.exception.BusinessLogicException;
 import com.codestate.server.exception.ExceptionCode;
@@ -52,3 +52,4 @@ public class MemberServiceImpl implements MemberService{
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 }
+ */

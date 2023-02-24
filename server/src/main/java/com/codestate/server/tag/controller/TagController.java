@@ -1,6 +1,7 @@
 package com.codestate.server.tag.controller;
 
 import com.codestate.server.dto.MultiResponseDto;
+import com.codestate.server.dto.SingleResponseDto;
 import com.codestate.server.tag.dto.TagPatchDto;
 import com.codestate.server.tag.dto.TagPostDto;
 import com.codestate.server.tag.entity.Tag;
@@ -43,13 +44,15 @@ public class TagController {
         tagPatchDto.setTagId(tagId);
         Tag tag = tagService.updateTag(mapper.TagPatchDtoToTag(tagPatchDto));
 
-        return new ResponseEntity<>(mapper.TagToTagResponseDto(tag), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.TagToTagResponseDto(tag)), HttpStatus.OK);
     }
 
     @GetMapping("/{tag-id}")
     public ResponseEntity getTag(@PathVariable("tag-id")long tagId){
         Tag tag = tagService.findTag(tagId);
-        return new ResponseEntity<>(mapper.TagToTagResponseDto(tag),HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.TagToTagResponseDto(tag)),HttpStatus.OK);
     }
 
     @GetMapping

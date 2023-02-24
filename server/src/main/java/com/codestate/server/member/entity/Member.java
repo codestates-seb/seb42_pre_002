@@ -1,16 +1,11 @@
 package com.codestate.server.member.entity;
 
 import com.codestate.server.audit.BaseEntity;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.*;
-import net.bytebuddy.asm.Advice;
-import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +71,6 @@ public class Member extends BaseEntity implements Principal {
         ROLE_USER,
         ROLE_ADMIN
     }
+
 
 }

@@ -16,8 +16,9 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
-
-    default Question QuestionPostDtoToQuestions (QuestionPostDto questionPostDto){
+    Question QuestionPatchDtoTQuestions (QuestionPatchDto questionPatchDto);
+    List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
+    default Question QuestionPostDtoToQuestion (QuestionPostDto questionPostDto){
         Question question = new Question();
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());
@@ -27,9 +28,9 @@ public interface QuestionMapper {
                             QuestionTag questionTag = new QuestionTag();
                             Tag tag = new Tag();
                             tag.setTagId(questionTagDto.getTagId());
+                            tag.setTitle(questionTagDto.getTitle());
                             questionTag.addQuestion(question);
                             questionTag.addTag(tag);
-                            questionTag.setTitle(questionTagDto.getTitle());
                             return questionTag;
                         }).collect(Collectors.toList());
         question.setMember(member);
@@ -39,13 +40,11 @@ public interface QuestionMapper {
         question.setExpectContent(questionPostDto.getExpectContent());
         return question;
 
-
-
     }
-    Question QuestionPatchDtoTQuestions (QuestionPatchDto questionPatchDto);
 
     @Mapping(source = "member.memberId", target = "memberId")
     default QuestionResponseDto questionToQuestionResponseDto(Question question) {
+
         List<QuestionTag> questionTags = question.getQuestionTags();
 
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
@@ -77,12 +76,11 @@ public interface QuestionMapper {
                 .map(questionTag -> QuestionTagResponseDto
                         .builder()
                         .tagId(questionTag.getTag().getTagId())
-                        .title(questionTag.getTitle())
+                        .title(questionTag.getTag().getTitle())
                         .build())
                 .collect(Collectors.toList());
     }
 
-    List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
 
     QuestionTag QuestionDtoToQuestionTag (QuestionTagDto questionTagDto);
 

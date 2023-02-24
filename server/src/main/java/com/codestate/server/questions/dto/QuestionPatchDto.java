@@ -31,5 +31,4 @@ public class QuestionPatchDto {
         this.questionId = questionId;
     }
 
-
 }

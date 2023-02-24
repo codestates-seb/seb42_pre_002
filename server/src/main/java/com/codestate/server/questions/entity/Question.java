@@ -3,13 +3,10 @@ package com.codestate.server.questions.entity;
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.replies.entity.Replies;
-import com.codestate.server.tag.entity.Tag;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
@@ -32,8 +29,9 @@ public class Question extends BaseEntity {
     @Column(length = 1000, nullable = false)
     private String expectContent;
 
-    @Column(nullable = false)
-    private int viewCnt = 0; // 조회수
+    @Column(columnDefinition = "int default 0")
+    private int viewCnt; // 조회수
+
 
    /*연관관계 매핑*/
     // 질문 <-> 회원
@@ -64,9 +62,10 @@ public class Question extends BaseEntity {
     public void addQuestionTag(QuestionTag questionTag) {
         this.questionTags.add(questionTag);
         if (questionTag.getQuestion() != this) {
-            questionTag.setQuestion(this);
+            questionTag.addQuestion(this);
         }
     }
+
 
     // 게시 상태
     @AllArgsConstructor

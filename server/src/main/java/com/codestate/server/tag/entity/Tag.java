@@ -39,11 +39,12 @@ public class Tag {
     private List<QuestionTag> questionTags = new ArrayList<>();
 
 
-    public void setQuestionTags(QuestionTag questionTags) {
-        this.questionTags.add(questionTags);
-        if(questionTags.getTag() !=this) {
-            questionTags.setTag(this);
+    public void addQuestionTag(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if(questionTag.getTag() !=this) {
+            questionTag.addTag(this);
         }
     }
+
 
 }

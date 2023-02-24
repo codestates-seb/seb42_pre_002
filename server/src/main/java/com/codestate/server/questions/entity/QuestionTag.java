@@ -32,6 +32,8 @@ public class QuestionTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
+    private int viewCnt;
+
     public void addQuestion(Question question){
         this.question = question;
         if(!this.question.getQuestionTags().contains(this)){
@@ -42,7 +44,7 @@ public class QuestionTag {
     public void addTag(Tag tag){
         this.tag = tag;
         if(!this.tag.getQuestionTags().contains(this)){
-            this.tag.setQuestionTags(this);
+            this.tag.addQuestionTag(this);
         }
     }
 
