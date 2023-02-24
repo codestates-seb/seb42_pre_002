@@ -111,7 +111,7 @@ export default function App() {
       .then((res) => {
         console.log(res.status);
         setAnswer('');
-        dispatch(onRerender({ reRender: true }));
+        dispatch(onRerender({}));
       })
       .catch((err) => console.log(err));
   };

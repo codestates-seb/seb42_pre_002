@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import pencil from '../../esset/pencil.svg';
-import textbox from '../../esset/textbox.svg';
-import stack from '../../esset/stack.svg';
+import pencil from '../esset/pencil.svg';
+import textbox from '../esset/textbox.svg';
+import stack from '../esset/stack.svg';
 
 const Ad = styled.div`
   width: 298px;

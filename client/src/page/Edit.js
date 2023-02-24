@@ -160,7 +160,11 @@ const Edit = ({ setPage }) => {
   const [valid, setValid] = useState(true);
 
   useEffect(() => {
-    setPage({ navi: true, foot: true });
+    setPage((prev) =>
+      prev.navi !== true || prev.foot !== true
+        ? { navi: true, foot: true }
+        : prev
+    );
     if (edittype === 'question') {
       setTitle(questState.title);
       setContent(questState.contents);

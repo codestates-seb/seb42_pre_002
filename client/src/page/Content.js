@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import Loading from '../components/content/Loading';
-import QuestionAdvert from '../components/content/QuestionAdvert';
+import QuestionAdvert from '../components/QuestionAdvert';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -38,7 +38,12 @@ export default function Content({ setPage }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setPage({ navi: true, foot: true });
+    setPage((prev) =>
+      prev.navi !== true || prev.foot !== true
+        ? { navi: true, foot: true }
+        : prev
+    );
+
     axios
       .get('http://localhost:3001/question')
       .then((res) => {

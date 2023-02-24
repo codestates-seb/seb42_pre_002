@@ -116,7 +116,7 @@ const Input = styled.div`
   }
 `;
 
-export default function Header({ page }) {
+const Header = ({ page }) => {
   const [inputFocus, setInputFocus] = useState(false);
 
   const navigate = useNavigate();
@@ -164,4 +164,6 @@ export default function Header({ page }) {
       </SignBtnWrapper>
     </Wrapper>
   );
-}
+};
+
+export default Header;
