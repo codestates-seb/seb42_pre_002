@@ -12,6 +12,9 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import styled from 'styled-components';
 import NotFound from './page/NotFound';
+import Mypage from './page/Mypage';
+import LoginSuccess from './page/LoginSuccess';
+import UserList from './page/UserList';
 
 const Body = styled.div`
   /* position: fixed; */
@@ -99,6 +102,15 @@ function App() {
               <Route path="/login" element={<Login setPage={setPage} />} />
               <Route path="/signup" element={<Signup setPage={setPage} />} />
               <Route path="*" element={<NotFound setPage={setPage} />} />
+              <Route path="/mypage" element={<Mypage setPage={setPage} />} />
+              <Route
+                path="/loginSuccess"
+                element={<LoginSuccess setPage={setPage} />}
+              />
+              <Route
+                path="/userList"
+                element={<UserList setPage={setPage} />}
+              />
             </Routes>
           </Page>
         </Main>
