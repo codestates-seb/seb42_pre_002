@@ -1,8 +1,8 @@
 package com.codestate.server.questions.service;
 
+import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.member.service.MemberService_backup;
-import com.codestate.server.questions.dto.QuestionResponseDto;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.repository.QuestionRepository;
 import com.codestate.server.exception.BusinessLogicException;
@@ -34,6 +34,7 @@ public class QuestionService {
     private MemberService_backup memberService;
 
     private TagService tagService;
+
 
     public Question createQuestion(Question question){
         // 등록된 회원인지 검증
@@ -71,14 +72,8 @@ public class QuestionService {
         }else {
             throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
         }
-    }
-    /*@Transactional(readOnly = true)
-    public Question findQuestion(long questionId){
-        Question question = findVerifiedQuestion(questionId);
-        question.setViewCnt(question.getViewCnt()+1);
-        return question;
 
-    }*/
+    }
 
     // 전체 질문 조회 (최신순)
     @Transactional(readOnly = true)
@@ -135,10 +130,10 @@ public class QuestionService {
     }
 
     // 질문 Id로 해당 답변 리스트 호출
-    public List<Replies> getAnswer(long questionId){
+    public List<Answer> getAnswer(long questionId){
         Question findQuestion = findVerifiedQuestion(questionId);
 
-        return findQuestion.getQuestionReplies();
+        return findQuestion.getAnswers();
     }
 
 }

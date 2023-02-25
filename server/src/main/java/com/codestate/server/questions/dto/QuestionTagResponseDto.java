@@ -14,5 +14,5 @@ public class QuestionTagResponseDto {
 
     private String title;
 
-    private String summary;
+    //private String summary;
 }

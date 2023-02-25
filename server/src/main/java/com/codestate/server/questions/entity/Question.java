@@ -1,20 +1,25 @@
 package com.codestate.server.questions.entity;
 
+import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.replies.entity.Replies;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Question extends BaseEntity {
+//@EqualsAndHashCode(callSuper=false)
+public class Question extends BaseEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,24 +45,16 @@ public class Question extends BaseEntity {
     public Member member;
 
 
-    // 질문 <-> 답변
-    @OneToMany(mappedBy = "question")
-    private List<Replies> questionReplies = new ArrayList<>();
-
-//    public void setMember(Member member) {
-//        this.member = member;
-//        if(!this.member.getQuestions().contains(this)) {
-//            this.member.addQuestion(this);
-//        }
-//    }
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_POSTING;
 
     // 질문 <-> 질문태그
-    @OneToMany(mappedBy = "question")
+
+    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
     private List<QuestionTag> questionTags = new ArrayList<>();
+
 
     public void addQuestionTag(QuestionTag questionTag) {
         this.questionTags.add(questionTag);
@@ -65,6 +62,18 @@ public class Question extends BaseEntity {
             questionTag.addQuestion(this);
         }
     }
+    // 질문 <-> 답변
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Answer> answers = new ArrayList<>();
+
+    public void setAnswer(Answer answer){
+        answers.add(answer);
+        if(answer.getQuestion() != this){
+            answer.setQuestion(this);
+        }
+    }
+
+
 
 
     // 게시 상태
@@ -78,6 +87,7 @@ public class Question extends BaseEntity {
         @Getter
         private String status;
     }
+
 
 }
 

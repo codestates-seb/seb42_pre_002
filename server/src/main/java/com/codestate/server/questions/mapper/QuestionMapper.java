@@ -1,11 +1,11 @@
 package com.codestate.server.questions.mapper;
 
+import com.codestate.server.Answer.dto.AnswerResponseDto;
+import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.dto.*;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.entity.QuestionTag;
-import com.codestate.server.replies.dto.RepliesResponseDto;
-import com.codestate.server.replies.entity.Replies;
 import com.codestate.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
+
     Question QuestionPatchDtoTQuestions (QuestionPatchDto questionPatchDto);
     List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
     default Question QuestionPostDtoToQuestion (QuestionPostDto questionPostDto){
@@ -33,6 +34,8 @@ public interface QuestionMapper {
                             questionTag.addTag(tag);
                             return questionTag;
                         }).collect(Collectors.toList());
+
+
         question.setMember(member);
         question.setQuestionTags(questionTags);
         question.setTitle(questionPostDto.getTitle());
@@ -44,8 +47,12 @@ public interface QuestionMapper {
 
     @Mapping(source = "member.memberId", target = "memberId")
     default QuestionResponseDto questionToQuestionResponseDto(Question question) {
+        Member member = question.getMember();
 
         List<QuestionTag> questionTags = question.getQuestionTags();
+        List<Answer> answers = question.getAnswers();
+
+
 
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
@@ -60,12 +67,9 @@ public interface QuestionMapper {
         questionResponseDto.setQuestionStatus(question.getQuestionStatus());
         questionResponseDto.setViewCnt(question.getViewCnt());
         questionResponseDto.setQuestionTags(
-                questionTagsToQuestionTagResponseDtos(questionTags)
-        );
-
-
-        //List<Replies> answers = question.getQuestionReplies();
-        //questionResponseDto.setReplies(RepliesResponseD(answers));
+                questionTagsToQuestionTagResponseDtos(questionTags));
+        questionResponseDto.setAnswers(
+                answerToAnswerRespsonseDtos(answers));
 
         return questionResponseDto;
     }
@@ -85,5 +89,18 @@ public interface QuestionMapper {
     QuestionTag QuestionDtoToQuestionTag (QuestionTagDto questionTagDto);
 
     QuestionTagResponseDto QuestionTagToQuestionTagResponseDto(QuestionTag questionTag);
+
+    //답변 추가
+    default List<AnswerResponseDto> answerToAnswerRespsonseDtos(List<Answer> answers) {
+        return answers
+                .stream()
+                .map(answer -> AnswerResponseDto
+                        .builder()
+                        .answerId(answer.getAnswerId())
+                        .content(answer.getContent())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 
 }

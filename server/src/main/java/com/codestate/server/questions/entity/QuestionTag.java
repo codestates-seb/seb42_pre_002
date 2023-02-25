@@ -3,24 +3,24 @@ package com.codestate.server.questions.entity;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.tag.entity.Tag;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
+@Builder
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
 @Entity
+//@EqualsAndHashCode(callSuper=false)
 public class QuestionTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionTagId;
 
-    private String title;
+    //private String title;
 
     // 질문태그 <-> 질문
     @ManyToOne
@@ -32,7 +32,7 @@ public class QuestionTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-    private int viewCnt;
+    //private int viewCnt;
 
     public void addQuestion(Question question){
         this.question = question;

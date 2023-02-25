@@ -27,6 +27,7 @@ public class QuestionPatchDto {
 
     private List<QuestionTag> questionTags;
 
+
     public void setQuestionId(long questionId) {
         this.questionId = questionId;
     }

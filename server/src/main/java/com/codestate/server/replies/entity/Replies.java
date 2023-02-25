@@ -1,22 +1,21 @@
 package com.codestate.server.replies.entity;
 
 import com.codestate.server.audit.BaseEntity;
-import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-
-//@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-//@Transactional
+@Entity
 public class Replies extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid;
@@ -28,8 +27,12 @@ public class Replies extends BaseEntity {
 
     /*연관관계 매핑*/
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
     private Question question; // DB상 외래키의 관계로 연결된 엔티티 클래스에 설정
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     @Enumerated(EnumType.STRING)
     private RepliesStatus repliesStatus = RepliesStatus.REPLIES_REQUEST;
@@ -48,4 +51,5 @@ public class Replies extends BaseEntity {
         @Getter
         private String stepDesc;
     }
+
 }

@@ -55,6 +55,9 @@ public class Member extends BaseEntity implements Principal {
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+
+
     // 활동 상태 추가
     @AllArgsConstructor
     public enum MemberStatus{
