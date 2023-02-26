@@ -207,6 +207,11 @@ export default function Login({ setPage }) {
   const [emailValid, setEmailValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
 
+  const User = {
+    email: 'test@example.com',
+    pw: 'test2323@@@',
+  };
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
 
@@ -239,6 +244,15 @@ export default function Login({ setPage }) {
   useEffect(() => {
     setPage({ navi: false, foot: false });
   }, []);
+
+  const onClickConfirmButton = () => {
+    if (email === User.email && pw === User.pw) {
+      alert('가입을 축하드립니다. 다시 로인주세요.');
+      navigate('/');
+    } else {
+      alert('잘못된 회원 정보입니다.');
+    }
+  };
 
   return (
     <>
@@ -309,9 +323,7 @@ export default function Login({ setPage }) {
                 title={'Log in'}
                 width={'260px'}
                 height={'38px;'}
-                onClick={() => {
-                  console.log('click');
-                }}
+                onClick={onClickConfirmButton}
               ></StyledBtn>
             </LoginBox>
           </LoginContainer>

@@ -6,7 +6,6 @@ const Background = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
     'Segoe UI', 'Liberation Sans', sans-serif;
   padding-top: 20px;
-  padding-bottom: 0px;
   font-size: 13px;
   display: flex;
   align-items: center;
