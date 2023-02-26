@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import Hamburger from './Hamburger';
+// import LoginedHeader from './header/LoginedHeader';
 
 const WLogo = styled.div`
   height: 100%;
@@ -162,6 +163,7 @@ const Header = ({ page }) => {
           Sign up
         </BSignup>
       </SignBtnWrapper>
+      {/* <LoginedHeader /> */}
     </Wrapper>
   );
 };
