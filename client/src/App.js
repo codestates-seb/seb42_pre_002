@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import NotFound from './page/NotFound';
 import Mypage from './page/Mypage';
 // import LoginSuccess from './page/LoginSuccess';
-// import UserList from './page/UserList';
+import UserList from './page/UserList';
 
 const Body = styled.div`
   /* position: fixed; */
@@ -105,10 +105,10 @@ function App() {
                 path="/loginSuccess"
                 element={<LoginSuccess setPage={setPage} />}
               /> */}
-              {/* <Route
+              <Route
                 path="/userList"
                 element={<UserList setPage={setPage} />}
-              /> */}
+              />
               <Route path="*" element={<NotFound setPage={setPage} />} />
             </Routes>
           </Page>
