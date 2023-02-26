@@ -22,7 +22,7 @@ const AnswerSort = styled.div`
     > select {
       width: 260px;
       height: 32.5px;
-      padding: 8px 32px 8px 9px;
+      padding: 0 32px 0 9px;
       border-radius: 3px;
       color: #0c0d0e;
       border: 1px solid #babfc4;
