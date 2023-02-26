@@ -68,7 +68,7 @@ public class QuestionController {
     }
 
     // 전체 질문 조회 (최신순)
-    @GetMapping
+    @GetMapping("/latest")
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
                                        @Positive @RequestParam int size){
         Page<Question> questionPage = questionService.findQuestions(page-1,size);
