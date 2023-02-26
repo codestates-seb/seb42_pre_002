@@ -13,8 +13,8 @@ import Footer from './components/Footer';
 import styled from 'styled-components';
 import NotFound from './page/NotFound';
 import Mypage from './page/Mypage';
-import LoginSuccess from './page/LoginSuccess';
-import UserList from './page/UserList';
+// import LoginSuccess from './page/LoginSuccess';
+// import UserList from './page/UserList';
 
 const Body = styled.div`
   /* position: fixed; */
@@ -71,7 +71,6 @@ const Page = styled.div`
   border-top: 0;
   border-right: 0;
   border-bottom: 0;
-  height: 100%;
   width: ${(props) => (props.page.navi ? 'calc(100% - 164px)' : '100%')};
   margin: 0 auto;
   padding: ${(props) => (props.page.navi ? '24px' : 'none')};
@@ -101,16 +100,16 @@ function App() {
               <Route path="/content" element={<Content setPage={setPage} />} />
               <Route path="/login" element={<Login setPage={setPage} />} />
               <Route path="/signup" element={<Signup setPage={setPage} />} />
-              <Route path="*" element={<NotFound setPage={setPage} />} />
               <Route path="/mypage" element={<Mypage setPage={setPage} />} />
-              <Route
+              {/* <Route
                 path="/loginSuccess"
                 element={<LoginSuccess setPage={setPage} />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/userList"
                 element={<UserList setPage={setPage} />}
-              />
+              /> */}
+              <Route path="*" element={<NotFound setPage={setPage} />} />
             </Routes>
           </Page>
         </Main>

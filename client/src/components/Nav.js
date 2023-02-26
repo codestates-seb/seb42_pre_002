@@ -107,11 +107,11 @@ export default function Nav({ page }) {
           <span>Tags</span>
         </NavMenu>
         <NavMenu
-          className={curruntPath === '/login' ? 'choosePage' : null}
+          className={curruntPath === '/mypage' ? 'choosePage' : null}
           css={`
             padding-left: 30px;
           `}
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/mypage')}
         >
           <span>Users</span>
         </NavMenu>

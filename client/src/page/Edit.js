@@ -7,7 +7,7 @@ import MDEditor from '@uiw/react-md-editor';
 
 import StyledBtn from '../components/content/StyledBtn';
 import Advert from '../components/Advert';
-import validIcon from '../esset/notValid.svg';
+import ValidationInput from '../components/ValidationInput';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { delCurrentAnswer } from '../redux/action/contentAction';
@@ -79,48 +79,6 @@ const StyledH3 = styled.h3`
   margin-top: 10px;
   margin-bottom: 6px;
 `;
-const TitleWrapper = styled.div`
-  > div {
-    width: 100%;
-    padding: 8px 9px;
-    height: 33.5px;
-    border: 1px solid #babfc4;
-    border-radius: 3px;
-
-    display: flex;
-    align-items: center;
-
-    &:focus-within {
-      border: 1px solid hsl(206, 90%, 69.5%);
-      box-shadow: 0px 0px 0px 4px rgba(0, 116, 204, 0.15);
-    }
-
-    &.notValid {
-      border: 1px solid #de4f54;
-      > img {
-        display: block;
-      }
-    }
-
-    > img {
-      display: none;
-    }
-
-    input {
-      width: 100%;
-      border: none;
-      background-color: inherit;
-      outline: none;
-    }
-  }
-  span {
-    display: none;
-    color: #de4f54;
-    &.notValid {
-      display: block;
-    }
-  }
-`;
 
 const Edit = ({ setPage }) => {
   const { edittype } = useParams();
@@ -151,6 +109,7 @@ const Edit = ({ setPage }) => {
       ],
     },
   ];
+
   const questState = useSelector((state) => state.curQuestReducer);
   const ansState = useSelector((state) => state.curAnsReducer);
   const dispatch = useDispatch();
@@ -181,7 +140,6 @@ const Edit = ({ setPage }) => {
         title: title,
         contents: content,
       };
-
       axios
         .patch('http://localhost:3001/question', data)
         .then(() => navigate(-1))
@@ -198,7 +156,6 @@ const Edit = ({ setPage }) => {
           } else return x;
         }),
       };
-
       axios
         .patch('http://localhost:3001/question', data)
         .then(() => {
@@ -236,23 +193,17 @@ const Edit = ({ setPage }) => {
             <h1>Answer</h1>
           </>
         ) : (
-          <TitleWrapper>
+          <>
             <StyledH3>Title</StyledH3>
-            <div className={valid ? '' : 'notValid'}>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                onBlur={() =>
-                  title.length < 15 ? setValid(false) : setValid(true)
-                }
-              />
-              <img src={validIcon} alt="valid" />
-            </div>
-            <span className={valid ? '' : 'notValid'}>
-              Title must be at least 15 characters.
-            </span>
-          </TitleWrapper>
+            <ValidationInput
+              value={title}
+              setValue={setTitle}
+              valid={valid}
+              setValid={setValid}
+              validFn={() => title.length < 15}
+              errMsg="Title must be at least 15 characters."
+            ></ValidationInput>
+          </>
         )}
         <EditorWrap>
           {edittype === 'question' && <StyledH3>Body</StyledH3>}
