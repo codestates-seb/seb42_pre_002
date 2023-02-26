@@ -3,16 +3,13 @@ package com.codestate.server.tag.entity;
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.entity.QuestionTag;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -39,11 +36,12 @@ public class Tag {
     private List<QuestionTag> questionTags = new ArrayList<>();
 
 
-    public void setQuestionTags(QuestionTag questionTags) {
-        this.questionTags.add(questionTags);
-        if(questionTags.getTag() !=this) {
-            questionTags.setTag(this);
+    public void addQuestionTag(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if(questionTag.getTag() !=this) {
+            questionTag.addTag(this);
         }
     }
+
 
 }

@@ -1,11 +1,11 @@
 package com.codestate.server.questions.mapper;
 
+import com.codestate.server.Answer.dto.AnswerResponseDto;
+import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.dto.*;
 import com.codestate.server.questions.entity.Question;
 import com.codestate.server.questions.entity.QuestionTag;
-import com.codestate.server.replies.dto.RepliesResponseDto;
-import com.codestate.server.replies.entity.Replies;
 import com.codestate.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,7 +17,9 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
 
-    default Question QuestionPostDtoToQuestions (QuestionPostDto questionPostDto){
+    Question QuestionPatchDtoTQuestions (QuestionPatchDto questionPatchDto);
+    List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
+    default Question QuestionPostDtoToQuestion (QuestionPostDto questionPostDto){
         Question question = new Question();
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());
@@ -27,11 +29,13 @@ public interface QuestionMapper {
                             QuestionTag questionTag = new QuestionTag();
                             Tag tag = new Tag();
                             tag.setTagId(questionTagDto.getTagId());
+                            tag.setTitle(questionTagDto.getTitle());
                             questionTag.addQuestion(question);
                             questionTag.addTag(tag);
-                            questionTag.setTitle(questionTagDto.getTitle());
                             return questionTag;
                         }).collect(Collectors.toList());
+
+
         question.setMember(member);
         question.setQuestionTags(questionTags);
         question.setTitle(questionPostDto.getTitle());
@@ -39,14 +43,16 @@ public interface QuestionMapper {
         question.setExpectContent(questionPostDto.getExpectContent());
         return question;
 
-
-
     }
-    Question QuestionPatchDtoTQuestions (QuestionPatchDto questionPatchDto);
 
     @Mapping(source = "member.memberId", target = "memberId")
     default QuestionResponseDto questionToQuestionResponseDto(Question question) {
+        Member member = question.getMember();
+
         List<QuestionTag> questionTags = question.getQuestionTags();
+        List<Answer> answers = question.getAnswers();
+
+
 
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
@@ -61,12 +67,9 @@ public interface QuestionMapper {
         questionResponseDto.setQuestionStatus(question.getQuestionStatus());
         questionResponseDto.setViewCnt(question.getViewCnt());
         questionResponseDto.setQuestionTags(
-                questionTagsToQuestionTagResponseDtos(questionTags)
-        );
-
-
-        //List<Replies> answers = question.getQuestionReplies();
-        //questionResponseDto.setReplies(RepliesResponseD(answers));
+                questionTagsToQuestionTagResponseDtos(questionTags));
+        questionResponseDto.setAnswers(
+                answerToAnswerRespsonseDtos(answers));
 
         return questionResponseDto;
     }
@@ -77,15 +80,27 @@ public interface QuestionMapper {
                 .map(questionTag -> QuestionTagResponseDto
                         .builder()
                         .tagId(questionTag.getTag().getTagId())
-                        .title(questionTag.getTitle())
+                        .title(questionTag.getTag().getTitle())
                         .build())
                 .collect(Collectors.toList());
     }
 
-    List<QuestionResponseDto> QuestionToQuestionResponseDtos(List<Question> questions);
 
     QuestionTag QuestionDtoToQuestionTag (QuestionTagDto questionTagDto);
 
     QuestionTagResponseDto QuestionTagToQuestionTagResponseDto(QuestionTag questionTag);
+
+    //답변 추가
+    default List<AnswerResponseDto> answerToAnswerRespsonseDtos(List<Answer> answers) {
+        return answers
+                .stream()
+                .map(answer -> AnswerResponseDto
+                        .builder()
+                        .answerId(answer.getAnswerId())
+                        .content(answer.getContent())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 
 }

@@ -52,7 +52,7 @@ public class TagService {
         Tag findTag = findVerifiedTag(tagId);
         tagRepository.deleteById(tagId);
     }
-    //존재하는지 확인
+
     public Tag findVerifiedTag(long tagId){
         Optional<Tag> optionalTag =
                 tagRepository.findById(tagId);
@@ -62,7 +62,7 @@ public class TagService {
 
         return findTag;
     }
-    //존재안하는 것 post와 연결
+
     public void verifyExistTag(long tagId){
         Optional<Tag> tag = tagRepository.findById(tagId);
         if(tag.isPresent())

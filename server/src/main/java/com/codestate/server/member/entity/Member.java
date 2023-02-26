@@ -1,16 +1,11 @@
 package com.codestate.server.member.entity;
 
 import com.codestate.server.audit.BaseEntity;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.*;
-import net.bytebuddy.asm.Advice;
-import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +55,9 @@ public class Member extends BaseEntity implements Principal {
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+
+
     // 활동 상태 추가
     @AllArgsConstructor
     public enum MemberStatus{
@@ -76,5 +74,6 @@ public class Member extends BaseEntity implements Principal {
         ROLE_USER,
         ROLE_ADMIN
     }
+
 
 }

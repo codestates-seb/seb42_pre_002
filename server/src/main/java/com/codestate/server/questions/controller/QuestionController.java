@@ -4,7 +4,10 @@ import com.codestate.server.dto.MultiResponseDto;
 import com.codestate.server.dto.SingleResponseDto;
 import com.codestate.server.questions.dto.QuestionPatchDto;
 import com.codestate.server.questions.dto.QuestionPostDto;
+import com.codestate.server.questions.dto.QuestionResponseDto;
+import com.codestate.server.questions.dto.QuestionTagDto;
 import com.codestate.server.questions.entity.Question;
+import com.codestate.server.questions.entity.QuestionTag;
 import com.codestate.server.questions.mapper.QuestionMapper;
 import com.codestate.server.questions.service.QuestionService;
 import com.codestate.server.utils.UriCreator;
@@ -38,7 +41,7 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity postQuestion (@Valid @RequestBody QuestionPostDto questionsPostDto){
-        Question question = questionService.createQuestion(mapper.QuestionPostDtoToQuestions(questionsPostDto));
+        Question question = questionService.createQuestion(mapper.QuestionPostDtoToQuestion(questionsPostDto));
 
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, question.getQuestionId());
 
@@ -59,6 +62,7 @@ public class QuestionController {
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id")@Positive long questionId){
         Question question = questionService.findQuestion(questionId);
+
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }

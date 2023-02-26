@@ -1,5 +1,6 @@
 package com.codestate.server.questions.service;
 
+import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.member.service.MemberService_backup;
 import com.codestate.server.questions.entity.Question;
@@ -34,6 +35,7 @@ public class QuestionService {
 
     private TagService tagService;
 
+
     public Question createQuestion(Question question){
         // 등록된 회원인지 검증
         Member verifiedMember = memberService.findVerifiedMember(question.getMember().getMemberId());
@@ -58,13 +60,21 @@ public class QuestionService {
         return questionsRepository.save(findQuestion);
     }
     //한개의 질문 조회시 조회수 +1
-    @Transactional(readOnly = true)
     public Question findQuestion(long questionId){
-        Question question = findVerifiedQuestion(questionId);
-        question.setViewCnt(question.getViewCnt()+1);
-        return findVerifiedQuestion(questionId);
+        Optional<Question> question = this.questionsRepository.findById(questionId);
+
+        if(question.isPresent()){
+
+            Question question1 = question.get();
+            question1.setViewCnt(question1.getViewCnt()+1);
+            this.questionsRepository.save(question1);
+            return question1;
+        }else {
+            throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
+        }
 
     }
+
     // 전체 질문 조회 (최신순)
     @Transactional(readOnly = true)
     public Page<Question> findQuestions(int page, int size) {
@@ -99,8 +109,6 @@ public class QuestionService {
         log.info("전체 질문 삭제 완료");
     }
 
-
-
     public Question findVerifiedQuestion(long questionId){
         Optional<Question> optionalQuestion =
                 questionsRepository.findById(questionId);
@@ -122,12 +130,10 @@ public class QuestionService {
     }
 
     // 질문 Id로 해당 답변 리스트 호출
-    public List<Replies> getAnswer(long questionId){
+    public List<Answer> getAnswer(long questionId){
         Question findQuestion = findVerifiedQuestion(questionId);
 
-        return findQuestion.getQuestionReplies();
+        return findQuestion.getAnswers();
     }
-
-
 
 }

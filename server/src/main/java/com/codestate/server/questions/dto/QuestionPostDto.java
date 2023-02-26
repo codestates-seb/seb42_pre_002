@@ -1,6 +1,7 @@
 package com.codestate.server.questions.dto;
 
 import com.codestate.server.member.entity.Member;
+import com.codestate.server.replies.dto.RepliesPostDto;
 import com.codestate.server.tag.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class QuestionPostDto {
 
     private List<QuestionTagDto> questionTags;
 
-    public Member getMember(){
+    public Member getMember() {
         Member member = new Member();
         member.setMemberId(memberId);
         return member;
