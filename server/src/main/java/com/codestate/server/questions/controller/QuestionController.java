@@ -11,7 +11,10 @@ import com.codestate.server.questions.entity.QuestionTag;
 import com.codestate.server.questions.mapper.QuestionMapper;
 import com.codestate.server.questions.service.QuestionService;
 import com.codestate.server.utils.UriCreator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 @Validated
+@Slf4j
 public class QuestionController {
 
     private final static String QUESTION_DEFAULT_URL = "/questions";
@@ -91,21 +95,14 @@ public class QuestionController {
                 HttpStatus.OK);
     }
 
-    // 질문 검색
+    // 질문 검색 기능 (title,problemContent)
     @GetMapping("/search")
-    public ResponseEntity searchQuestion(@RequestParam(name = "keyword") String keyword,
-                                         @RequestParam(name = "page") int page,
-                                         @RequestParam(name = "size") int size){
-        Page<Question> questionPage = questionService.searchQuestion(keyword,page-1,size);
-        List<Question> questions = questionPage.getContent();
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(questions, questionPage),HttpStatus.OK);
+    public ResponseEntity search(@RequestParam(value = "type") String type,
+                                 @RequestParam(value = "keyword") String keyword) {
+        return ResponseEntity.ok(mapper.QuestionToQuestionResponseDtos(questionService.searchQuestion(type, keyword)));
     }
 
-
-
-    @DeleteMapping("/{question-id}")
+        @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(@PathVariable("question-id")long questionId){
         questionService.deleteQuestion(questionId);
 

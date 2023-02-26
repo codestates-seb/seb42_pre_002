@@ -5,6 +5,8 @@ import com.codestate.server.replies.dto.RepliesPostDto;
 import com.codestate.server.tag.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import java.util.List;
 
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class QuestionPostDto {
 
