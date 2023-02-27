@@ -26,8 +26,8 @@ public class QuestionPostDto {
     @NotBlank
     private String problemContent;
 
-    @NotBlank
     private String expectContent;
+
 
     private List<QuestionTagDto> questionTags;
 

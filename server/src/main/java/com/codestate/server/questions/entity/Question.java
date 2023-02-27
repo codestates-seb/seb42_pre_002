@@ -52,7 +52,7 @@ public class Question extends BaseEntity  {
 
     // 질문 <-> 질문태그
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
 

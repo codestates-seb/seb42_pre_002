@@ -28,7 +28,7 @@ public class QuestionTag {
     private Question question;
 
     // 질문태그 <-> 태그
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tag_id")
     private Tag tag;
 

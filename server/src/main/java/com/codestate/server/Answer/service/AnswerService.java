@@ -6,6 +6,7 @@ import com.codestate.server.exception.ExceptionCode;
 import com.codestate.server.member.service.MemberService;
 import com.codestate.server.member.service.MemberService_backup;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,9 +19,12 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
+
+    private MemberService_backup memberService;
 
     public Answer createAnswer(Answer answer){
 

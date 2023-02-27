@@ -6,8 +6,11 @@ import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.Answer.mapper.AnswerMapper;
 import com.codestate.server.Answer.service.AnswerService;
 import com.codestate.server.dto.MultiResponseDto;
+import com.codestate.server.dto.SingleResponseDto;
 import com.codestate.server.member.service.MemberService;
 import com.codestate.server.member.service.MemberService_backup;
+import com.codestate.server.utils.UriCreator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +19,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/answers")
 @CrossOrigin
 @Validated
+@Slf4j
 public class AnswerController {
 
+    private final static String ANSWER_DEFAULT_URL = "/answers";
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
 
@@ -37,10 +43,11 @@ public class AnswerController {
 
     @PostMapping
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
-        Answer answer = answerMapper.answerPostDtoToAnswer(answerPostDto);
-        Answer createdAnswer = answerService.createAnswer(answer);
+        Answer answer = answerService.createAnswer(answerMapper.answerPostDtoToAnswer(answerPostDto));
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(createdAnswer), HttpStatus.CREATED);
+        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, answer.getAnswerId());
+
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("/{answer-id}")
@@ -49,7 +56,9 @@ public class AnswerController {
         answerPatchDto.setAnswerId(answerId);
         Answer answer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(answerPatchDto));
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),HttpStatus.OK);
+
     }
 
 
@@ -57,7 +66,8 @@ public class AnswerController {
     public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.findAnswer(answerId);
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),HttpStatus.OK);
     }
 
 

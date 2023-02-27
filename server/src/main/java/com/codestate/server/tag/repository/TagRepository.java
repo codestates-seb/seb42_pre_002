@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface TagRepository extends JpaRepository<Tag,Long> {
     @Query(value = "SELECT c FROM Tag c WHERE c.tagId = :tagId")
     Optional<Tag> findById(long tagId);
+
 }

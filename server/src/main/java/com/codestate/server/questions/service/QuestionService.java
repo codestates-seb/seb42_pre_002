@@ -42,8 +42,8 @@ public class QuestionService {
         question.setMember(verifiedMember);
 
         //태그가 존재하는지 검증
-        question.getQuestionTags().stream()
-                        .forEach(questionTag -> tagService.findVerifiedTag(questionTag.getTag().getTagId()));
+        //question.getQuestionTags().stream()
+                        //.forEach(questionTag -> tagService.findVerifiedTag(questionTag.getTag().getTitle()));
 
         Question savedQuestion = saveQuestion(question);
 
