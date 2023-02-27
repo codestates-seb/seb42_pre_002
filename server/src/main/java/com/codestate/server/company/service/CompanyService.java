@@ -12,9 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+
+@Transactional
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -29,6 +33,7 @@ public class CompanyService {
     }
 
     // 수정
+    @Transactional(propagation = Propagation.REQUIRED)
     public Company updateCompany(Company company) {
         Company findCompany = findVerifiedCompany(company.getCid());
 
@@ -38,13 +43,14 @@ public class CompanyService {
     }
     
     // 찾기
-    public Company findCompany(long memberId) {
-        return findVerifiedCompany(memberId);
+    @Transactional(readOnly = true)
+    public Company findCompany(long cid) {
+        return findVerifiedCompany(cid);
     }
 
     public Page<Company> findCompanies(int page, int size) {
         return companyRepository.findAll(PageRequest.of(page, size,
-                Sort.by("memberId").descending()));
+                Sort.by("cid").descending()));
     }
 
     // 삭제
