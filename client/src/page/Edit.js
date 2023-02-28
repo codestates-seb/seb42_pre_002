@@ -126,9 +126,9 @@ const Edit = ({ setPage }) => {
     );
     if (edittype === 'question') {
       setTitle(questState.title);
-      setContent(questState.contents);
+      setContent(questState.problemContent);
     } else {
-      setContent(ansState.contents);
+      setContent(ansState.content);
     }
     console.log(edittype);
   }, []);
@@ -186,7 +186,7 @@ const Edit = ({ setPage }) => {
             <Preview className="container" data-color-mode="light">
               {/* <MDEditor value={content} onChange={setContent} preview="edit" /> */}
               <MDEditor.Markdown
-                source={questState.contents}
+                source={questState.problemContent}
                 style={{ whiteSpace: 'pre-wrap' }}
               />
             </Preview>

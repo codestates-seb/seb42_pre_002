@@ -97,10 +97,16 @@ function App() {
                 path="/edit/:edittype"
                 element={<Edit setPage={setPage} />}
               />
-              <Route path="/content" element={<Content setPage={setPage} />} />
+              <Route
+                path="/content/:questionId"
+                element={<Content setPage={setPage} />}
+              />
               <Route path="/login" element={<Login setPage={setPage} />} />
               <Route path="/signup" element={<Signup setPage={setPage} />} />
-              <Route path="/mypage" element={<Mypage setPage={setPage} />} />
+              <Route
+                path="/mypage/:memberId"
+                element={<Mypage setPage={setPage} />}
+              />
               {/* <Route
                 path="/loginSuccess"
                 element={<LoginSuccess setPage={setPage} />}

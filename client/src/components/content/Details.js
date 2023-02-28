@@ -47,7 +47,7 @@ const Details = ({ curData }) => {
       <GridCell column="2">
         <div className="container" data-color-mode="light">
           <MDEditor.Markdown
-            source={curData.contents}
+            source={curData.title ? curData.problemContent : curData.content}
             style={{ whiteSpace: 'pre-wrap' }}
           />
         </div>

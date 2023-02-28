@@ -66,13 +66,13 @@ const Title = () => {
       <QuestInfo>
         <div>
           <StyledSpan>Asked</StyledSpan>{' '}
-          {getDateDiff(curQuestion.createdAt) + ' ' + 'day ago'}
+          {getDateDiff(curQuestion.regDate) + ' ' + 'day ago'}
         </div>
         <div>
-          <StyledSpan>Modified</StyledSpan> today
+          <StyledSpan>Modified</StyledSpan> {curQuestion.modDate}
         </div>
         <div>
-          <StyledSpan>Viewed</StyledSpan> 4 times
+          <StyledSpan>Viewed</StyledSpan> {curQuestion.viewCnt}
         </div>
       </QuestInfo>
     </>

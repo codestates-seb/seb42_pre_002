@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import UserInfo from '../components/mypage/UserInfo';
 import UserDetails from '../components/mypage/UserDetails';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addUserInfo } from '../redux/action/contentAction';
 
 const NavTab = styled.div`
   display: flex;
@@ -36,13 +41,28 @@ const NavTab = styled.div`
 const Mypage = ({ setPage }) => {
   const [selected, setSelected] = useState('Profile');
 
+  const rerender = useSelector((state) => state.onRerenderReducer);
+
+  const dispatch = useDispatch();
+
+  const { memberId } = useParams();
+
   useEffect(() => {
     setPage((prev) =>
       prev.navi !== true || prev.foot !== true
         ? { navi: true, foot: true }
         : prev
     );
-  });
+
+    axios
+      // eslint-disable-next-line
+      .get(`${process.env.REACT_APP_URL}/members/${memberId}`)
+      .then((res) => {
+        console.log(res);
+        dispatch(addUserInfo(res.data));
+      })
+      .catch((err) => console.log(err));
+  }, [rerender]);
 
   return (
     <>
