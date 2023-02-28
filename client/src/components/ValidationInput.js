@@ -53,12 +53,13 @@ const ValidationInput = ({
   setValid,
   validFn,
   errMsg,
+  type,
 }) => {
   return (
     <Wrapper>
       <div className={valid ? '' : 'notValid'}>
         <input
-          type="text"
+          type={type ? type : 'text'}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onBlur={() => (validFn() ? setValid(false) : setValid(true))}

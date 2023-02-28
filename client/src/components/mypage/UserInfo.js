@@ -7,6 +7,7 @@ import cake from '../../esset/cake.svg';
 import cal from '../../esset/cal.svg';
 import clock from '../../esset/clock.svg';
 import loc from '../../esset/location.svg';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   display: flex;
@@ -83,11 +84,13 @@ const BtnWrap = styled.div`
 `;
 
 const UserInfo = ({ setSelected }) => {
+  const userInfo = useSelector((state) => state.userInfoReducer);
+
   return (
     <Wrapper>
       <img src="https://picsum.photos/128/128/?random" alt="user-img" />
       <DetailWrap>
-        <div>{'GyoSeok Koo'}</div>
+        <div>{userInfo.nickname}</div>
         <div>Student of CodeStates</div>
         <div>
           <div>

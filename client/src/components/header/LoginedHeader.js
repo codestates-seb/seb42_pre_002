@@ -15,17 +15,30 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
 
-  img {
-    padding: 0 10px;
-    display: block;
-  }
-
   > div {
     width: 38px;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
     position: relative;
+    &:hover {
+      background-color: #e3e6e8;
+    }
+    > img {
+      padding: 0 10px;
+      display: block;
+    }
+  }
+
+  > :first-child {
+    width: 50px;
+    > img {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border-radius: 3px;
+    }
   }
 
   > :nth-child(5) {

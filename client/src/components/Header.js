@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import Hamburger from './Hamburger';
-// import LoginedHeader from './header/LoginedHeader';
+import LoginedHeader from './header/LoginedHeader';
 
 const WLogo = styled.div`
   height: 100%;
@@ -53,39 +53,39 @@ const Menu = styled.div`
   }
 `;
 
-const SignBtnWrapper = styled.div`
-  width: 140px;
-  margin-left: 8px;
-  > button {
-    border-radius: 3px;
-    height: 33px;
-    padding: 8px 10px;
-  }
-`;
+// const SignBtnWrapper = styled.div`
+//   width: 140px;
+//   margin-left: 8px;
+//   > button {
+//     border-radius: 3px;
+//     height: 33px;
+//     padding: 8px 10px;
+//   }
+// `;
 
-const BLogin = styled.button`
-  background-color: hsl(206, 96%, 90%);
-  border: 1px solid hsl(205, 41%, 63%);
-  color: hsl(205, 47%, 42%);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
-  &:hover {
-    background-color: hsl(205, 57%, 81%);
-    cursor: pointer;
-  }
-`;
+// const BLogin = styled.button`
+//   background-color: hsl(206, 96%, 90%);
+//   border: 1px solid hsl(205, 41%, 63%);
+//   color: hsl(205, 47%, 42%);
+//   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+//   &:hover {
+//     background-color: hsl(205, 57%, 81%);
+//     cursor: pointer;
+//   }
+// `;
 
-const BSignup = styled.button`
-  border: 1px solid transparent;
-  background-color: hsl(206, 100%, 52%);
-  border: 1px solid hsl(206, 100%, 52%);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
-  color: hsl(0, 0%, 100%);
-  &:hover {
-    background-color: hsl(206, 100%, 40%);
-    cursor: pointer;
-  }
-  margin: 0 10px 0 4px;
-`;
+// const BSignup = styled.button`
+//   border: 1px solid transparent;
+//   background-color: hsl(206, 100%, 52%);
+//   border: 1px solid hsl(206, 100%, 52%);
+//   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+//   color: hsl(0, 0%, 100%);
+//   &:hover {
+//     background-color: hsl(206, 100%, 40%);
+//     cursor: pointer;
+//   }
+//   margin: 0 10px 0 4px;
+// `;
 
 const Input = styled.div`
   display: flex;
@@ -147,7 +147,7 @@ const Header = ({ page }) => {
           onBlur={inputFocusHandler}
         ></input>
       </Input>
-      <SignBtnWrapper>
+      {/* <SignBtnWrapper>
         <BLogin
           onClick={() => {
             navigate('/login');
@@ -162,8 +162,8 @@ const Header = ({ page }) => {
         >
           Sign up
         </BSignup>
-      </SignBtnWrapper>
-      {/* <LoginedHeader /> */}
+      </SignBtnWrapper> */}
+      <LoginedHeader />
     </Wrapper>
   );
 };

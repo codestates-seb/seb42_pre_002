@@ -73,8 +73,8 @@ export default function DetailFooter({ curData }) {
         {curData.edit && <UserCard types="edited" user="someone"></UserCard>}
         <UserCard
           types={curData.title ? 'asked' : 'answered'}
-          user={curData.author}
-          time={new Date(curData.createdAt)}
+          user={curData.title ? curData.nickname : curData.writer}
+          time={curData.title ? new Date(curData.regDate) : undefined}
         ></UserCard>
       </div>
     </Wrapper>
