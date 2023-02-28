@@ -636,7 +636,7 @@ export default function Ask({ setPage }) {
     axios
       .post(
         // eslint-disable-next-line
-        `/questions`,
+        `${process.env.REACT_APP_URL}/questions`,
         data,
         { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
