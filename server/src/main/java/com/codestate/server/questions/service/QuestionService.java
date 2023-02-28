@@ -42,8 +42,8 @@ public class QuestionService {
         question.setMember(verifiedMember);
 
         //태그가 존재하는지 검증
-        question.getQuestionTags().stream()
-                        .forEach(questionTag -> tagService.findVerifiedTag(questionTag.getTag().getTagId()));
+        //question.getQuestionTags().stream()
+                        //.forEach(questionTag -> tagService.findVerifiedTag(questionTag.getTag().getTitle()));
 
         Question savedQuestion = saveQuestion(question);
 
@@ -89,13 +89,23 @@ public class QuestionService {
                 Sort.by("viewCnt").descending()));
     }
 
-    // 질문 검색 기능
-    public Page<Question> searchQuestion(String keyword, int page, int size) {
+    // 질문 검색 기능 수정
+    public List<Question> searchQuestion(String type, String keyword) {
+        switch (type) {
+            case "1": {
+                Optional<List<Question>> optionalQuestions = questionsRepository.findByTitleContaining(keyword);
+                return optionalQuestions.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+            }
+            case "2": {
+                Optional<List<Question>> optionalQuestions = questionsRepository.findByProblemContentContaining(keyword);
+                return optionalQuestions.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+            }
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Question> searchQuestion = questionsRepository.findByKeyword(keyword,pageable);
+        }
 
-        return searchQuestion;
+        return null;
     }
 
     public void deleteQuestion(long questionId){
@@ -135,5 +145,8 @@ public class QuestionService {
 
         return findQuestion.getAnswers();
     }
+
+
+
 
 }

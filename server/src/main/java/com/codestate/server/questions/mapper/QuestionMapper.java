@@ -24,6 +24,8 @@ public interface QuestionMapper {
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());
 
+
+
         List<QuestionTag> questionTags = questionPostDto.getQuestionTags().stream()
                         .map(questionTagDto -> {
                             QuestionTag questionTag = new QuestionTag();
@@ -97,6 +99,9 @@ public interface QuestionMapper {
                 .map(answer -> AnswerResponseDto
                         .builder()
                         .answerId(answer.getAnswerId())
+                        .memberId(answer.getMember().getMemberId())
+                        .nickname(answer.getMember().getNickname())
+                        .questionId(answer.getQuestion().getQuestionId())
                         .content(answer.getContent())
                         .build())
                 .collect(Collectors.toList());

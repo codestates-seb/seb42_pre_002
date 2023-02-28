@@ -3,8 +3,8 @@ package com.codestate.server.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
+@Getter
 public class PageInfo {
     private int page;
     private int size;

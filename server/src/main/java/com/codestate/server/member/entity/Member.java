@@ -1,5 +1,6 @@
 package com.codestate.server.member.entity;
 
+import com.codestate.server.Answer.entity.Answer;
 import com.codestate.server.audit.BaseEntity;
 import lombok.*;
 
@@ -74,6 +75,5 @@ public class Member extends BaseEntity implements Principal {
         ROLE_USER,
         ROLE_ADMIN
     }
-
 
 }

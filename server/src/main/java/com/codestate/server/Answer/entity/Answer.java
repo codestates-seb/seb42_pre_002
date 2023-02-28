@@ -2,13 +2,13 @@ package com.codestate.server.Answer.entity;
 
 import com.codestate.server.member.entity.Member;
 import com.codestate.server.questions.entity.Question;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,6 +25,13 @@ public class Answer {
 
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public void addMember(Member member) {
+        this.member = member;
+    }
 
     @ManyToOne
     @JoinColumn(name = "question_id")
@@ -33,4 +40,9 @@ public class Answer {
     public void addQuestion(Question question) {
         this.question = question;
     }
+
+    /*public void setMember(Member member) {
+        this.member = member;
+        member.getAnswerList().add(this);
+    }*/
 }
