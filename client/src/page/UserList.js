@@ -134,11 +134,32 @@ const UserListBodyContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+const Page = styled.div`
+  margin: 40px 0;
+  display: flex;
+  gap: 4px;
+`;
+
+const PageButton = styled.span`
+  padding: 0 8px;
+  border: 1px solid rgb(214, 217, 220);
+  font-size: 13px;
+  border-radius: 3px;
+  line-height: calc((13 + 12) / 13);
+  cursor: pointer;
+  background-color: ${(props) =>
+    props.pick === 'true' ? 'rgb(244, 130, 37)' : 'transparent'};
+  color: ${(props) => (props.pick === 'true' ? 'white' : 'black')};
+`;
+
 const UserList = () => {
   const [user, setUser] = useState([]);
   const [inputFocus, setInputFocus] = useState(false);
   const [isButton, setButton] = useState('Reputation');
   const [isFilter, setFilter] = useState('week');
+  const [isPage, setIsPage] = useState(1);
+  const [manyPage, setManyPage] = useState(true);
+  const [nowPage, setNowPage] = useState('1');
 
   const inputFocusHandler = () => setInputFocus(!inputFocus);
 
@@ -152,10 +173,56 @@ const UserList = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/data')
-      .then((res) => setUser(res.data))
+      .get(
+        // eslint-disable-next-line
+        `/members?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data.data);
+        setIsPage(res.data.pageInfo.totalPages);
+        if (res.data.pageInfo.totalPages <= 5) {
+          setManyPage(true);
+        } else {
+          setManyPage(false);
+        }
+      })
       .catch((err) => console.log(Error, err));
   }, []);
+
+  const pageButtonClick = (e) => {
+    setNowPage(e.target.textContent);
+    setIsPage(e.target.textContent);
+    axios
+      .get(
+        // eslint-disable-next-line
+        `/questions/latest/?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
+      .then((res) => {
+        setUser(res.data.data);
+        setIsPage(res.data.pageInfo.totalPages);
+        if (res.data.pageInfo.totalPages <= 5) {
+          setManyPage(true);
+        } else {
+          setManyPage(false);
+        }
+      })
+      .catch((err) => console.log(Error, err));
+  };
+
+  const pages = [];
+  if (isPage <= 5) {
+    for (let i = 0; i < isPage; i++) {
+      pages.push(i + 1);
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      pages.push(i + 1);
+    }
+  }
+
   return (
     <UserListContainer>
       <h1>Users</h1>
@@ -234,6 +301,28 @@ const UserList = () => {
           return <UserInfo el={el} key={idx} />;
         })}
       </UserListBodyContainer>
+      <Page>
+        {pages.map((el, idx) => {
+          return (
+            <PageButton
+              role="presentation"
+              pick={`${nowPage === `${el}`}`}
+              onClick={pageButtonClick}
+              key={idx}
+            >
+              {el}
+            </PageButton>
+          );
+        })}
+        {manyPage ? (
+          ''
+        ) : (
+          <>
+            <span>{`... `}</span>
+            <PageButton>next</PageButton>
+          </>
+        )}
+      </Page>
     </UserListContainer>
   );
 };

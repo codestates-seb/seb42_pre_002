@@ -626,12 +626,20 @@ export default function Ask({ setPage }) {
       memberId: 1,
       nickname: 'dd',
       title,
-      ProblemContent: value,
+      problemContent: value,
       expectContent: '',
+      viewCnt: 0,
+      questionStatus: 'QUESTION_POSTIONG',
       questionTags: tags,
     };
+    console.log(data);
     axios
-      .post(`http://localhost:3001/data`, data)
+      .post(
+        // eslint-disable-next-line
+        `/questions`,
+        data,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
       .then((res) => {
         console.log(res.status);
         navigate('/');
