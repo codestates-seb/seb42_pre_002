@@ -149,6 +149,7 @@ const Edit = ({ setPage }) => {
         ],
       };
       axios
+<<<<<<< HEAD
         .patch(
           // eslint-disable-next-line
           `${process.env.REACT_APP_URL}/questions/${questState.questionId}`,
@@ -157,6 +158,10 @@ const Edit = ({ setPage }) => {
             headers: { 'ngrok-skip-browser-warning': '124' },
           }
         )
+=======
+        // eslint-disable-next-line
+        .patch(`${process.env.REACT_APP_URL}/question`, data)
+>>>>>>> fdebb1f1fa683a6ced6b4bc19b0a9bc1365f7367
         .then(() => navigate(-1))
         .catch((err) => console.log(err));
     } else {
@@ -168,6 +173,7 @@ const Edit = ({ setPage }) => {
         content: content,
       };
       axios
+<<<<<<< HEAD
         .patch(
           // eslint-disable-next-line
           `${process.env.REACT_APP_URL}/answers/${ansState.answerId}`,
@@ -176,6 +182,10 @@ const Edit = ({ setPage }) => {
             headers: { 'ngrok-skip-browser-warning': '124' },
           }
         )
+=======
+        // eslint-disable-next-line
+        .patch(`${process.env.REACT_APP_URL}/question`, data)
+>>>>>>> fdebb1f1fa683a6ced6b4bc19b0a9bc1365f7367
         .then(() => {
           dispatch(delCurrentAnswer());
           navigate(-1);

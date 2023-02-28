@@ -107,7 +107,14 @@ function App() {
                 path="/mypage/:memberId"
                 element={<Mypage setPage={setPage} />}
               />
-              <Route path="/mypage" element={<UserList setPage={setPage} />} />
+              {/* <Route
+                path="/loginSuccess"
+                element={<LoginSuccess setPage={setPage} />}
+              /> */}
+              <Route
+                path="/userList"
+                element={<UserList setPage={setPage} />}
+              />
               <Route path="*" element={<NotFound setPage={setPage} />} />
             </Routes>
           </Page>
