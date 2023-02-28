@@ -247,7 +247,7 @@ export default function Login({ setPage }) {
 
   const onClickConfirmButton = () => {
     if (email === User.email && pw === User.pw) {
-      alert('가입을 축하드립니다. 다시 로인주세요.');
+      alert('로그인이 성공했습니다s.');
       navigate('/');
     } else {
       alert('잘못된 회원 정보입니다.');

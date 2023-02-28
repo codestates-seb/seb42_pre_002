@@ -141,7 +141,8 @@ const Edit = ({ setPage }) => {
         contents: content,
       };
       axios
-        .patch('http://localhost:3001/question', data)
+        // eslint-disable-next-line
+        .patch(`${process.env.REACT_APP_URL}/question`, data)
         .then(() => navigate(-1))
         .catch((err) => console.log(err));
     } else {
@@ -157,7 +158,8 @@ const Edit = ({ setPage }) => {
         }),
       };
       axios
-        .patch('http://localhost:3001/question', data)
+        // eslint-disable-next-line
+        .patch(`${process.env.REACT_APP_URL}/question`, data)
         .then(() => {
           dispatch(delCurrentAnswer());
           navigate(-1);
