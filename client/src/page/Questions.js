@@ -212,7 +212,11 @@ export default function Questions({ setPage }) {
   useEffect(() => {
     setPage({ navi: true, foot: true });
     axios
-      .get(`http://localhost:3001/data`)
+
+      .get(
+        // eslint-disable-next-line
+        `${process.env.REACT_APP_URL}/questions/latest/?page=${isPage}&size=5`
+      )
       .then((res) => {
         console.log(res.data.pageInfo.totalPages);
         setData(res.data.data);
