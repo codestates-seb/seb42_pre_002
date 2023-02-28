@@ -1,7 +1,6 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://af5c-1-231-22-85.jp.ngrok.io",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

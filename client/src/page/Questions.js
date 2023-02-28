@@ -215,7 +215,7 @@ export default function Questions({ setPage }) {
 
       .get(
         // eslint-disable-next-line
-        `/questions/latest/?page=${isPage}&size=5`,
+        `${process.env.REACT_APP_URL}/questions/latest/?page=${isPage}&size=5`,
         { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
       .then((res) => {
@@ -241,7 +241,7 @@ export default function Questions({ setPage }) {
     axios
       .get(
         // eslint-disable-next-line
-        `/questions/latest/?page=${isPage}&size=5`,
+        `${process.env.REACT_APP_URL}/questions/latest/?page=${isPage}&size=5`,
         { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
       .then((res) => {
