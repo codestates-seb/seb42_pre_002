@@ -42,15 +42,6 @@ const Title = () => {
   const curQuestion = useSelector((state) => state.curQuestReducer);
   const navigate = useNavigate();
 
-  const getDateDiff = (d1) => {
-    const date1 = new Date();
-    const date2 = new Date(d1);
-
-    const diffDate = date1.getTime() - date2.getTime();
-
-    return Math.floor(diffDate / (1000 * 60 * 60 * 24));
-  };
-
   return (
     <>
       <TitleWrapper>
@@ -65,11 +56,10 @@ const Title = () => {
       </TitleWrapper>
       <QuestInfo>
         <div>
-          <StyledSpan>Asked</StyledSpan>{' '}
-          {getDateDiff(curQuestion.regDate) + ' ' + 'day ago'}
+          <StyledSpan>Asked</StyledSpan> {curQuestion.regDate.slice(0, 10)}
         </div>
         <div>
-          <StyledSpan>Modified</StyledSpan> {curQuestion.modDate}
+          <StyledSpan>Modified</StyledSpan> {curQuestion.modDate.slice(0, 10)}
         </div>
         <div>
           <StyledSpan>Viewed</StyledSpan> {curQuestion.viewCnt}

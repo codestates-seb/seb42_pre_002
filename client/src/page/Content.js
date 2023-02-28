@@ -51,10 +51,12 @@ export default function Content({ setPage }) {
 
     axios
       // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_URL}/questions/${questionId}`)
+      .get(`${process.env.REACT_APP_URL}/questions/${questionId}`, {
+        headers: { 'ngrok-skip-browser-warning': '124' },
+      })
       .then((res) => {
-        console.log(res.data);
-        dispatch(addCurrentQuest(res.data));
+        console.log(res.data.data);
+        dispatch(addCurrentQuest(res.data.data));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));

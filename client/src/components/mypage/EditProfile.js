@@ -64,13 +64,21 @@ const EditProfile = ({ setSelected }) => {
   const handleSubmit = () => {
     if (nickValid && emailValid && passwordValid) {
       const data = {
+        memberId: userInfo.memberId,
         email,
         nickname: nick,
         password,
       };
 
       axios
-        .patch(`http://localhost:3001/members/${userInfo.memberId}`, data)
+        .patch(
+          // eslint-disable-next-line
+          `${process.env.REACT_APP_URL}/members/${userInfo.memberId}`,
+          data,
+          {
+            headers: { 'ngrok-skip-browser-warning': '124' },
+          }
+        )
         .then(() => {
           dispatch(onRerender({}));
         })

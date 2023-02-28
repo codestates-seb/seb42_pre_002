@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { addCurrentAnswer } from '../../redux/action/contentAction';
+import { addCurrentAnswer, onRerender } from '../../redux/action/contentAction';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import UserCard from './UserCard';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,6 +56,17 @@ export default function DetailFooter({ curData }) {
     }
   };
 
+  const handleDelete = () => {
+    if (curData.answerId) {
+      axios
+        // eslint-disable-next-line
+        .delete(`${process.env.REACT_APP_URL}/answers/${curData.answerId}`)
+        .then(() => {
+          dispatch(onRerender({}));
+        });
+    }
+  };
+
   return (
     <Wrapper>
       <div>
@@ -67,13 +79,15 @@ export default function DetailFooter({ curData }) {
         <span role="presentation" onClick={editBtnHandler}>
           Edit
         </span>
-        <span>Delete</span>
+        <span role="presentation" onClick={handleDelete}>
+          Delete
+        </span>
       </div>
       <div>
         {curData.edit && <UserCard types="edited" user="someone"></UserCard>}
         <UserCard
           types={curData.title ? 'asked' : 'answered'}
-          user={curData.title ? curData.nickname : curData.writer}
+          user={curData.nickname}
           time={curData.title ? new Date(curData.regDate) : undefined}
         ></UserCard>
       </div>

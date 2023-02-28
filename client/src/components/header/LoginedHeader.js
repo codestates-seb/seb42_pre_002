@@ -119,7 +119,7 @@ const LoginedHeader = () => {
   const innerRef = useOuterClick(() => setTrig(false));
   return (
     <Wrapper>
-      <div role="presentation" onClick={() => navigate('/mypage')}>
+      <div role="presentation" onClick={() => navigate('/mypage/1')}>
         <img src="https://picsum.photos/18/18/?random" alt="userImg" />
       </div>
       <div>
