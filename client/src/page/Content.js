@@ -1,6 +1,7 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCurrentQuest } from '../redux/action/contentAction';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -33,6 +34,10 @@ export default function Content({ setPage }) {
   const Details = lazy(() => import('../components/content/Details'));
   const AnswerPart = lazy(() => import('../components/content/AnswerPart'));
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  // eslint-disable-next-line
+  const { questionId } = useParams();
   const curQuestion = useSelector((state) => state.curQuestReducer);
   const onRerender = useSelector((state) => state.onRerenderReducer);
   const dispatch = useDispatch();
@@ -45,9 +50,11 @@ export default function Content({ setPage }) {
     );
 
     axios
-      .get('http://localhost:3001/question')
+      .get(`http://localhost:3001/questions/${questionId}`)
       .then((res) => {
+        console.log(res.data);
         dispatch(addCurrentQuest(res.data));
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, [onRerender]);
@@ -55,16 +62,22 @@ export default function Content({ setPage }) {
   return (
     <Wrapper>
       <Suspense fallback={<Loading></Loading>}>
-        <Title />
-        <DetailWrapper>
-          <DetailAndAnswer>
-            <Details curData={curQuestion}></Details>
-            <AnswerPart></AnswerPart>
-          </DetailAndAnswer>
-          <div>
-            <QuestionAdvert />
-          </div>
-        </DetailWrapper>
+        {isLoading ? (
+          <Loading></Loading>
+        ) : (
+          <>
+            <Title />
+            <DetailWrapper>
+              <DetailAndAnswer>
+                <Details curData={curQuestion}></Details>
+                <AnswerPart></AnswerPart>
+              </DetailAndAnswer>
+              <div>
+                <QuestionAdvert />
+              </div>
+            </DetailWrapper>
+          </>
+        )}
       </Suspense>
     </Wrapper>
   );

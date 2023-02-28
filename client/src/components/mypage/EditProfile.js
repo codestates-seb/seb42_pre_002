@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 import ValidationInput from '../ValidationInput';
 import StyledBtn from '../content/StyledBtn';
+import { useSelector, useDispatch } from 'react-redux';
+import { onRerender } from '../../redux/action/contentAction';
+
+import axios from 'axios';
 
 const Wrapper = styled.div`
   > div {
@@ -47,12 +51,33 @@ const CancleBtn = styled.button`
 `;
 
 const EditProfile = ({ setSelected }) => {
-  const [nick, setNick] = useState('');
+  const userInfo = useSelector((state) => state.userInfoReducer);
+  const dispatch = useDispatch();
+
+  const [nick, setNick] = useState(userInfo.nickname);
   const [nickValid, setnickValid] = useState(true);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(userInfo.email);
   const [emailValid, setEmailValid] = useState(true);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(userInfo.password);
   const [passwordValid, setPasswordValid] = useState(true);
+
+  const handleSubmit = () => {
+    if (nickValid && emailValid && passwordValid) {
+      const data = {
+        email,
+        nickname: nick,
+        password,
+      };
+
+      axios
+        .patch(`http://localhost:3001/members/${userInfo.memberId}`, data)
+        .then(() => {
+          dispatch(onRerender({}));
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <Wrapper>
       <div>
@@ -67,7 +92,7 @@ const EditProfile = ({ setSelected }) => {
           setValid={setnickValid}
           value={nick}
           setValue={setNick}
-          validFn={() => true}
+          validFn={() => false}
           errMsg="Not Valid Nickname"
         ></ValidationInput>
         <StyledH3>Email</StyledH3>
@@ -87,13 +112,14 @@ const EditProfile = ({ setSelected }) => {
           setValue={setPassword}
           validFn={() => false}
           errMsg="Not Valid Password"
+          type="password"
         ></ValidationInput>
       </FormDiv>
       <StyledBtn
         title="Save profile"
         width="94px"
         height="38px"
-        onClick={() => console.log('submit clicked')}
+        onClick={handleSubmit}
       ></StyledBtn>
       <CancleBtn onClick={() => setSelected('Profile')}>Cancel</CancleBtn>
     </Wrapper>

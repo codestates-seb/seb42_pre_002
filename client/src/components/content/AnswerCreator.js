@@ -86,6 +86,7 @@ const PostBtnWrap = styled.div`
 `;
 
 export default function App() {
+  // eslint-disable-next-line
   const curQuest = useSelector((state) => state.curQuestReducer);
   const dispatch = useDispatch();
   const [answer, setAnswer] = useState('');
@@ -95,19 +96,11 @@ export default function App() {
 
   const answerSubmit = () => {
     const answers = {
-      ...curQuest,
-      reply: [
-        ...curQuest.reply,
-        {
-          id: curQuest.reply.length + 1,
-          author: 'gskoo',
-          contents: answer,
-          createdAt: new Date(),
-        },
-      ],
+      content: answer,
+      writer: isLogin,
     };
     axios
-      .patch('http://localhost:3001/question', answers)
+      .post('http://localhost:3001/question', answers)
       .then((res) => {
         console.log(res.status);
         setAnswer('');
