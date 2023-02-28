@@ -17,7 +17,7 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/tags")
 public class TagController {
@@ -30,7 +30,7 @@ public class TagController {
         this.tagService = tagService;
         this.mapper = mapper;
     }
-    @PostMapping
+    @PostMapping //<- 이부분 보시면 되요!! 여기가 요청 메소드입니다!!
     public ResponseEntity postTag(@RequestBody TagPostDto tagPostDto){
         Tag tag = tagService.createTag(mapper.TagPostDtoToTag(tagPostDto));
         URI location = UriCreator.createUri(TAG_DEFAULT_URL, tag.getTagId());

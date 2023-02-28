@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/answers")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Validated
 @Slf4j
 public class AnswerController {
