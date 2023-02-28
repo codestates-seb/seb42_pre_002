@@ -156,7 +156,7 @@ const UserTime = styled.div`
   }
 `;
 
-export default function Footer() {
+export default function Footer({ el }) {
   return (
     <ListBox>
       <SubBox>
@@ -165,29 +165,27 @@ export default function Footer() {
           <span>votes</span>
         </div>
         <div>
-          <span>0</span>
+          <span>{el.answers.length}</span>
           <span>answers</span>
         </div>
         <div>
-          <span>0</span>
+          <span>{el.viewCnt}</span>
           <span>views</span>
         </div>
       </SubBox>
       <MainBox>
         <h3>
-          <a href="https://stackoverflow.com/questions/75497611/rust-macro-how-to-concat-two-variables-like-string">
-            Rust macro: how to concat two variables like string?
+          <a href={`https://localhost:3000/content/${el.questionId}`}>
+            {el.title}
           </a>
         </h3>
-        <MainBody>
-          {`I want to write a macro to support parameterized tests, and got the following code from AI, but got errors on one line: #[macro_export] macro_rules! parameterize { ($name:ident, $params:pat, {$($...`}
-        </MainBody>
+        <MainBody>{el.problemContent}</MainBody>
         <UserBox>
           <TagDiv>
             <ul>
-              <Tag text={'javaScript'} />
-              <Tag text={'google-play'} />
-              <Tag text={'google-play'} />
+              {el.questionTags.map((el) => (
+                <Tag key={el.tagId} text={el.title} />
+              ))}
             </ul>
           </TagDiv>
           <UserDiv>
@@ -200,7 +198,7 @@ export default function Footer() {
             <UserName>
               <div>
                 <div>
-                  <div>casolorz</div>
+                  <div>{el.nickname}</div>
                 </div>
               </div>
               <ul>
@@ -210,7 +208,11 @@ export default function Footer() {
               </ul>
             </UserName>
             <UserTime>
-              asked <span>Jun 6, 2017 at 18:54</span>
+              asked{' '}
+              <span>
+                {/*Jun 6, 2017 at 18:54*/}
+                {new Date(el.regDate).toLocaleString()}
+              </span>
             </UserTime>
           </UserDiv>
         </UserBox>

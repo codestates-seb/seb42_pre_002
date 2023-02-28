@@ -6,6 +6,7 @@ import pencil from '../esset/pencil.svg';
 import textbox from '../esset/textbox.svg';
 import stack from '../esset/stack.svg';
 import List from '../components/questions/List';
+import axios from 'axios';
 
 const Main = styled.div`
   display: flex;
@@ -182,154 +183,233 @@ const Img = styled.div`
   width: 22px;
 `;
 
+const Page = styled.div`
+  margin: 40px 0;
+  display: flex;
+  gap: 4px;
+`;
+
+const PageButton = styled.span`
+  padding: 0 8px;
+  border: 1px solid rgb(214, 217, 220);
+  font-size: 13px;
+  border-radius: 3px;
+  line-height: calc((13 + 12) / 13);
+  cursor: pointer;
+  background-color: ${(props) =>
+    props.pick === 'true' ? 'rgb(244, 130, 37)' : 'transparent'};
+  color: ${(props) => (props.pick === 'true' ? 'white' : 'black')};
+`;
+
 export default function Questions({ setPage }) {
   const [isButton, setButton] = useState('Newest');
+  const [isPage, setIsPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [manyPage, setManyPage] = useState(true);
+  const [nowPage, setNowPage] = useState('1');
   const navigate = useNavigate();
 
   useEffect(() => {
     setPage({ navi: true, foot: true });
+    axios
+      .get(`http://localhost:3001/data`)
+      .then((res) => {
+        console.log(res.data.pageInfo.totalPages);
+        setData(res.data.data);
+        setIsPage(res.data.pageInfo.totalPages);
+        if (res.data.pageInfo.totalPages <= 5) {
+          setManyPage(true);
+        } else {
+          setManyPage(false);
+        }
+      })
+      .catch((err) => console.log(Error, err));
   }, []);
 
   const buttonClick = (e) => {
     setButton(e.target.textContent);
   };
 
+  const pageButtonClick = (e) => {
+    setNowPage(e.target.textContent);
+  };
+
+  const pages = [];
+  if (isPage <= 5) {
+    for (let i = 0; i < isPage; i++) {
+      pages.push(i + 1);
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      pages.push(i + 1);
+    }
+  }
+
   return (
-    <Main>
-      <Content>
-        <QHeader>
-          <div>All Questions</div>
-          <button
-            onClick={() => {
-              navigate('/ask');
-            }}
-          >
-            Ask Question
-          </button>
-        </QHeader>
-        <Filter>
-          <FTotal>
-            {/*data ? `${data.length} questions` :*/ '0 questions'}
-          </FTotal>
-          <FFilter>
-            <FManu>
-              <Lbutton color={`${isButton === 'Newest'}`} onClick={buttonClick}>
-                Newest
-              </Lbutton>
-              <Button color={`${isButton === 'Active'}`} onClick={buttonClick}>
-                Active
-              </Button>
-              <Button
-                color={`${isButton === 'Bountied281'}`}
-                onClick={buttonClick}
-              >
-                Bountied<span>{`281`}</span>
-              </Button>
-              <Button
-                color={`${isButton === 'Unanswered'}`}
-                onClick={buttonClick}
-              >
-                Unanswered
-              </Button>
-              <Rbutton
-                color={`${isButton === 'More ▼'}`}
-                onClick={buttonClick}
-              >{`More ▼`}</Rbutton>
-            </FManu>
-            <button>
-              <img src={filter} alt="filter" />
-              {` Filter`}
+    <div>
+      <Main>
+        <Content>
+          <QHeader>
+            <div>All Questions</div>
+            <button
+              onClick={() => {
+                navigate('/ask');
+              }}
+            >
+              Ask Question
             </button>
-          </FFilter>
-        </Filter>
-        <AllQuestions>
-          {/*data.map(el=>)*/}
-          <List />
-        </AllQuestions>
-      </Content>
-      <Ad>
-        <ul>
-          <TLi>The Overflow Blog</TLi>
-          <CLi>
-            <Img>
-              <img src={pencil} alt="pencil" />
-            </Img>
-            <div>
+          </QHeader>
+          <Filter>
+            <FTotal>{`${data.length} questions`}</FTotal>
+            <FFilter>
+              <FManu>
+                <Lbutton
+                  color={`${isButton === 'Newest'}`}
+                  onClick={buttonClick}
+                >
+                  Newest
+                </Lbutton>
+                <Button
+                  color={`${isButton === 'Active'}`}
+                  onClick={buttonClick}
+                >
+                  Active
+                </Button>
+                <Button
+                  color={`${isButton === 'Bountied281'}`}
+                  onClick={buttonClick}
+                >
+                  Bountied<span>{`281`}</span>
+                </Button>
+                <Button
+                  color={`${isButton === 'Unanswered'}`}
+                  onClick={buttonClick}
+                >
+                  Unanswered
+                </Button>
+                <Rbutton
+                  color={`${isButton === 'More ▼'}`}
+                  onClick={buttonClick}
+                >{`More ▼`}</Rbutton>
+              </FManu>
+              <button>
+                <img src={filter} alt="filter" />
+                {` Filter`}
+              </button>
+            </FFilter>
+          </Filter>
+          <AllQuestions>
+            {data.map((el) => (
+              <List key={el.questionId} el={el} />
+            ))}
+          </AllQuestions>
+        </Content>
+        <Ad>
+          <ul>
+            <TLi>The Overflow Blog</TLi>
+            <CLi>
+              <Img>
+                <img src={pencil} alt="pencil" />
+              </Img>
               <div>
-                Monitoring debt builds up faster than software teams can pay it
-                off
+                <div>
+                  Monitoring debt builds up faster than software teams can pay
+                  it off
+                </div>
               </div>
-            </div>
-          </CLi>
-          <CLi>
-            <Img>
-              <img src={pencil} alt="pencil" />
-            </Img>
-            <div>
+            </CLi>
+            <CLi>
+              <Img>
+                <img src={pencil} alt="pencil" />
+              </Img>
               <div>
-                Because the only thing worse than building internal tools is
-                maintaining them...
+                <div>
+                  Because the only thing worse than building internal tools is
+                  maintaining them...
+                </div>
               </div>
-            </div>
-          </CLi>
-          <TLi>Featured on Meta</TLi>
-          <CLi>
-            <Img>
-              <img src={textbox} alt="textbox" />
-            </Img>
-            <div>
-              <div>Ticket smash for [status-review] tag: Part Deux</div>
-            </div>
-          </CLi>
-          <CLi>
-            <Img>
-              <img src={textbox} alt="textbox" />
-            </Img>
-            <div>
+            </CLi>
+            <TLi>Featured on Meta</TLi>
+            <CLi>
+              <Img>
+                <img src={textbox} alt="textbox" />
+              </Img>
               <div>
-                {`We've added a "Necessary cookies only" option to the cookie consent
+                <div>Ticket smash for [status-review] tag: Part Deux</div>
+              </div>
+            </CLi>
+            <CLi>
+              <Img>
+                <img src={textbox} alt="textbox" />
+              </Img>
+              <div>
+                <div>
+                  {`We've added a "Necessary cookies only" option to the cookie consent
             popup`}
+                </div>
               </div>
-            </div>
-          </CLi>
-          <CLi>
-            <Img>
-              <img src={stack} alt="stack" />
-            </Img>
-            <div>
+            </CLi>
+            <CLi>
+              <Img>
+                <img src={stack} alt="stack" />
+              </Img>
               <div>
-                We’ve made changes to our Privacy Notice for Collectives™
+                <div>
+                  We’ve made changes to our Privacy Notice for Collectives™
+                </div>
               </div>
-            </div>
-          </CLi>
-          <CLi>
-            <Img>
-              <img src={stack} alt="stack" />
-            </Img>
-            <div>
-              <div>The [amazon] tag is being burninated</div>
-            </div>
-          </CLi>
-          <CLi>
-            <Img>
-              <img src={stack} alt="stack" />
-            </Img>
-            <div>
+            </CLi>
+            <CLi>
+              <Img>
+                <img src={stack} alt="stack" />
+              </Img>
               <div>
-                Microsoft Azure Collective launch and proposed tag changes
+                <div>The [amazon] tag is being burninated</div>
               </div>
-            </div>
-          </CLi>
-          <CLi>
-            <Img>
-              <img src={stack} alt="stack" />
-            </Img>
-            <div>
-              <div>Temporary policy: ChatGPT is banned</div>
-            </div>
-          </CLi>
-        </ul>
-      </Ad>
-    </Main>
+            </CLi>
+            <CLi>
+              <Img>
+                <img src={stack} alt="stack" />
+              </Img>
+              <div>
+                <div>
+                  Microsoft Azure Collective launch and proposed tag changes
+                </div>
+              </div>
+            </CLi>
+            <CLi>
+              <Img>
+                <img src={stack} alt="stack" />
+              </Img>
+              <div>
+                <div>Temporary policy: ChatGPT is banned</div>
+              </div>
+            </CLi>
+          </ul>
+        </Ad>
+      </Main>
+      <Page>
+        {pages.map((el, idx) => {
+          return (
+            <PageButton
+              role="presentation"
+              pick={`${nowPage === `${el}`}`}
+              onClick={pageButtonClick}
+              key={idx}
+            >
+              {el}
+            </PageButton>
+          );
+        })}
+        {manyPage ? (
+          ''
+        ) : (
+          <>
+            <span>{`... `}</span>
+            <PageButton>next</PageButton>
+          </>
+        )}
+      </Page>
+    </div>
   );
 }
