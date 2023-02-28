@@ -212,10 +212,14 @@ export default function Questions({ setPage }) {
   useEffect(() => {
     setPage({ navi: true, foot: true });
     axios
-      // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_URL}/data`)
+
+      .get(
+        // eslint-disable-next-line
+        `/questions/latest/?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
       .then((res) => {
-        console.log(res.data.pageInfo.totalPages);
+        console.log(res.data);
         setData(res.data.data);
         setIsPage(res.data.pageInfo.totalPages);
         if (res.data.pageInfo.totalPages <= 5) {
@@ -225,7 +229,7 @@ export default function Questions({ setPage }) {
         }
       })
       .catch((err) => console.log(Error, err));
-  }, []);
+  }, [nowPage]);
 
   const buttonClick = (e) => {
     setButton(e.target.textContent);
@@ -233,6 +237,23 @@ export default function Questions({ setPage }) {
 
   const pageButtonClick = (e) => {
     setNowPage(e.target.textContent);
+    setIsPage(e.target.textContent);
+    axios
+      .get(
+        // eslint-disable-next-line
+        `/questions/latest/?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
+      .then((res) => {
+        setData(res.data.data);
+        setIsPage(res.data.pageInfo.totalPages);
+        if (res.data.pageInfo.totalPages <= 5) {
+          setManyPage(true);
+        } else {
+          setManyPage(false);
+        }
+      })
+      .catch((err) => console.log(Error, err));
   };
 
   const pages = [];
