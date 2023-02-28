@@ -111,7 +111,7 @@ export default function Nav({ page }) {
           css={`
             padding-left: 30px;
           `}
-          onClick={() => navigate('/mypage')}
+          onClick={() => navigate('/userList')}
         >
           <span>Users</span>
         </NavMenu>

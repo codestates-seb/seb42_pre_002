@@ -219,7 +219,6 @@ export default function Questions({ setPage }) {
         { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
       .then((res) => {
-        console.log(res.data);
         setData(res.data.data);
         setIsPage(res.data.pageInfo.totalPages);
         if (res.data.pageInfo.totalPages <= 5) {
