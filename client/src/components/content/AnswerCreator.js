@@ -96,11 +96,19 @@ export default function App() {
 
   const answerSubmit = () => {
     const answers = {
+      memberId: 1,
+      questionId: curQuest.questionId,
       content: answer,
-      writer: isLogin,
     };
     axios
-      .post('http://localhost:3001/question', answers)
+      .post(
+        // eslint-disable-next-line
+        `${process.env.REACT_APP_URL}/answers`,
+        answers,
+        {
+          headers: { 'ngrok-skip-browser-warning': '124' },
+        }
+      )
       .then((res) => {
         console.log(res.status);
         setAnswer('');

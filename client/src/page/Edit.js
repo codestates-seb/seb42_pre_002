@@ -137,27 +137,45 @@ const Edit = ({ setPage }) => {
     if (valid === false) return;
     if (edittype === 'question') {
       const data = {
+        memberId: 1,
+        nickname: 'test',
         title: title,
-        contents: content,
+        problemContent: content,
+        expectContent: 'questionTest1134',
+        questionTags: [
+          {
+            title: 'python',
+          },
+        ],
       };
       axios
-        .patch('http://localhost:3001/question', data)
+        .patch(
+          // eslint-disable-next-line
+          `${process.env.REACT_APP_URL}/questions/${questState.questionId}`,
+          data,
+          {
+            headers: { 'ngrok-skip-browser-warning': '124' },
+          }
+        )
         .then(() => navigate(-1))
         .catch((err) => console.log(err));
     } else {
       const data = {
-        reply: questState.reply.map((x) => {
-          if (x.id === ansState.id) {
-            return {
-              ...x,
-              contents: content,
-              createdAt: new Date(),
-            };
-          } else return x;
-        }),
+        answerId: ansState.answerId,
+        memberId: 1,
+        nickname: 'test',
+        questionId: questState.questionId,
+        content: content,
       };
       axios
-        .patch('http://localhost:3001/question', data)
+        .patch(
+          // eslint-disable-next-line
+          `${process.env.REACT_APP_URL}/answers/${ansState.answerId}`,
+          data,
+          {
+            headers: { 'ngrok-skip-browser-warning': '124' },
+          }
+        )
         .then(() => {
           dispatch(delCurrentAnswer());
           navigate(-1);

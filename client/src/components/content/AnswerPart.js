@@ -36,7 +36,7 @@ const AnswerPart = () => {
   return (
     <>
       <AnswerSort>
-        <div>{cur.answer.length} Answer</div>
+        <div>{cur.answers.length} Answer</div>
         <div>
           <span>Sorted by: </span>
           <select>
@@ -46,8 +46,8 @@ const AnswerPart = () => {
           </select>
         </div>
       </AnswerSort>
-      {cur.answer.map((x) => {
-        return <Details key={x.rid} curData={x}></Details>;
+      {cur.answers.map((x) => {
+        return <Details key={x.answerId} curData={x}></Details>;
       })}
       <AnswerCreate></AnswerCreate>
     </>
