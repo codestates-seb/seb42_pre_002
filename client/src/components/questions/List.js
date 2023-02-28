@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Tag from './Tag';
+import { Link } from 'react-router-dom';
 
 const ListBox = styled.div`
   padding: 16px;
@@ -175,9 +176,7 @@ export default function Footer({ el }) {
       </SubBox>
       <MainBox>
         <h3>
-          <a href={`https://localhost:3000/content/${el.questionId}`}>
-            {el.title}
-          </a>
+          <Link to={`/content/${el.questionId}`}>{el.title}</Link>
         </h3>
         <MainBody>{el.problemContent}</MainBody>
         <UserBox>
