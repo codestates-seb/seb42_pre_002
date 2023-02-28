@@ -50,7 +50,8 @@ export default function Content({ setPage }) {
     );
 
     axios
-      .get(`http://localhost:3001/questions/${questionId}`)
+      // eslint-disable-next-line
+      .get(`${process.env.REACT_APP_URL}/questions/${questionId}`)
       .then((res) => {
         console.log(res.data);
         dispatch(addCurrentQuest(res.data));

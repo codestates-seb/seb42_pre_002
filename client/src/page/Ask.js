@@ -631,7 +631,8 @@ export default function Ask({ setPage }) {
       questionTags: tags,
     };
     axios
-      .post(`http://localhost:3001/data`, data)
+      // eslint-disable-next-line
+      .post(`${process.env.REACT_APP_URL}/data`, data)
       .then((res) => {
         console.log(res.status);
         navigate('/');

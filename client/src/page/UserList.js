@@ -152,7 +152,8 @@ const UserList = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/data')
+      // eslint-disable-next-line
+      .get(`${process.env.REACT_APP_URL}/data`)
       .then((res) => setUser(res.data))
       .catch((err) => console.log(Error, err));
   }, []);
