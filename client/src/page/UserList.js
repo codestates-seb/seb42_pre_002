@@ -175,9 +175,11 @@ const UserList = () => {
     axios
       .get(
         // eslint-disable-next-line
-        `${process.env.REACT_APP_URL}/members?page=${isPage}&size=5`
+        `/members?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
       .then((res) => {
+        console.log(res.data);
         setUser(res.data.data);
         setIsPage(res.data.pageInfo.totalPages);
         if (res.data.pageInfo.totalPages <= 5) {
@@ -191,6 +193,23 @@ const UserList = () => {
 
   const pageButtonClick = (e) => {
     setNowPage(e.target.textContent);
+    setIsPage(e.target.textContent);
+    axios
+      .get(
+        // eslint-disable-next-line
+        `/questions/latest/?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
+      .then((res) => {
+        setUser(res.data.data);
+        setIsPage(res.data.pageInfo.totalPages);
+        if (res.data.pageInfo.totalPages <= 5) {
+          setManyPage(true);
+        } else {
+          setManyPage(false);
+        }
+      })
+      .catch((err) => console.log(Error, err));
   };
 
   const pages = [];

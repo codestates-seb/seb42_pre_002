@@ -215,10 +215,11 @@ export default function Questions({ setPage }) {
 
       .get(
         // eslint-disable-next-line
-        `${process.env.REACT_APP_URL}/questions/latest/?page=${isPage}&size=5`
+        `/questions/latest/?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
       .then((res) => {
-        console.log(res.data.pageInfo.totalPages);
+        console.log(res.data);
         setData(res.data.data);
         setIsPage(res.data.pageInfo.totalPages);
         if (res.data.pageInfo.totalPages <= 5) {
@@ -228,7 +229,7 @@ export default function Questions({ setPage }) {
         }
       })
       .catch((err) => console.log(Error, err));
-  }, []);
+  }, [nowPage]);
 
   const buttonClick = (e) => {
     setButton(e.target.textContent);
@@ -236,6 +237,23 @@ export default function Questions({ setPage }) {
 
   const pageButtonClick = (e) => {
     setNowPage(e.target.textContent);
+    setIsPage(e.target.textContent);
+    axios
+      .get(
+        // eslint-disable-next-line
+        `/questions/latest/?page=${isPage}&size=5`,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
+      )
+      .then((res) => {
+        setData(res.data.data);
+        setIsPage(res.data.pageInfo.totalPages);
+        if (res.data.pageInfo.totalPages <= 5) {
+          setManyPage(true);
+        } else {
+          setManyPage(false);
+        }
+      })
+      .catch((err) => console.log(Error, err));
   };
 
   const pages = [];

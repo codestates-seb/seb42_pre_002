@@ -626,15 +626,19 @@ export default function Ask({ setPage }) {
       memberId: 1,
       nickname: 'dd',
       title,
-      ProblemContent: value,
+      problemContent: value,
       expectContent: '',
+      viewCnt: 0,
+      questionStatus: 'QUESTION_POSTIONG',
       questionTags: tags,
     };
+    console.log(data);
     axios
       .post(
         // eslint-disable-next-line
-        `${process.env.REACT_APP_URL}/questions`,
-        data
+        `/questions`,
+        data,
+        { headers: { 'ngrok-skip-browser-warning': '122' } }
       )
       .then((res) => {
         console.log(res.status);
