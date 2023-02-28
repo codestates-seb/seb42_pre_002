@@ -6,6 +6,8 @@ import spotBell from '../esset/spotBell.svg';
 import arrowupalt from '../esset/arrowupalt.svg';
 import background from '../esset/background.svg';
 import Tag from '../components/questions/Tag';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -519,8 +521,10 @@ export default function Ask({ setPage }) {
   });
   const [value, setValue] = useState('');
   const [tags, setTags] = useState([]);
-  const [inputValue, setInputValue] = useState('');
   const [title, setTitle] = useState('');
+  const [inputValue, setInputValue] = useState('');
+
+  const navigate = useNavigate();
 
   const titleButton = useRef(null);
   const titleHelp = useRef(null);
@@ -588,8 +592,9 @@ export default function Ask({ setPage }) {
   const TagsAddHandler = (e) => {
     if (e.key === 'Enter') {
       const copy = [...tags];
-      copy.push(inputValue);
+      copy.push({ title: inputValue });
       setTags(copy);
+      console.log(tags);
       setInputValue('');
     }
   };
@@ -615,6 +620,25 @@ export default function Ask({ setPage }) {
   useEffect(() => {
     setPage({ navi: false, foot: true });
   }, []);
+
+  const handleClick = () => {
+    const data = {
+      memberId: 1,
+      nickname: 'dd',
+      title,
+      ProblemContent: value,
+      expectContent: '',
+      questionTags: tags,
+    };
+    axios
+      .post(`http://localhost:3001/data`, data)
+      .then((res) => {
+        console.log(res.status);
+        navigate('/');
+      })
+      .catch((err) => console.log(Error, err));
+  };
+
   return (
     <Container>
       <ContainerDiv>
@@ -772,7 +796,7 @@ export default function Ask({ setPage }) {
                           : tags.map((el, idx) => (
                               <Tag
                                 key={idx}
-                                text={el}
+                                text={el.title}
                                 boolean={true}
                                 tagsDeleteHandler={tagsDeleteHandler}
                                 idx={idx}
@@ -894,7 +918,7 @@ export default function Ask({ setPage }) {
         </ReviewContainer>
       </ContainerDiv>
       <SubmitContainer>
-        <button className="hiden" ref={submitButton}>
+        <button onClick={handleClick} className="hiden" ref={submitButton}>
           Post your question
         </button>
         <div>
