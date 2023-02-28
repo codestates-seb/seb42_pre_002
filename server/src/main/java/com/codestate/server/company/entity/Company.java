@@ -2,19 +2,16 @@ package com.codestate.server.company.entity;
 
 import com.codestate.server.audit.BaseEntity;
 import com.codestate.server.tag.entity.Tag;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.security.Principal;
 
 @Entity
-//@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Company extends BaseEntity {
+@Setter
+public class Company extends BaseEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cid;
@@ -23,6 +20,8 @@ public class Company extends BaseEntity {
     private String cname;
 
     private String content;
+    @Column(nullable = false)
+    private String title;
 
     private String location;
 

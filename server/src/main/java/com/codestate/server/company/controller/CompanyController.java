@@ -8,6 +8,7 @@ import com.codestate.server.response.MultiResponseDto;
 import com.codestate.server.response.SingleResponseDto;
 import com.codestate.server.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/companies")
+@Log4j2
 public class CompanyController {
 
-    private final static String REPLIES_DEFAULT_URL="/companies";
+    private final static String Company_DEFAULT_URL="/companies";
     private final CompanyService service;
     private final CompanyMapper mapper;
 
@@ -33,7 +35,7 @@ public class CompanyController {
         Company company = mapper.PostDtoToEntity(requestBody);
 
         Company createdCompany = service.createCompany(company);
-        URI location = UriCreator.createUri(REPLIES_DEFAULT_URL, createdCompany.getCid());
+        URI location = UriCreator.createUri(Company_DEFAULT_URL, createdCompany.getCid());
 
 
         return ResponseEntity.created(location).build();
