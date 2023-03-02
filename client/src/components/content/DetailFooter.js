@@ -64,6 +64,13 @@ export default function DetailFooter({ curData }) {
         .then(() => {
           dispatch(onRerender({}));
         });
+    } else {
+      axios
+        // eslint-disable-next-line
+        .delete(`${process.env.REACT_APP_URL}/answers/${curData.questionId}`)
+        .then(() => {
+          navigate('/');
+        });
     }
   };
 
