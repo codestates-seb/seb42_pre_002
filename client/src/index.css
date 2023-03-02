@@ -3,5 +3,23 @@
   padding: 0;
   box-sizing: border-box;
   /* border: 1px solid black; */
+  /* font-size: 13px; */
+}
+
+html {
   font-size: 13px;
+}
+
+.w-md-editor {
+  min-height: 250px !important;
+}
+
+.hiden {
+  display: none;
+}
+
+.block {
+  opacity: 0.3;
+  background-color: hsl(210, 8%, 90%);
+  pointer-events: none;
 }

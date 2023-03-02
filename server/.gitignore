@@ -25,10 +25,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-<<<<<<< HEAD
 !**/src/main/resources/
-=======
->>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
 
 ### NetBeans ###
 /nbproject/private/
@@ -39,8 +36,3 @@ out/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-
-
-=======
->>>>>>> dc608f40868a86be6857f638e2104740fc701ceb
