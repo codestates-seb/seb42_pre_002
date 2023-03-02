@@ -67,7 +67,7 @@ export default function DetailFooter({ curData }) {
     } else {
       axios
         // eslint-disable-next-line
-        .delete(`${process.env.REACT_APP_URL}/answers/${curData.questionId}`)
+        .delete(`${process.env.REACT_APP_URL}/questions/${curData.questionId}`)
         .then(() => {
           navigate('/');
         });
