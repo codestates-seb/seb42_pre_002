@@ -1,10 +1,13 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCurrentQuest } from '../redux/action/contentAction';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
+import Title from '../components/content/Title';
+import Details from '../components/content/Details';
+import AnswerPart from '../components/content/AnswerPart';
 import Loading from '../components/content/Loading';
 import QuestionAdvert from '../components/QuestionAdvert';
 
@@ -30,10 +33,6 @@ const DetailAndAnswer = styled.div`
 `;
 
 export default function Content({ setPage }) {
-  const Title = lazy(() => import('../components/content/Title'));
-  const Details = lazy(() => import('../components/content/Details'));
-  const AnswerPart = lazy(() => import('../components/content/AnswerPart'));
-
   const [isLoading, setIsLoading] = useState(true);
 
   // eslint-disable-next-line
@@ -64,24 +63,22 @@ export default function Content({ setPage }) {
 
   return (
     <Wrapper>
-      <Suspense fallback={<Loading></Loading>}>
-        {isLoading ? (
-          <Loading></Loading>
-        ) : (
-          <>
-            <Title />
-            <DetailWrapper>
-              <DetailAndAnswer>
-                <Details curData={curQuestion}></Details>
-                <AnswerPart></AnswerPart>
-              </DetailAndAnswer>
-              <div>
-                <QuestionAdvert />
-              </div>
-            </DetailWrapper>
-          </>
-        )}
-      </Suspense>
+      {isLoading ? (
+        <Loading></Loading>
+      ) : (
+        <>
+          <Title />
+          <DetailWrapper>
+            <DetailAndAnswer>
+              <Details curData={curQuestion}></Details>
+              <AnswerPart></AnswerPart>
+            </DetailAndAnswer>
+            <div>
+              <QuestionAdvert />
+            </div>
+          </DetailWrapper>
+        </>
+      )}
     </Wrapper>
   );
 }
