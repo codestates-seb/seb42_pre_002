@@ -637,8 +637,7 @@ export default function Ask({ setPage }) {
       .post(
         // eslint-disable-next-line
         `${process.env.REACT_APP_URL}/questions`,
-        data,
-        { headers: { 'ngrok-skip-browser-warning': '122' } }
+        data
       )
       .then((res) => {
         console.log(res.status);

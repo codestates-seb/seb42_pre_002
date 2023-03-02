@@ -56,9 +56,7 @@ const Mypage = ({ setPage }) => {
 
     axios
       // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_URL}/members/${memberId}`, {
-        headers: { 'ngrok-skip-browser-warning': '124' },
-      })
+      .get(`${process.env.REACT_APP_URL}/members/${memberId}`)
       .then((res) => {
         console.log(res);
         dispatch(addUserInfo(res.data.data));
