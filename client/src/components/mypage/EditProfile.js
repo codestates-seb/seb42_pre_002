@@ -74,10 +74,7 @@ const EditProfile = ({ setSelected }) => {
         .patch(
           // eslint-disable-next-line
           `${process.env.REACT_APP_URL}/members/${userInfo.memberId}`,
-          data,
-          {
-            headers: { 'ngrok-skip-browser-warning': '124' },
-          }
+          data
         )
         .then(() => {
           dispatch(onRerender({}));

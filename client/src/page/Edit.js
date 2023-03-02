@@ -171,10 +171,7 @@ const Edit = ({ setPage }) => {
         .patch(
           // eslint-disable-next-line
           `${process.env.REACT_APP_URL}/answers/${ansState.answerId}`,
-          data,
-          {
-            headers: { 'ngrok-skip-browser-warning': '124' },
-          }
+          data
         )
         .then(() => {
           dispatch(delCurrentAnswer());

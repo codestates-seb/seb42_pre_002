@@ -27,7 +27,6 @@ const DetailWrapper = styled.div`
 `;
 
 const DetailAndAnswer = styled.div`
-  /* width: 100%; */
   flex: 1 0 auto;
   margin-right: 16px;
 `;
@@ -50,11 +49,8 @@ export default function Content({ setPage }) {
 
     axios
       // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_URL}/questions/${questionId}`, {
-        headers: { 'ngrok-skip-browser-warning': '124' },
-      })
+      .get(`${process.env.REACT_APP_URL}/questions/${questionId}`)
       .then((res) => {
-        console.log(res.data.data);
         dispatch(addCurrentQuest(res.data.data));
         setIsLoading(false);
       })

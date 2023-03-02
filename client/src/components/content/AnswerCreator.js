@@ -104,10 +104,7 @@ export default function App() {
       .post(
         // eslint-disable-next-line
         `${process.env.REACT_APP_URL}/answers`,
-        answers,
-        {
-          headers: { 'ngrok-skip-browser-warning': '124' },
-        }
+        answers
       )
       .then((res) => {
         console.log(res.status);

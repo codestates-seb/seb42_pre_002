@@ -175,8 +175,7 @@ const UserList = () => {
     axios
       .get(
         // eslint-disable-next-line
-        `${process.env.REACT_APP_URL}/members?page=${isPage}&size=5`,
-        { headers: { 'ngrok-skip-browser-warning': '122' } }
+        `${process.env.REACT_APP_URL}/members?page=${isPage}&size=5`
       )
       .then((res) => {
         console.log(res.data);
@@ -197,8 +196,7 @@ const UserList = () => {
     axios
       .get(
         // eslint-disable-next-line
-        `${process.env.REACT_APP_URL}/questions/latest/?page=${isPage}&size=5`,
-        { headers: { 'ngrok-skip-browser-warning': '122' } }
+        `${process.env.REACT_APP_URL}/questions/latest/?page=${isPage}&size=5`
       )
       .then((res) => {
         setUser(res.data.data);
